@@ -67,7 +67,7 @@ async function openAsCode(source) {
 async function openSource(view) {
   view = view || (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri);
   if (!view || view.scheme !== SCHEME) return;
-  shown.add(sourceUri(view).toString());   // do not bounce back to the program view
+  keepSource.add(sourceUri(view).toString());   // asked for the RTF: do not swap it for the program
   await vscode.window.showTextDocument(sourceUri(view), { preview: false });
 }
 
@@ -94,7 +94,10 @@ async function saveAsPlainText(view) {
   await vscode.window.showTextDocument(target, { preview: false });
 }
 
-const shown = new Set();
+// RTF files opened on purpose with Open RTF Source, while their tab is open.
+const keepSource = new Set();
+// Files being swapped for their program view right now.
+const opening = new Set();
 
 function register(context) {
   const provider = new Provider();
@@ -102,11 +105,12 @@ function register(context) {
   const maybeOpen = (editor) => {
     if (!editor || !isRtfDocument(editor.document)) return;
     const key = editor.document.uri.toString();
-    if (shown.has(key)) return;
-    shown.add(key);
+    if (keepSource.has(key) || opening.has(key)) return;
     if (vscode.workspace.getConfiguration('smartmotor', editor.document.uri).get('rtf.openAsProgram', true)) {
-      openAsCode(editor.document.uri);
+      opening.add(key);
+      openAsCode(editor.document.uri).finally(() => opening.delete(key));
     } else {
+      keepSource.add(key);
       vscode.window.showInformationMessage(`${path.posix.basename(editor.document.uri.path)} was saved by SMI as RTF.`, 'Open as program')
         .then((choice) => choice && openAsCode(editor.document.uri));
     }
@@ -119,6 +123,12 @@ function register(context) {
     vscode.commands.registerCommand('smartmotor.openRtfSource', (uri) => openSource(uri)),
     vscode.commands.registerCommand('smartmotor.saveAsPlainText', (uri) => saveAsPlainText(uri)),
     vscode.window.onDidChangeActiveTextEditor(maybeOpen),
+    // Once its tab is closed, an RTF file opens as a program again next time.
+    vscode.window.tabGroups.onDidChangeTabs((e) => {
+      for (const tab of e.closed) {
+        if (tab.input instanceof vscode.TabInputText) keepSource.delete(tab.input.uri.toString());
+      }
+    }),
   );
   maybeOpen(vscode.window.activeTextEditor);
 }
