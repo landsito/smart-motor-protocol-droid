@@ -9,18 +9,18 @@ VT=100000          'Set maximum velocity
 MP                 'Set Position mode
 '****Main Program Body****
 WHILE 1>0
-  O=0              'Reset origin for move
-  PT=40000         'Set final position
-  G                'Start motion
-  WHILE PA<20000   'Loop while motion continues
-  LOOP             'Wait for desired position to pass
-  OUT(1)=0         'Set output low
-  TMR(0,400)       'Use timer 0 for pulse width
-  TWAIT
-  WAIT=1000        'Wait 1 second
+  O=0              'Reset origin for move
+  PT=40000         'Set final position
+  G                'Start motion
+  WHILE PA<20000   'Loop while motion continues
+  LOOP             'Wait for desired position to pass
+  OUT(1)=0         'Set output low
+  TMR(0,400)       'Use timer 0 for pulse width
+  TWAIT
+  WAIT=1000        'Wait 1 second
 LOOP
 END
 '****Interrupt Subroutine****
 C1
-  OUT(1)=1         'Set output high again
+  OUT(1)=1         'Set output high again
 RETURNI

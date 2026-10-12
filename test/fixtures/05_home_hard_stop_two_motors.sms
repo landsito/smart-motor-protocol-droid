@@ -14,7 +14,7 @@ ENDIF
 WAIT=2000
 'Motor 1 will be running ALL code.
 EIGN(2) EIGN(3) ZS        'Bypass Over Travel Limits
-   'Set up parameters
+   'Set up parameters
        rr=-1              'Home Direction
        ii=300             'Home current limit
        vv=100000          'Home Speed

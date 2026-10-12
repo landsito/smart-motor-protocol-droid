@@ -8,11 +8,11 @@ PT=40000          'Set final position
 MP                'Set Position mode
 G                 'Start motion
 WHILE Bt          'Loop while motion continues
-  IF IN(0)==0     'If input is low
-    IF VT==10000  'Check VT so change happens once
-      VT=12000    'Set new velocity
-      G           'Initiate new velocity
-    ENDIF
-  ENDIF
+  IF IN(0)==0     'If input is low
+    IF VT==10000  'Check VT so change happens once
+      VT=12000    'Set new velocity
+      G           'Initiate new velocity
+    ENDIF
+  ENDIF
 LOOP              'Loop back to WHILE
 END

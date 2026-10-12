@@ -104,7 +104,7 @@
 #                  ^^^^^^^^ source.smartmotor
 #                          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                           ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->   'Set up parameters
+>   'Set up parameters
 #^^^ source.smartmotor
 #   ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #    ^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor

@@ -37,7 +37,7 @@
 #   ^^^^^^^^^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  PT=100000   'Set position
+>  PT=100000   'Set position
 #^^ source.smartmotor
 #  ^^ source.smartmotor variable.language.register.smartmotor
 #    ^ source.smartmotor keyword.operator.assignment.smartmotor
@@ -45,19 +45,19 @@
 #           ^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  G           'Start motion
+>  G           'Start motion
 #^^ source.smartmotor
 #  ^ source.smartmotor keyword.other.command.smartmotor
 #   ^^^^^^^^^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  TWAIT       'Wait for move to complete
+>  TWAIT       'Wait for move to complete
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.other.command.smartmotor
 #       ^^^^^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  PT=0        'Set position
+>  PT=0        'Set position
 #^^ source.smartmotor
 #  ^^ source.smartmotor variable.language.register.smartmotor
 #    ^ source.smartmotor keyword.operator.assignment.smartmotor
@@ -65,13 +65,13 @@
 #      ^^^^^^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  G           'Start motion
+>  G           'Start motion
 #^^ source.smartmotor
 #  ^ source.smartmotor keyword.other.command.smartmotor
 #   ^^^^^^^^^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  TWAIT       'Wait for move to complete
+>  TWAIT       'Wait for move to complete
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.other.command.smartmotor
 #       ^^^^^^^ source.smartmotor

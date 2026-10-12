@@ -10,16 +10,16 @@ m=40              'Multiplier for speed
 w=10              'Time delay between reads
 b=0               'Seed b
 C10               'Label to create infinite loop
-  a=INA(V1,3)-o   'Take analog 5 Volt FS reading
-  x=a-b            'Set x to determine change in input
-  IF x>d          'Check if change beyond dead band
-    VT=b*m        'Multiplier for appropriate speed
-    G             'Initiate new velocity
-  ELSEIF x<-d     'Check if change beyond dead band
-    VT=b*m        'Multiplier for appropriate speed
-    G             'Initiate new velocity
-  ENDIF           'End IF statement
-  b=a             'Update b for prevention of hunting
-  WAIT=w          'Pause before next read
+  a=INA(V1,3)-o   'Take analog 5 Volt FS reading
+  x=a-b            'Set x to determine change in input
+  IF x>d          'Check if change beyond dead band
+    VT=b*m        'Multiplier for appropriate speed
+    G             'Initiate new velocity
+  ELSEIF x<-d     'Check if change beyond dead band
+    VT=b*m        'Multiplier for appropriate speed
+    G             'Initiate new velocity
+  ENDIF           'End IF statement
+  b=a             'Update b for prevention of hunting
+  WAIT=w          'Pause before next read
 GOTO10            'Loop back to label
 END               'Obligatory END (never reached)

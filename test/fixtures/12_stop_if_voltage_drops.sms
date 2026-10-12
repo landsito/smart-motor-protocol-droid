@@ -7,8 +7,8 @@ PT=1000000      'Set final position
 MP              'Set Position mode
 G               'Start motion
 WHILE Bt        'Loop while motion continues
-  IF UJA<18500  'If voltage is below 18.5 volts
-    OFF         'Turn motor off
-  ENDIF
+  IF UJA<18500  'If voltage is below 18.5 volts
+    OFF         'Turn motor off
+  ENDIF
 LOOP            'Loop back to WHILE
 END             'Obligatory END

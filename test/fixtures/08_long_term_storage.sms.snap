@@ -3,7 +3,7 @@
 #   ^^^^^^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  EPTR=100      'Set EEPROM pointer in memory
+>  EPTR=100      'Set EEPROM pointer in memory
 #^^ source.smartmotor
 #  ^^^^ source.smartmotor variable.language.register.smartmotor
 #      ^ source.smartmotor keyword.operator.assignment.smartmotor
@@ -11,7 +11,7 @@
 #          ^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  VLD (aa,2)    'Load 2 long variables from EEPROM
+>  VLD (aa,2)    'Load 2 long variables from EEPROM
 #^^ source.smartmotor
 #  ^^^ source.smartmotor keyword.other.command.smartmotor
 #     ^ source.smartmotor
@@ -23,7 +23,7 @@
 #            ^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  IF Br         'If right limit, then...
+>  IF Br         'If right limit, then...
 #^^ source.smartmotor
 #  ^^ source.smartmotor keyword.control.smartmotor
 #    ^ source.smartmotor
@@ -31,7 +31,7 @@
 #       ^^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->    aa=aa+1     'Increment variable aa
+>    aa=aa+1     'Increment variable aa
 #^^^^ source.smartmotor
 #    ^^ source.smartmotor variable.other.user.smartmotor
 #      ^ source.smartmotor keyword.operator.assignment.smartmotor
@@ -41,16 +41,16 @@
 #           ^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->    Zr          'Reset right limit state flag
+>    Zr          'Reset right limit state flag
 #^^^^ source.smartmotor
 #    ^^ source.smartmotor keyword.other.reset.smartmotor
 #      ^^^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  ENDIF
+>  ENDIF
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.control.smartmotor
->  IF Bl         'If left limit, then...
+>  IF Bl         'If left limit, then...
 #^^ source.smartmotor
 #  ^^ source.smartmotor keyword.control.smartmotor
 #    ^ source.smartmotor
@@ -58,7 +58,7 @@
 #       ^^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->    bb=bb+1     'Increment variable bb
+>    bb=bb+1     'Increment variable bb
 #^^^^ source.smartmotor
 #    ^^ source.smartmotor variable.other.user.smartmotor
 #      ^ source.smartmotor keyword.operator.assignment.smartmotor
@@ -68,16 +68,16 @@
 #           ^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->    Zl          'Reset left limit state flag
+>    Zl          'Reset left limit state flag
 #^^^^ source.smartmotor
 #    ^^ source.smartmotor keyword.other.reset.smartmotor
 #      ^^^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  ENDIF
+>  ENDIF
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.control.smartmotor
->  EPTR=100      'Reset EEPROM pointer in memory
+>  EPTR=100      'Reset EEPROM pointer in memory
 #^^ source.smartmotor
 #  ^^^^ source.smartmotor variable.language.register.smartmotor
 #      ^ source.smartmotor keyword.operator.assignment.smartmotor
@@ -85,7 +85,7 @@
 #          ^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  VST(aa,2)     'Store variables aa and bb
+>  VST(aa,2)     'Store variables aa and bb
 #^^ source.smartmotor
 #  ^^^ source.smartmotor keyword.other.command.smartmotor
 #     ^ source.smartmotor punctuation.section.brackets.smartmotor

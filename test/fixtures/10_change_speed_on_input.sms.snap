@@ -65,7 +65,7 @@
 #        ^^^^^^^^^^ source.smartmotor
 #                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  IF IN(0)==0     'If input is low
+>  IF IN(0)==0     'If input is low
 #^^ source.smartmotor
 #  ^^ source.smartmotor keyword.control.smartmotor
 #    ^ source.smartmotor
@@ -78,7 +78,7 @@
 #             ^^^^^ source.smartmotor
 #                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                   ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->    IF VT==10000  'Check VT so change happens once
+>    IF VT==10000  'Check VT so change happens once
 #^^^^ source.smartmotor
 #    ^^ source.smartmotor keyword.control.smartmotor
 #      ^ source.smartmotor
@@ -88,7 +88,7 @@
 #                ^^ source.smartmotor
 #                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->      VT=12000    'Set new velocity
+>      VT=12000    'Set new velocity
 #^^^^^^ source.smartmotor
 #      ^^ source.smartmotor variable.language.register.smartmotor
 #        ^ source.smartmotor keyword.operator.assignment.smartmotor
@@ -96,16 +96,16 @@
 #              ^^^^ source.smartmotor
 #                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                   ^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->      G           'Initiate new velocity
+>      G           'Initiate new velocity
 #^^^^^^ source.smartmotor
 #      ^ source.smartmotor keyword.other.command.smartmotor
 #       ^^^^^^^^^^^ source.smartmotor
 #                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                   ^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->    ENDIF
+>    ENDIF
 #^^^^ source.smartmotor
 #    ^^^^^ source.smartmotor keyword.control.smartmotor
->  ENDIF
+>  ENDIF
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.control.smartmotor
 >LOOP              'Loop back to WHILE

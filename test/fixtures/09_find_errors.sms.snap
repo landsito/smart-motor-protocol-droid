@@ -3,7 +3,7 @@
 #   ^^^^^^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  IF Be         'Check for position error
+>  IF Be         'Check for position error
 #^^ source.smartmotor
 #  ^^ source.smartmotor keyword.control.smartmotor
 #    ^ source.smartmotor
@@ -11,7 +11,7 @@
 #       ^^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->    PRINT("Position Error",#13)
+>    PRINT("Position Error",#13)
 #^^^^ source.smartmotor
 #    ^^^^^ source.smartmotor keyword.other.command.smartmotor
 #         ^ source.smartmotor punctuation.section.brackets.smartmotor
@@ -21,10 +21,10 @@
 #                          ^ source.smartmotor punctuation.separator.comma.smartmotor
 #                           ^^^ source.smartmotor constant.character.smartmotor
 #                              ^ source.smartmotor punctuation.section.brackets.smartmotor
->  ENDIF
+>  ENDIF
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.control.smartmotor
->  IF Bh         'Check for over temp error
+>  IF Bh         'Check for over temp error
 #^^ source.smartmotor
 #  ^^ source.smartmotor keyword.control.smartmotor
 #    ^ source.smartmotor
@@ -32,7 +32,7 @@
 #       ^^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->    PRINT("Over Temp Error",#13)
+>    PRINT("Over Temp Error",#13)
 #^^^^ source.smartmotor
 #    ^^^^^ source.smartmotor keyword.other.command.smartmotor
 #         ^ source.smartmotor punctuation.section.brackets.smartmotor
@@ -42,10 +42,10 @@
 #                           ^ source.smartmotor punctuation.separator.comma.smartmotor
 #                            ^^^ source.smartmotor constant.character.smartmotor
 #                               ^ source.smartmotor punctuation.section.brackets.smartmotor
->  ENDIF
+>  ENDIF
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.control.smartmotor
->  IF Ba         'Check for over current error
+>  IF Ba         'Check for over current error
 #^^ source.smartmotor
 #  ^^ source.smartmotor keyword.control.smartmotor
 #    ^ source.smartmotor
@@ -53,7 +53,7 @@
 #       ^^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->    PRINT("Over Current Error",#13)
+>    PRINT("Over Current Error",#13)
 #^^^^ source.smartmotor
 #    ^^^^^ source.smartmotor keyword.other.command.smartmotor
 #         ^ source.smartmotor punctuation.section.brackets.smartmotor
@@ -63,7 +63,7 @@
 #                              ^ source.smartmotor punctuation.separator.comma.smartmotor
 #                               ^^^ source.smartmotor constant.character.smartmotor
 #                                  ^ source.smartmotor punctuation.section.brackets.smartmotor
->  ENDIF
+>  ENDIF
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.control.smartmotor
 >RETURN          'Return to subroutine call

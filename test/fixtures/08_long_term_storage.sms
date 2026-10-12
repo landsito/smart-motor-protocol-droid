@@ -1,14 +1,14 @@
 C10             'Subroutine label
-  EPTR=100      'Set EEPROM pointer in memory
-  VLD (aa,2)    'Load 2 long variables from EEPROM
-  IF Br         'If right limit, then...
-    aa=aa+1     'Increment variable aa
-    Zr          'Reset right limit state flag
-  ENDIF
-  IF Bl         'If left limit, then...
-    bb=bb+1     'Increment variable bb
-    Zl          'Reset left limit state flag
-  ENDIF
-  EPTR=100      'Reset EEPROM pointer in memory
-  VST(aa,2)     'Store variables aa and bb
+  EPTR=100      'Set EEPROM pointer in memory
+  VLD (aa,2)    'Load 2 long variables from EEPROM
+  IF Br         'If right limit, then...
+    aa=aa+1     'Increment variable aa
+    Zr          'Reset right limit state flag
+  ENDIF
+  IF Bl         'If left limit, then...
+    bb=bb+1     'Increment variable bb
+    Zl          'Reset left limit state flag
+  ENDIF
+  EPTR=100      'Reset EEPROM pointer in memory
+  VST(aa,2)     'Store variables aa and bb
 RETURN          'Return to subroutine call

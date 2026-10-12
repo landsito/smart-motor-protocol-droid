@@ -216,7 +216,7 @@ ELSEIF t==1
   PRINT("Setup complete",#13)
   IF CADDR==fff
   ' If the network controller happens to be the follow motor (which is
-  ' expected in this demo by default).
+  ' expected in this demo by default).
     WAIT=3000
     PRINT("Follow motor: stopping X.",#13)
     X(2)  ' Stop following

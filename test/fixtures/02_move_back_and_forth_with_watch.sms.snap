@@ -37,7 +37,7 @@
 #  ^^^^^^^^^^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  PT=100000   'Set position
+>  PT=100000   'Set position
 #^^ source.smartmotor
 #  ^^ source.smartmotor variable.language.register.smartmotor
 #    ^ source.smartmotor keyword.operator.assignment.smartmotor
@@ -45,13 +45,13 @@
 #           ^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  G           'Start motion
+>  G           'Start motion
 #^^ source.smartmotor
 #  ^ source.smartmotor keyword.other.command.smartmotor
 #   ^^^^^^^^^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  GOSUB(10)   'Call wait subroutine
+>  GOSUB(10)   'Call wait subroutine
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.control.call.smartmotor
 #       ^ source.smartmotor punctuation.section.brackets.smartmotor
@@ -60,7 +60,7 @@
 #           ^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  PT=0        'Set position
+>  PT=0        'Set position
 #^^ source.smartmotor
 #  ^^ source.smartmotor variable.language.register.smartmotor
 #    ^ source.smartmotor keyword.operator.assignment.smartmotor
@@ -68,13 +68,13 @@
 #      ^^^^^^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  G           'Start motion
+>  G           'Start motion
 #^^ source.smartmotor
 #  ^ source.smartmotor keyword.other.command.smartmotor
 #   ^^^^^^^^^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  GOSUB(10)   'Call wait subroutine
+>  GOSUB(10)   'Call wait subroutine
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.control.call.smartmotor
 #       ^ source.smartmotor punctuation.section.brackets.smartmotor
@@ -83,7 +83,7 @@
 #           ^^^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  GOTO(1)     'Loop back to label 1
+>  GOTO(1)     'Loop back to label 1
 #^^ source.smartmotor
 #  ^^^^ source.smartmotor keyword.control.call.smartmotor
 #      ^ source.smartmotor punctuation.section.brackets.smartmotor
@@ -102,7 +102,7 @@
 # ^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
 >C10
 #^^^ source.smartmotor entity.name.function.label.smartmotor
->  WHILE Bt    'Loop while trajectory in progress
+>  WHILE Bt    'Loop while trajectory in progress
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.control.smartmotor
 #       ^ source.smartmotor
@@ -136,13 +136,13 @@
 #                                           ^^^ source.smartmotor
 #                                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                                               ^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->        ENDIF 'End test
+>        ENDIF 'End test
 #^^^^^^^^ source.smartmotor
 #        ^^^^^ source.smartmotor keyword.control.smartmotor
 #             ^ source.smartmotor
 #              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #               ^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  LOOP        'Loop back to While during motion
+>  LOOP        'Loop back to While during motion
 #^^ source.smartmotor
 #  ^^^^ source.smartmotor keyword.control.smartmotor
 #      ^^^^^^^^ source.smartmotor

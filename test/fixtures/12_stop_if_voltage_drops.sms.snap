@@ -56,7 +56,7 @@
 #        ^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  IF UJA<18500  'If voltage is below 18.5 volts
+>  IF UJA<18500  'If voltage is below 18.5 volts
 #^^ source.smartmotor
 #  ^^ source.smartmotor keyword.control.smartmotor
 #    ^ source.smartmotor
@@ -66,13 +66,13 @@
 #              ^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->    OFF         'Turn motor off
+>    OFF         'Turn motor off
 #^^^^ source.smartmotor
 #    ^^^ source.smartmotor keyword.other.command.smartmotor
 #       ^^^^^^^^^ source.smartmotor
 #                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
 #                 ^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
->  ENDIF
+>  ENDIF
 #^^ source.smartmotor
 #  ^^^^^ source.smartmotor keyword.control.smartmotor
 >LOOP            'Loop back to WHILE

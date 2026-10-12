@@ -4,11 +4,11 @@ ADT=100       'Set maximum accel/decel
 VT=1000000    'Set maximum velocity
 MP            'Set Position mode
 C10           'Place a label
-  PT=100000   'Set position
-  G           'Start motion
-  TWAIT       'Wait for move to complete
-  PT=0        'Set position
-  G           'Start motion
-  TWAIT       'Wait for move to complete
+  PT=100000   'Set position
+  G           'Start motion
+  TWAIT       'Wait for move to complete
+  PT=0        'Set position
+  G           'Start motion
+  TWAIT       'Wait for move to complete
 GOTO(10)      'Loop back to label 10
 END           'Obligatory END (never reached)
