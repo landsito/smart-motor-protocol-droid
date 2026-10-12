@@ -30,6 +30,8 @@ software.
   of the above. The editor title has **Save as Plain Text...** (it asks where,
   and suggests a new `<name>_text.sms`) and **Open RTF Source**. Set
   `smartmotor.rtf.openAsProgram` to `false` to be asked instead.
+- `.sms` files get an engine icon in the explorer (with icon themes that
+  have no icon of their own for them, such as the default Seti).
 - Toggle comments with `Ctrl+/`.
 
 ```basic
