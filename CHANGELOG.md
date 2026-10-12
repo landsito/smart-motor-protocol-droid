@@ -5,3 +5,5 @@
 - First release: syntax highlighting for the SmartMotor command set, hovers
   from the Developer's Guide, outline, go to definition and references for
   labels and `#define` names, block and label checks, folding and snippets.
+- Programs saved by SMI as RTF open as their program text, and can be saved
+  as plain text.

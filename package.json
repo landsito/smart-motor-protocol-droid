@@ -68,8 +68,68 @@
           "type": "boolean",
           "default": true,
           "description": "Report unbalanced IF/WHILE/SWITCH blocks, duplicate labels and GOSUB/GOTO to undefined labels."
+        },
+        "smartmotor.rtf.openAsProgram": {
+          "type": "boolean",
+          "default": true,
+          "description": "When a .sms file saved by SMI as RTF is opened, show its program text (read-only, with all language features) instead of the RTF source."
         }
       }
+    },
+    "commands": [
+      {
+        "command": "smartmotor.openRtfAsProgram",
+        "title": "Open SMI RTF File as Program",
+        "category": "SmartMotor",
+        "icon": "$(code)"
+      },
+      {
+        "command": "smartmotor.openRtfSource",
+        "title": "Open RTF Source",
+        "category": "SmartMotor",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "smartmotor.saveAsPlainText",
+        "title": "Save as Plain Text...",
+        "category": "SmartMotor",
+        "icon": "$(save-as)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "smartmotor.saveAsPlainText",
+          "when": "resourceScheme == smartmotor-rtf",
+          "group": "navigation@1"
+        },
+        {
+          "command": "smartmotor.openRtfSource",
+          "when": "resourceScheme == smartmotor-rtf",
+          "group": "navigation@2"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "smartmotor.openRtfAsProgram",
+          "when": "resourceExtname == .sms",
+          "group": "navigation@9"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "smartmotor.openRtfAsProgram",
+          "when": "resourceExtname == .sms && resourceScheme != smartmotor-rtf"
+        },
+        {
+          "command": "smartmotor.openRtfSource",
+          "when": "resourceScheme == smartmotor-rtf"
+        },
+        {
+          "command": "smartmotor.saveAsPlainText",
+          "when": "resourceScheme == smartmotor-rtf"
+        }
+      ]
     }
   },
   "scripts": {

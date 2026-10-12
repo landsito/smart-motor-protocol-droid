@@ -25,6 +25,11 @@ software.
 - **Folding** of subroutines, blocks and comment headers.
 - **Snippets**: `sub`, `if`, `ifelse`, `while`, `switch`, `moveabs`,
   `moverel`, `movevel`, `watch`, `print`, `tune`, `itr`, `define`.
+- **Programs saved by SMI as RTF** (files that start with
+  `{\rtf1\animaticsfile`) open as their program text, read-only and with all
+  of the above. The editor title has **Save as Plain Text...** (it asks where,
+  and suggests a new `<name>_text.sms`) and **Open RTF Source**. Set
+  `smartmotor.rtf.openAsProgram` to `false` to be asked instead.
 - Toggle comments with `Ctrl+/`.
 
 ```basic

@@ -2,6 +2,8 @@
 const vscode = require('vscode');
 const { parse, stripLine } = require('./parse');
 const { lookup } = require('./docs');
+const { isRtf } = require('./rtf');
+const rtfView = require('./rtfView');
 
 const LANGUAGE = 'smartmotor';
 const cache = new WeakMap();
@@ -9,7 +11,9 @@ const cache = new WeakMap();
 function parsed(document) {
   const hit = cache.get(document);
   if (hit && hit.version === document.version) return hit.result;
-  const result = parse(document.getText());
+  // An RTF file from SMI is not program text: its program opens in the RTF view.
+  const text = document.getText();
+  const result = parse(isRtf(text) ? '' : text);
   cache.set(document, { version: document.version, result });
   return result;
 }
@@ -176,6 +180,7 @@ function activate(context) {
     }),
   );
   vscode.workspace.textDocuments.forEach(lint);
+  rtfView.register(context);
 }
 
 function deactivate() {}
