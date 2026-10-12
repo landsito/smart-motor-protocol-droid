@@ -80,3 +80,6 @@ programs of the guide. Press `F5` in VS Code to try the extension on them.
 
 MIT. SmartMotor is a trademark of Moog Inc. This extension is not affiliated
 with Moog or Animatics.
+
+Icon: [Engine icon created by Freepik - Flaticon](https://www.flaticon.com/free-icon/engine_445014),
+recolored.
