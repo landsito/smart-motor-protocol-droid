@@ -1,0 +1,79 @@
+EIGN(W,0)
+ADDR=CADDR
+ECHO
+'Make a circle. Issue GOSUB1 to write cam for a circle with:
+rrr=8000       'Radius in encoder counts (restricted to 0-32767).
+ttt=4000       'Time to complete a complete circle in milliseconds
+               '(restricted to 0-32767).
+ddd=360        'Degrees you want to run, signed value where positive is
+               'counter-clockwise (restricted to +/-3239).
+aaa=0          'Angle to start at (restricted to 0-359).
+END
+C5
+       GOSUB(1) 'Write the cam.
+       GOSUB(0) 'Run the cam.
+RETURN
+C0 'Run the cam.
+       MC  'Cam mode.
+       xx=aaa
+       yy=(aaa-90)
+       IF yy<0
+               yy=yy+360 'Modulo sign correction.
+       ENDIF
+       IF CADDR==2   '*********************************************
+               'X axis
+               MCW(1,xx)  'Table 1, starting point.
+       ENDIF
+       IF CADDR==3   '*********************************************
+               'Y axis
+               MCW(1,yy)  'Table 1, starting point.
+       ENDIF
+       IF CADDR==1
+               END
+       ENDIF
+       MCE(2)  'Cam table enable.
+       SRC(2)  'Source set to virtual axis.
+       MFSDC(-1,0) 'Single shot no repeat.
+       ss=(ddd/360.0)*28800 '80 counts/controller*360 segments.
+       MFMUL=ss/8      '8000/8=1000 gives 1 second time base.
+       ss=ABS(ss)      'ABS because you may run reverse.
+       sss=ss/2        'Slew will be 1/2 total time base.
+       MFSLEW(sss,1)
+       sss=ss/4        'Accel and decel will be 1/2 that, or 1/4 time base.
+       MFA(sss,1)
+       MFD(sss,1)
+       MFDIV=ttt*2/3   'Divide by 2/3 factor because velocity is not constant
+                       'throughout the move.
+       'Largest value in cam table is 32767.
+       'rrr is radius in counts.
+       'If it is 32767 or smaller, MCDIV=32767 and it is a straight ratio.
+       'If it is greater than that, then max MCDIV and ratio it the other way.
+       IF rrr>32767
+               MCMUL=32767
+               MCDIV=1073676289.0/rrr  '1073676289=32767^2
+       ELSE
+               MCMUL=rrr
+               MCDIV=32767
+       ENDIF
+G TWAIT
+ENDIF
+RETURN
+C1  ' Write the cam.
+    WAIT=ADDR*500
+       'This writes the sine into EE memory.
+       'Normalized table that will be scaled in frequency and amplitude later.
+       'Table is +/-32767 in amplitude.
+       PRINT("Writing Tables.  Please wait.",#13)
+       CTE(1)        'Erase all flash tables.
+       CTA(361,80)   'Table will have 361 points, each is 80 ticks
+                     '(fixed-length data).
+       iii=0
+       WHILE iii<361
+               ppp=32767*SIN(iii)
+               CTW(ppp)                'Write a point into table
+                                       'Length of segment set by CTA command.
+               'PRINT("Point: ",iii,", position: ",ppp,#13)
+               iii=iii+1               'Update counter.
+       LOOP
+       PRINT("Done. Motor: ",ADDR,#13)
+RETURN

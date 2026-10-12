@@ -1,0 +1,28 @@
+'Using SmartMotor interrupts and timers to poll via SDO.
+'Note PDO mapping is also available; this is just a simplified code example.
+CANCTL(17,3)        'ENABLE CONTROLLER COMMANDS
+ITR (3,4,3,0,300)   'WATCHDOG TIMER INTERRUPT (for polling CAN bus device)
+EITR(3)             'ENABLE INTERRUPT 3
+ITRE                'ENABLE ALL INTERRUPTS
+TMR(3,30)           'Start timer 3 for 30 milliseconds
+PAUSE
+END
+'============================================================================
+C300  'CAN bus device has two data packets that will be loaded into  x and y.
+   x=SDORD(1, 24592,0,2)      'Read 2 bytes from address 1,
+                              'object 24592 (0x6179 hex)
+                              'object 0x6010, sub-index 0.
+   e=CAN(4)                   'Trap error codes if any.
+   y=SDORD(1, 24608,0,2)      'Read 2 bytes from address 1,
+                              'object 24608 (0x6020 hex)
+                              'object 0x6020, sub-index 0.
+   ee=CAN(4)                  'Trap error codes if any.
+   IF (e|ee)==0               'Confirm the status of both SDO operations.
+                              'Success if they are zero.
+   'The variables "x" and "y" now contain values from the CAN bus device.
+   ELSE
+               'Place error handling code here.
+   ENDIF
+   TMR(3,30)   'Start timer 3 again for 30 milliseconds.
+               'This means the data will be polled every 30 milliseconds.
+RETURNI

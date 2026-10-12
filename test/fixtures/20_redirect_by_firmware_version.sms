@@ -1,0 +1,21 @@
+#ifdef CLASS_VER_5_0  'Class 5 D Series CANopen
+     'place code here
+#endif
+#ifdef CLASS_VER_5_32 'Class 5 D Series PROFIBUS
+     'place code here
+#endif
+#ifdef CLASS_VER_5_16 'Class 5 D Series DeviceNet
+     'place code here
+#endif
+#ifdef CLASS_VER_5_97 'Class 5 M series DeviceNet
+     'place code here
+#endif
+#ifdef CLASS_VER_5_98 'Class 5 M series CANopen
+     'place code here
+#endif
+#ifdef CLASS_VER_6_0  'Class 6 M series Ethernet
+     'place code here
+#endif
+#ifdef CLASS_VER_6_4  'Class 6 D series Ethernet
+     'place code here
+#endif

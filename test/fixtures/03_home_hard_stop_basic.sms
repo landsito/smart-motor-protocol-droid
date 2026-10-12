@@ -1,0 +1,20 @@
+MDS              'Using Sine mode commutation
+KP=3200          'Increase stiffness from default
+KD=10200         'Increase damping from default
+F                'Activate new tuning parameters
+AMPS=100         'Lower current limit to 10%
+VT=-10000        'Set maximum velocity
+ADT=100          'Set maximum accel/decel
+MV               'Set Velocity mode
+G                'Start motion
+WHILE EA>-100    'Loop while position error is small
+LOOP             'Loop back to WHILE
+O=-100           'While pressed, declare home offset
+S                'Abruptly stop trajectory
+MP               'Switch to Position mode
+VT=20000         'Set higher maximum velocity
+PT=0             'Set target position to be home
+G                'Start motion
+TWAIT            'Wait for motion to complete
+AMPS=1000        'Restore current limit to maximum
+END              'End Program

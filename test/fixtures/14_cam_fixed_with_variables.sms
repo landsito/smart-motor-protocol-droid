@@ -1,0 +1,48 @@
+EIGN(W,0)
+ZS
+ADDR=1
+ECHO
+a=0      ' MFA
+b=0      ' MFD
+m=1      ' keep as 1 for ramp output to match cam input units.
+p=8      ' points
+ss=3000  ' Segment length
+s=p-1    ' segments
+sss=ss*s ' total cam input (base) length.
+k=sss-(a+b)   ' Choose slew length from what is left between the ramp up/down.
+IF k<0  PRINT("Ramps too long",#13)  END
+ENDIF
+GOSUB1     ' Write cam table
+GOSUB2     ' Run cam operation
+END
+C1         ' Write cam table one time
+  IF q==123 RETURN ENDIF
+  CTE(1)     ' Erase cam table in EEPROM
+  CTA(p,ss)  ' Make sure the number of CTW commands = p.
+  CTW(0)     'CP=0  {cam pointer or cam index pointer}
+  CTW(100)   'CP=1
+  CTW(500)   'CP=2
+  CTW(2000)  'CP=3
+  CTW(2000)  'CP=4
+  CTW(5000)  'CP=5
+  CTW(1000)  'CP=6
+  CTW(0)     'CP=7
+  PRINT("Cam written",#13)
+  q=123
+RETURN
+C2
+O=0
+MFMUL=1
+MFDIV=1
+MCMUL=1
+MCDIV=1
+MCE(1)     ' Enable Cam mode
+SRC(2)
+MFSLEW(k,1)' Get result in ramp output units to match the cam input units
+MFSDC(-1,0)
+MFA(a,m)   ' m=1 for ramp output to match cam input units.
+MFD(b,m)   ' m=1 for ramp output to match cam input units.
+MC
+MCW(1,0)   ' Required to select table.
+G
+RETURN

@@ -1,0 +1,146 @@
+>CTE(1)    ' Erase all cams in flash
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^^ source.smartmotor
+#          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CTA(8,0)  ' create 8-point cam (7 segments/intervals).  No segment
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^ source.smartmotor
+#          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>          ' length defined (variable length segments defined on a
+#^^^^^^^^^^ source.smartmotor
+#          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>          ' point-by-point basis.
+#^^^^^^^^^^ source.smartmotor
+#          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CTW(0,0)  ' First cam point (best practice to set to 0,0 because all cam
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^ source.smartmotor
+#          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>          ' base and motor position relative to this).
+#^^^^^^^^^^ source.smartmotor
+#          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CTW(100,8000)     ' Motor position start +100, cam base start +8000
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^^^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#        ^^^^ source.smartmotor constant.numeric.smartmotor
+#            ^ source.smartmotor punctuation.section.brackets.smartmotor
+#             ^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CTW(200,10000)    ' Motor position start +200 (100 greater than previous
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^^^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#        ^^^^^ source.smartmotor constant.numeric.smartmotor
+#             ^ source.smartmotor punctuation.section.brackets.smartmotor
+#              ^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                  ' point), cam base start + 10000 (relative 2000 greater
+#^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                  ' than previous point).
+#^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CTW(300,14000)    ' Peak motor position of 300.
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^^^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#        ^^^^^ source.smartmotor constant.numeric.smartmotor
+#             ^ source.smartmotor punctuation.section.brackets.smartmotor
+#              ^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CTW(300,24000)
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^^^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#        ^^^^^ source.smartmotor constant.numeric.smartmotor
+#             ^ source.smartmotor punctuation.section.brackets.smartmotor
+>CTW(200,28000)    ' The second parameter (cam base) is always increasing.
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^^^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#        ^^^^^ source.smartmotor constant.numeric.smartmotor
+#             ^ source.smartmotor punctuation.section.brackets.smartmotor
+#              ^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                  ' The difference from the previous value must be less
+#^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                  ' than 65535.
+#^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CTW(100,30000)
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^^^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#        ^^^^^ source.smartmotor constant.numeric.smartmotor
+#             ^ source.smartmotor punctuation.section.brackets.smartmotor
+>CTW(0,32000)      ' Motor returns to position 0, cam base 32000.
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^^^^^ source.smartmotor constant.numeric.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MFSLEW(32000,1)   ' Run one cycle of the cam: base 0 through 32000.
+#^^^^^^ source.smartmotor keyword.other.command.smartmotor
+#      ^ source.smartmotor punctuation.section.brackets.smartmotor
+#       ^^^^^ source.smartmotor constant.numeric.smartmotor
+#            ^ source.smartmotor punctuation.separator.comma.smartmotor
+#             ^ source.smartmotor constant.numeric.smartmotor
+#              ^ source.smartmotor punctuation.section.brackets.smartmotor
+#               ^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MCW(1,0)   ' Select cam table 1, point 0 as the start.
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>G          ' Start the cam relative to the present motor position.
+#^ source.smartmotor keyword.other.command.smartmotor
+# ^^^^^^^^^^ source.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>

@@ -1,0 +1,32 @@
+EIGN(W,0,12)     'Assign Travel Limits as General Use Inputs
+ZS               'Clear Any Status Bits
+END
+'==============================================================
+C1               'Home to index, Relative Position Mode
+'Note: This method will go past and move back to index
+MP               'Set to Position mode
+Ai(0)            'Arm Index Capture Register
+ADT=3000         'Set Accel/Decel
+VT=200000        'Set Velocity
+PRT=RES+100      'Set Relative Distance to just past one rev
+G TWAIT          'Go, wait until move is complete
+PT=I(0)          'Set Target Position to index location
+G TWAIT          'Go, wait until move is complete
+O=0              'Set Position to Zero
+RETURN
+'==============================================================
+C2               'Home to index, Velocity Mode to find it
+'Note: This method does an abrupt stop and holds at index.
+MV               'Set to Velocity mode
+Ai(0)            'Arm Index Capture Register
+ADT=3000         'Set Accel/Decel
+VT=200000        'Set Velocity
+G                'Go
+WHILE Bi(0)==0 LOOP   'Wait to see index
+X
+PT=I(0)          'Set Target Position to index location
+MP               'Switch to Position mode to hold at index mark
+G TWAIT          'Go, wait until move is complete
+O=0              'Set Position to Zero
+RETURN
+'==============================================================

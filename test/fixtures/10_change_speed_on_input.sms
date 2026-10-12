@@ -1,0 +1,18 @@
+EIGN(W,0)         'Disable hardware limit IO
+KD=10010          'Changing KD value in tuning
+F                 'Accept new KD value
+O=0               'Reset origin
+ADT=100           'Set maximum accel/decel
+VT=10000          'Set maximum velocity
+PT=40000          'Set final position
+MP                'Set Position mode
+G                 'Start motion
+WHILE Bt          'Loop while motion continues
+  IF IN(0)==0     'If input is low
+    IF VT==10000  'Check VT so change happens once
+      VT=12000    'Set new velocity
+      G           'Initiate new velocity
+    ENDIF
+  ENDIF
+LOOP              'Loop back to WHILE
+END

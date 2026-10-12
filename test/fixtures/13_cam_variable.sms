@@ -1,0 +1,20 @@
+CTE(1)    ' Erase all cams in flash
+CTA(8,0)  ' create 8-point cam (7 segments/intervals).  No segment
+          ' length defined (variable length segments defined on a
+          ' point-by-point basis.
+CTW(0,0)  ' First cam point (best practice to set to 0,0 because all cam
+          ' base and motor position relative to this).
+CTW(100,8000)     ' Motor position start +100, cam base start +8000
+CTW(200,10000)    ' Motor position start +200 (100 greater than previous
+                  ' point), cam base start + 10000 (relative 2000 greater
+                  ' than previous point).
+CTW(300,14000)    ' Peak motor position of 300.
+CTW(300,24000)
+CTW(200,28000)    ' The second parameter (cam base) is always increasing.
+                  ' The difference from the previous value must be less
+                  ' than 65535.
+CTW(100,30000)
+CTW(0,32000)      ' Motor returns to position 0, cam base 32000.
+MFSLEW(32000,1)   ' Run one cycle of the cam: base 0 through 32000.
+MCW(1,0)   ' Select cam table 1, point 0 as the start.
+G          ' Start the cam relative to the present motor position.

@@ -1,0 +1,22 @@
+EIGN(W,0)     'Disable hardware limits
+ZS            'Clear faults
+ADT=100       'Set maximum accel/decel
+VT=100000     'Set maximum velocity
+MP            'Set Position mode
+C1            'Place a label
+  PT=100000   'Set position
+  G           'Start motion
+  GOSUB(10)   'Call wait subroutine
+  PT=0        'Set position
+  G           'Start motion
+  GOSUB(10)   'Call wait subroutine
+  GOTO(1)     'Loop back to label 1
+END           'Obligatory END (never reached)
+' ****Subroutine****
+C10
+  WHILE Bt    'Loop while trajectory in progress
+        IF ABS(EA)>100     'Test for excessive load
+                PRINT("Excessive Load",#13)   'Print warning
+        ENDIF 'End test
+  LOOP        'Loop back to While during motion
+RETURN        'Return from subroutine

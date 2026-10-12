@@ -1,0 +1,91 @@
+' NOTES:
+'   - Using Softlink RT133-3HF00-CAN
+'   - Using the default PDO mapping found in .eds file
+'   - Controller address is 1, follower address is 15, follower detects baud rate
+ADDR=1
+CADDR=1
+CBAUD=125000
+'RUN?
+EIGN(W,0) ZS
+SILENT
+' Enable controller
+CANCTL(17,3)
+' Ensure pre-operational (not operational) state
+NMT(0,128)
+' Change analog output from +/-10V voltage(4) to 4-20mA(5)
+SDOWR(15,8192,13,1,5)
+' Disable transmit and receive PDO for controller to allow changing
+' Set bit 31
+a=-2147483648           ' 0x80000000
+SDOWR(1,5120,1,4,a)     ' 0x1400 rx
+SDOWR(1,6144,1,4,a)     ' 0x1800 tx
+SDOWR(1,5121,1,4,a)     ' 0x1401 rx
+SDOWR(1,6145,1,4,a)     ' OX1801 tx
+' Set mapping number of entries to 0
+ab[0]=0
+SDOWR(1,5632,0,1,ab[0]) ' 0x1600 rx
+SDOWR(1,6656,0,1,ab[0]) ' 0x1a00 tx
+SDOWR(1,5633,0,1,ab[0]) ' 0x1601 rx
+SDOWR(1,6657,0,1,ab[0]) ' 0x1a01 tx
+' Set mapping objects
+' ab[2] 0x2220 03 08
+a=572523272
+SDOWR(1,5632,1,4,a)      ' 0x1600 rx
+' ab[3] 0x2220 04 08
+a=572523528
+SDOWR(1,6656,1,4,a)      ' 0x1a00 tx
+' aw[32] 0x2221 01 10    ' aw[32] is 1st analog voltage input
+a=572588304
+SDOWR(1,5633,1,4,a)      ' 0x1601 rx
+' aw[33] 0x2221 02 10    ' aw[33] is 1st 4-20mA analog output
+a=572588560
+SDOWR(1,6657,1,4,a)      ' 0x1a01 tx
+' Set mapping number of entries to 1
+ab[0]=1
+SDOWR(1,5632,0,1,ab[0])  ' 0x1600 rx
+SDOWR(1,6656,0,1,ab[0])  ' 0x1a00 tx
+SDOWR(1,5633,0,1,ab[0])  ' 0x1601 rx
+SDOWR(1,6657,0,1,ab[0])  ' 0x1a01 tx
+' Enable transmit and receive PDO for controller to allow changing
+' Clear bit 31
+a=399                    ' 0x0000018f  (f = address 15)
+SDOWR(1,5120,1,4,a)      ' 0x1400 rx mapped to follower tx
+a=527                    ' 0x0000020f  (f = address 15)
+SDOWR(1,6144,1,4,a)      ' 0x1800 tx mapped to follower rx
+a=655                    ' 0x0000028f  (f = address 15)
+SDOWR(1,5121,1,4,a)      ' 0x1401 rx mapped to follower tx
+a=783                    ' 0x0000030f  (f = address 15)
+SDOWR(1,6145,1,4,a)      ' 0x1801 tx mapped to follower rx
+' Tell everyone to go operational
+NMT(0,1)
+b=1
+WHILE 1
+       IF B(10,1)==1
+               Z(10,1)  ' Clear event flag
+               PRINT("Rx PDO 1",#13)
+       ENDIF
+       IF B(10,2)==1
+               Z(10,2)  ' Clear event flag
+               PRINT("Rx PDO 2",#13)
+       ENDIF
+       IF B(10,3)==1
+               Z(10,3)  ' Clear event flag
+               PRINT("Rx PDO 3",#13)
+       ENDIF
+       IF B(10,4)==1
+               Z(10,4)  ' Clear event flag
+               PRINT("Rx PDO 4",#13)
+       ENDIF
+       IF B(10,5)==1
+               Z(10,5)  ' Clear event flag
+               PRINT("Rx PDO 5",#13)
+       ENDIF
+' Set the User Bits in Status Word 12 to reflect the status of the 8 inputs
+       UO(W,0)=ab[2]&255
+' Turn on outputs (continuous count up)
+       ab[3]=ab[3]+(1*b)
+' Set the User Bits in Status Word 13 to reflect the status of the 8 outputs
+       UO(W,1)=ab[3]&254
+       WAIT=100
+LOOP
+END

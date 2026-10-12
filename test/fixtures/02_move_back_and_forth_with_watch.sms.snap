@@ -1,0 +1,156 @@
+>EIGN(W,0)     'Disable hardware limits
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+#    ^ source.smartmotor punctuation.section.brackets.smartmotor
+#     ^ source.smartmotor support.function.smartmotor
+#      ^ source.smartmotor punctuation.separator.comma.smartmotor
+#       ^ source.smartmotor constant.numeric.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#         ^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ZS            'Clear faults
+#^^ source.smartmotor keyword.other.reset.smartmotor
+#  ^^^^^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ADT=100       'Set maximum accel/decel
+#^^^ source.smartmotor variable.language.register.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^^^ source.smartmotor constant.numeric.smartmotor
+#       ^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>VT=100000     'Set maximum velocity
+#^^ source.smartmotor variable.language.register.smartmotor
+#  ^ source.smartmotor keyword.operator.assignment.smartmotor
+#   ^^^^^^ source.smartmotor constant.numeric.smartmotor
+#         ^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MP            'Set Position mode
+#^^ source.smartmotor keyword.other.command.smartmotor
+#  ^^^^^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>C1            'Place a label
+#^^ source.smartmotor entity.name.function.label.smartmotor
+#  ^^^^^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  PT=100000   'Set position
+#^^ source.smartmotor
+#  ^^ source.smartmotor variable.language.register.smartmotor
+#    ^ source.smartmotor keyword.operator.assignment.smartmotor
+#     ^^^^^^ source.smartmotor constant.numeric.smartmotor
+#           ^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  G           'Start motion
+#^^ source.smartmotor
+#  ^ source.smartmotor keyword.other.command.smartmotor
+#   ^^^^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  GOSUB(10)   'Call wait subroutine
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^ source.smartmotor entity.name.function.label.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  PT=0        'Set position
+#^^ source.smartmotor
+#  ^^ source.smartmotor variable.language.register.smartmotor
+#    ^ source.smartmotor keyword.operator.assignment.smartmotor
+#     ^ source.smartmotor constant.numeric.smartmotor
+#      ^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  G           'Start motion
+#^^ source.smartmotor
+#  ^ source.smartmotor keyword.other.command.smartmotor
+#   ^^^^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  GOSUB(10)   'Call wait subroutine
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^ source.smartmotor entity.name.function.label.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  GOTO(1)     'Loop back to label 1
+#^^ source.smartmotor
+#  ^^^^ source.smartmotor keyword.control.call.smartmotor
+#      ^ source.smartmotor punctuation.section.brackets.smartmotor
+#       ^ source.smartmotor entity.name.function.label.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#         ^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>END           'Obligatory END (never reached)
+#^^^ source.smartmotor keyword.control.smartmotor
+#   ^^^^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' ****Subroutine****
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>C10
+#^^^ source.smartmotor entity.name.function.label.smartmotor
+>  WHILE Bt    'Loop while trajectory in progress
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.control.smartmotor
+#       ^ source.smartmotor
+#        ^^ source.smartmotor constant.language.flag.smartmotor
+#          ^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>        IF ABS(EA)>100     'Test for excessive load
+#^^^^^^^^ source.smartmotor
+#        ^^ source.smartmotor keyword.control.smartmotor
+#          ^ source.smartmotor
+#           ^^^ source.smartmotor support.function.smartmotor
+#              ^ source.smartmotor punctuation.section.brackets.smartmotor
+#               ^^ source.smartmotor variable.language.register.smartmotor
+#                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                  ^ source.smartmotor keyword.operator.comparison.smartmotor
+#                   ^^^ source.smartmotor constant.numeric.smartmotor
+#                      ^^^^^ source.smartmotor
+#                           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                            ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                PRINT("Excessive Load",#13)   'Print warning
+#^^^^^^^^^^^^^^^^ source.smartmotor
+#                ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#                     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                      ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                       ^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                     ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                      ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                       ^^^ source.smartmotor constant.character.smartmotor
+#                                          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                           ^^^ source.smartmotor
+#                                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                               ^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>        ENDIF 'End test
+#^^^^^^^^ source.smartmotor
+#        ^^^^^ source.smartmotor keyword.control.smartmotor
+#             ^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  LOOP        'Loop back to While during motion
+#^^ source.smartmotor
+#  ^^^^ source.smartmotor keyword.control.smartmotor
+#      ^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>RETURN        'Return from subroutine
+#^^^^^^ source.smartmotor keyword.control.smartmotor
+#      ^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>

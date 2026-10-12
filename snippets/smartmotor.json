@@ -1,0 +1,67 @@
+{
+  "Subroutine": {
+    "prefix": "sub",
+    "body": ["C${1:10}          '${2:Subroutine label}", "  $0", "RETURN          'Return to subroutine call"],
+    "description": "Subroutine label Cn ... RETURN, called with GOSUB(n)"
+  },
+  "If": {
+    "prefix": "if",
+    "body": ["IF ${1:condition}", "  $0", "ENDIF"],
+    "description": "IF ... ENDIF"
+  },
+  "If else": {
+    "prefix": "ifelse",
+    "body": ["IF ${1:condition}", "  $2", "ELSE", "  $0", "ENDIF"],
+    "description": "IF ... ELSE ... ENDIF"
+  },
+  "While": {
+    "prefix": "while",
+    "body": ["WHILE ${1:condition}", "  $0", "LOOP"],
+    "description": "WHILE ... LOOP"
+  },
+  "Switch": {
+    "prefix": "switch",
+    "body": ["SWITCH ${1:formula}", "  CASE ${2:1}", "    $0", "  BREAK", "  DEFAULT", "  BREAK", "ENDS"],
+    "description": "SWITCH ... CASE ... DEFAULT ... ENDS"
+  },
+  "Position move": {
+    "prefix": "moveabs",
+    "body": ["MP              'Set Position mode", "PT=${1:100000}       'Set position", "G               'Start motion", "TWAIT           'Wait for move to complete"],
+    "description": "Position mode move to an absolute target, then wait"
+  },
+  "Relative move": {
+    "prefix": "moverel",
+    "body": ["MP              'Set Position mode", "PRT=${1:4000}       'Set relative distance", "G               'Start motion", "TWAIT           'Wait for move to complete"],
+    "description": "Position mode move by a relative distance, then wait"
+  },
+  "Velocity move": {
+    "prefix": "movevel",
+    "body": ["MV              'Set Velocity mode", "VT=${1:100000}       'Set velocity", "ADT=${2:100}         'Set accel/decel", "G               'Start motion"],
+    "description": "Velocity mode at VT"
+  },
+  "Wait for move with watch": {
+    "prefix": "watch",
+    "body": ["WHILE Bt        'Loop while trajectory in progress", "  IF ABS(EA)>${1:100}", "    PRINT(\"${2:Excessive Load}\",#13)", "  ENDIF", "LOOP"],
+    "description": "React to events during motion instead of TWAIT"
+  },
+  "Print": {
+    "prefix": "print",
+    "body": ["PRINT(\"${1:text}\",${2:a},#13)"],
+    "description": "PRINT text and a value, ending with a carriage return"
+  },
+  "Tuning": {
+    "prefix": "tune",
+    "body": ["KP=${1:3200}         'Proportional", "KD=${2:10200}        'Derivative", "F               'Activate new tuning parameters"],
+    "description": "PID gains followed by F"
+  },
+  "Interrupt": {
+    "prefix": "itr",
+    "body": ["ITR(${1:0},${2:0},${3:2},${4:1},${5:20})   'ITR(int#,word,bit,state,label)", "EITR(${1:0})", "ITRE"],
+    "description": "Interrupt setup and enable; the handler ends with RETURNI"
+  },
+  "Define": {
+    "prefix": "define",
+    "body": ["#define ${1:Name}  ${2:value}"],
+    "description": "SMI text replacement"
+  }
+}

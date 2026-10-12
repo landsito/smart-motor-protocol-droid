@@ -1,0 +1,328 @@
+>EIGN(W,0)
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+#    ^ source.smartmotor punctuation.section.brackets.smartmotor
+#     ^ source.smartmotor support.function.smartmotor
+#      ^ source.smartmotor punctuation.separator.comma.smartmotor
+#       ^ source.smartmotor constant.numeric.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+>ZS
+#^^ source.smartmotor keyword.other.reset.smartmotor
+>ADDR=1
+#^^^^ source.smartmotor variable.language.register.smartmotor
+#    ^ source.smartmotor keyword.operator.assignment.smartmotor
+#     ^ source.smartmotor constant.numeric.smartmotor
+>ECHO
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+>a=0      ' MFA
+#^ source.smartmotor variable.other.user.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^ source.smartmotor constant.numeric.smartmotor
+#   ^^^^^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>b=0      ' MFD
+#^ source.smartmotor variable.other.user.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^ source.smartmotor constant.numeric.smartmotor
+#   ^^^^^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>m=1      ' keep as 1 for ramp output to match cam input units.
+#^ source.smartmotor variable.other.user.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^ source.smartmotor constant.numeric.smartmotor
+#   ^^^^^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>p=8      ' points
+#^ source.smartmotor variable.other.user.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^ source.smartmotor constant.numeric.smartmotor
+#   ^^^^^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ss=3000  ' Segment length
+#^^ source.smartmotor variable.other.user.smartmotor
+#  ^ source.smartmotor keyword.operator.assignment.smartmotor
+#   ^^^^ source.smartmotor constant.numeric.smartmotor
+#       ^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>s=p-1    ' segments
+#^ source.smartmotor variable.other.user.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^ source.smartmotor variable.other.user.smartmotor
+#   ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^^^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>sss=ss*s ' total cam input (base) length.
+#^^^ source.smartmotor variable.other.user.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^^ source.smartmotor variable.other.user.smartmotor
+#      ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#       ^ source.smartmotor variable.other.user.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>k=sss-(a+b)   ' Choose slew length from what is left between the ramp up/down.
+#^ source.smartmotor variable.other.user.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^^^ source.smartmotor variable.other.user.smartmotor
+#     ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#      ^ source.smartmotor punctuation.section.brackets.smartmotor
+#       ^ source.smartmotor variable.other.user.smartmotor
+#        ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#         ^ source.smartmotor variable.other.user.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>IF k<0  PRINT("Ramps too long",#13)  END
+#^^ source.smartmotor keyword.control.smartmotor
+#  ^ source.smartmotor
+#   ^ source.smartmotor variable.other.user.smartmotor
+#    ^ source.smartmotor keyword.operator.comparison.smartmotor
+#     ^ source.smartmotor constant.numeric.smartmotor
+#      ^^ source.smartmotor
+#        ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#             ^ source.smartmotor punctuation.section.brackets.smartmotor
+#              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#               ^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                             ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                              ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                               ^^^ source.smartmotor constant.character.smartmotor
+#                                  ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                   ^^ source.smartmotor
+#                                     ^^^ source.smartmotor keyword.control.smartmotor
+>ENDIF
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>GOSUB1     ' Write cam table
+#^^^^^ source.smartmotor keyword.control.call.smartmotor
+#     ^ source.smartmotor entity.name.function.label.smartmotor
+#      ^^^^^ source.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>GOSUB2     ' Run cam operation
+#^^^^^ source.smartmotor keyword.control.call.smartmotor
+#     ^ source.smartmotor entity.name.function.label.smartmotor
+#      ^^^^^ source.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>END
+#^^^ source.smartmotor keyword.control.smartmotor
+>C1         ' Write cam table one time
+#^^ source.smartmotor entity.name.function.label.smartmotor
+#  ^^^^^^^^^ source.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  IF q==123 RETURN ENDIF
+#^^ source.smartmotor
+#  ^^ source.smartmotor keyword.control.smartmotor
+#    ^ source.smartmotor
+#     ^ source.smartmotor variable.other.user.smartmotor
+#      ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#        ^^^ source.smartmotor constant.numeric.smartmotor
+#           ^ source.smartmotor
+#            ^^^^^^ source.smartmotor keyword.control.smartmotor
+#                  ^ source.smartmotor
+#                   ^^^^^ source.smartmotor keyword.control.smartmotor
+>  CTE(1)     ' Erase cam table in EEPROM
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  CTA(p,ss)  ' Make sure the number of CTW commands = p.
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^ source.smartmotor variable.other.user.smartmotor
+#       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#        ^^ source.smartmotor variable.other.user.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  CTW(0)     'CP=0  {cam pointer or cam index pointer}
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  CTW(100)   'CP=1
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^ source.smartmotor constant.numeric.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  CTW(500)   'CP=2
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^ source.smartmotor constant.numeric.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  CTW(2000)  'CP=3
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  CTW(2000)  'CP=4
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  CTW(5000)  'CP=5
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  CTW(1000)  'CP=6
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  CTW(0)     'CP=7
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  PRINT("Cam written",#13)
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#         ^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                    ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^ source.smartmotor constant.character.smartmotor
+#                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+>  q=123
+#^^ source.smartmotor
+#  ^ source.smartmotor variable.other.user.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^^^ source.smartmotor constant.numeric.smartmotor
+>RETURN
+#^^^^^^ source.smartmotor keyword.control.smartmotor
+>C2
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>O=0
+#^ source.smartmotor variable.language.register.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^ source.smartmotor constant.numeric.smartmotor
+>MFMUL=1
+#^^^^^ source.smartmotor variable.language.register.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>MFDIV=1
+#^^^^^ source.smartmotor variable.language.register.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>MCMUL=1
+#^^^^^ source.smartmotor variable.language.register.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>MCDIV=1
+#^^^^^ source.smartmotor variable.language.register.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>MCE(1)     ' Enable Cam mode
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^^^ source.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>SRC(2)
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+>MFSLEW(k,1)' Get result in ramp output units to match the cam input units
+#^^^^^^ source.smartmotor keyword.other.command.smartmotor
+#      ^ source.smartmotor punctuation.section.brackets.smartmotor
+#       ^ source.smartmotor variable.other.user.smartmotor
+#        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#         ^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MFSDC(-1,0)
+#^^^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#       ^ source.smartmotor constant.numeric.smartmotor
+#        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#         ^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+>MFA(a,m)   ' m=1 for ramp output to match cam input units.
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor variable.other.user.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor variable.other.user.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MFD(b,m)   ' m=1 for ramp output to match cam input units.
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor variable.other.user.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor variable.other.user.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MC
+#^^ source.smartmotor keyword.other.command.smartmotor
+>MCW(1,0)   ' Required to select table.
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>G
+#^ source.smartmotor keyword.other.command.smartmotor
+>RETURN
+#^^^^^^ source.smartmotor keyword.control.smartmotor
+>

@@ -1,0 +1,34 @@
+'===========================================================================
+'Class 5  Home To Hard Stop Example
+EIGN(2) EIGN(3) ZS 'Bypass Overtravel Limits
+'===========================================================================
+'Set up parameters
+       rr=-1           'Home Direction
+       vv=100000       'Home Speed
+       aa=1000         'Home Accel
+       ee=100          'Home Error Limit
+       tt=1500         'Home Torque Limit
+       hh=4000         'Home Offset
+SILENT 'Remove or issue TALK to enable PRINT commands
+GOSUB5 'RUN HOME ROUTINE
+END
+'===========================================================================
+'Home routine  (Home to Hard Stop)
+C5
+PRINT("HOME MOTOR",#13)
+VT=vv*rr                        'Set Home Velocity
+ADT=aa                          'Set Home Accel/Decel
+MV                              'Set to Velocity mode
+ZS                              'Clear any prior Errors
+T=tt*rr                         'Preset Torque Values
+G                               'Begin move towards Hard Stop
+MT
+WHILE ABS(EA)<ee LOOP           'Loop, While Position Error within limit
+PRINT("HIT HARD STOP",#13)
+G                               'Begin move
+WAIT=50                         'Wait 50 milliseconds
+O=hh*rr                         'Set Origin to home offset
+PRINT("MOVING TO ZERO",#13)
+MP PT=0 G TWAIT                 'Set Motor to Zero
+RETURN
+'===========================================================================

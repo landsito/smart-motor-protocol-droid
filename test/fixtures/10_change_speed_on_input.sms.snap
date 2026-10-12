@@ -1,0 +1,118 @@
+>EIGN(W,0)         'Disable hardware limit IO
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+#    ^ source.smartmotor punctuation.section.brackets.smartmotor
+#     ^ source.smartmotor support.function.smartmotor
+#      ^ source.smartmotor punctuation.separator.comma.smartmotor
+#       ^ source.smartmotor constant.numeric.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#         ^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>KD=10010          'Changing KD value in tuning
+#^^ source.smartmotor variable.language.register.smartmotor
+#  ^ source.smartmotor keyword.operator.assignment.smartmotor
+#   ^^^^^ source.smartmotor constant.numeric.smartmotor
+#        ^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>F                 'Accept new KD value
+#^ source.smartmotor keyword.other.command.smartmotor
+# ^^^^^^^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>O=0               'Reset origin
+#^ source.smartmotor variable.language.register.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^ source.smartmotor constant.numeric.smartmotor
+#   ^^^^^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ADT=100           'Set maximum accel/decel
+#^^^ source.smartmotor variable.language.register.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^^^ source.smartmotor constant.numeric.smartmotor
+#       ^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>VT=10000          'Set maximum velocity
+#^^ source.smartmotor variable.language.register.smartmotor
+#  ^ source.smartmotor keyword.operator.assignment.smartmotor
+#   ^^^^^ source.smartmotor constant.numeric.smartmotor
+#        ^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>PT=40000          'Set final position
+#^^ source.smartmotor variable.language.register.smartmotor
+#  ^ source.smartmotor keyword.operator.assignment.smartmotor
+#   ^^^^^ source.smartmotor constant.numeric.smartmotor
+#        ^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MP                'Set Position mode
+#^^ source.smartmotor keyword.other.command.smartmotor
+#  ^^^^^^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>G                 'Start motion
+#^ source.smartmotor keyword.other.command.smartmotor
+# ^^^^^^^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>WHILE Bt          'Loop while motion continues
+#^^^^^ source.smartmotor keyword.control.smartmotor
+#     ^ source.smartmotor
+#      ^^ source.smartmotor constant.language.flag.smartmotor
+#        ^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  IF IN(0)==0     'If input is low
+#^^ source.smartmotor
+#  ^^ source.smartmotor keyword.control.smartmotor
+#    ^ source.smartmotor
+#     ^^ source.smartmotor support.function.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^ source.smartmotor constant.numeric.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#            ^ source.smartmotor constant.numeric.smartmotor
+#             ^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    IF VT==10000  'Check VT so change happens once
+#^^^^ source.smartmotor
+#    ^^ source.smartmotor keyword.control.smartmotor
+#      ^ source.smartmotor
+#       ^^ source.smartmotor variable.language.register.smartmotor
+#         ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#           ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                ^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>      VT=12000    'Set new velocity
+#^^^^^^ source.smartmotor
+#      ^^ source.smartmotor variable.language.register.smartmotor
+#        ^ source.smartmotor keyword.operator.assignment.smartmotor
+#         ^^^^^ source.smartmotor constant.numeric.smartmotor
+#              ^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>      G           'Initiate new velocity
+#^^^^^^ source.smartmotor
+#      ^ source.smartmotor keyword.other.command.smartmotor
+#       ^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    ENDIF
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>  ENDIF
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.control.smartmotor
+>LOOP              'Loop back to WHILE
+#^^^^ source.smartmotor keyword.control.smartmotor
+#    ^^^^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>END
+#^^^ source.smartmotor keyword.control.smartmotor
+>

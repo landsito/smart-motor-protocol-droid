@@ -1,0 +1,269 @@
+>'Examples of using #define for text replacement in a program.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'NOTE: #define is used by SMI to replace characters of code with an
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'associated named value.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define DisableTravelLimits  EIGN(W,12)      'Assign inputs 2 and 3
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^^^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                           ^^ source.smartmotor
+#                             ^^^^ source.smartmotor keyword.other.command.smartmotor
+#                                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                  ^ source.smartmotor support.function.smartmotor
+#                                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                    ^^ source.smartmotor constant.numeric.smartmotor
+#                                      ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                       ^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             'as general inputs.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define ClearFaultBits       ZS              'Issue ZS command.
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                      ^^^^^^^ source.smartmotor
+#                             ^^ source.smartmotor keyword.other.reset.smartmotor
+#                               ^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define GoInput              1-IN(6)         'Invert input 6.
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#               ^^^^^^^^^^^^^^ source.smartmotor
+#                             ^ source.smartmotor constant.numeric.smartmotor
+#                              ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                               ^^ source.smartmotor support.function.smartmotor
+#                                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                  ^ source.smartmotor constant.numeric.smartmotor
+#                                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                    ^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define 4BitBinaryInputs     15-(IN(W,0)&15) 'Binary mask inputs 0
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                        ^^^^^ source.smartmotor
+#                             ^^ source.smartmotor constant.numeric.smartmotor
+#                               ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                                ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                 ^^ source.smartmotor support.function.smartmotor
+#                                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                    ^ source.smartmotor support.function.smartmotor
+#                                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                      ^ source.smartmotor constant.numeric.smartmotor
+#                                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                        ^ source.smartmotor keyword.operator.logical.smartmotor
+#                                         ^^ source.smartmotor constant.numeric.smartmotor
+#                                           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                            ^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             'through 3.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define FindHome             GOSUB(100)
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                ^^^^^^^^^^^^^ source.smartmotor
+#                             ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                  ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                   ^^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^ source.smartmotor punctuation.section.brackets.smartmotor
+>#define GearOutputPosition   RES*40.0        'Suppose 40:1 gear reducer.
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                          ^^^ source.smartmotor
+#                             ^^^ source.smartmotor variable.language.register.smartmotor
+#                                ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                                 ^^^^ source.smartmotor constant.numeric.smartmotor
+#                                     ^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define NormalSpeed          500000
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                   ^^^^^^^^^^ source.smartmotor
+#                             ^^^^^^ source.smartmotor constant.numeric.smartmotor
+>#define JogSpeed             10000
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                ^^^^^^^^^^^^^ source.smartmotor
+#                             ^^^^^ source.smartmotor constant.numeric.smartmotor
+>#define PositionError        B(0,6)          'Position Error Status Bit.
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                     ^^^^^^^^ source.smartmotor
+#                             ^ source.smartmotor constant.language.flag.smartmotor
+#                              ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                               ^ source.smartmotor constant.numeric.smartmotor
+#                                ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                 ^ source.smartmotor constant.numeric.smartmotor
+#                                  ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                   ^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'The code below shows examples of using the above "define"
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'variables.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>DisableTravelLimits         'Disable travel limits.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ClearFaultBits              'Issue ZS command.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>IF GoInput                  'If Input 6 goes low - note that it was
+#^^ source.smartmotor keyword.control.smartmotor
+#  ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                            'defined as 1-IN(6).
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    PRINT("Go Received",#13)
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#           ^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                      ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                        ^^^ source.smartmotor constant.character.smartmotor
+#                           ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    x=4BitBinaryInputs      'Returns value from 0 to 15 for inputs
+#^^^^ source.smartmotor
+#    ^ source.smartmotor variable.other.user.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                            '0, 1, 2 and 3.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    GOSUB(x)
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+>ENDIF
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>FindHome                    'Run the home routine.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>VT=NormalSpeed              'Set the speed to 500000.
+#^^ source.smartmotor variable.language.register.smartmotor
+#  ^ source.smartmotor keyword.operator.assignment.smartmotor
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>PRT=22.5*GearOutputPosition 'Results in 22.5 rotations of gear head
+#^^^ source.smartmotor variable.language.register.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^^^^ source.smartmotor constant.numeric.smartmotor
+#        ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#         ^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                            'output shaft.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>VT=JogSpeed                 'Set the speed to 10000.
+#^^ source.smartmotor variable.language.register.smartmotor
+#  ^ source.smartmotor keyword.operator.assignment.smartmotor
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>END
+#^^^ source.smartmotor keyword.control.smartmotor
+>C100                        'Place the home routine code here
+#^^^^ source.smartmotor entity.name.function.label.smartmotor
+#    ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    PRINT("Home Routine Called",#13)
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                               ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                ^^^ source.smartmotor constant.character.smartmotor
+#                                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+>RETURN
+#^^^^^^ source.smartmotor keyword.control.smartmotor
+>C0
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>C1
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>C2
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>C3
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>C4
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>C5
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>C6
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>C7
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>C8
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>C9
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>C10
+#^^^ source.smartmotor entity.name.function.label.smartmotor
+>C11
+#^^^ source.smartmotor entity.name.function.label.smartmotor
+>C12
+#^^^ source.smartmotor entity.name.function.label.smartmotor
+>C13
+#^^^ source.smartmotor entity.name.function.label.smartmotor
+>C14
+#^^^ source.smartmotor entity.name.function.label.smartmotor
+>C15
+#^^^ source.smartmotor entity.name.function.label.smartmotor
+>PRINT("Subroutine",x," called",#13)
+#^^^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#       ^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                 ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                  ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                   ^ source.smartmotor variable.other.user.smartmotor
+#                    ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                     ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                      ^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                             ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                              ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                               ^^^ source.smartmotor constant.character.smartmotor
+#                                  ^ source.smartmotor punctuation.section.brackets.smartmotor
+>RETURN
+#^^^^^^ source.smartmotor keyword.control.smartmotor
+>

@@ -1,0 +1,86 @@
+' SYNTAX TEST "source.smartmotor" "SmartMotor BASIC basics"
+EIGN(W,0)     'Disable hardware limits
+' <---- keyword.other.command.smartmotor
+'             ^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.apostrophe.smartmotor
+C10           'Place a label
+' <--- entity.name.function.label.smartmotor
+  PT=100000   'Set position
+' ^^ variable.language.register.smartmotor
+'   ^ keyword.operator.assignment.smartmotor
+'    ^^^^^^ constant.numeric.smartmotor
+GOTO(10)      'Loop back to label 10
+' <---- keyword.control.call.smartmotor
+'    ^^ entity.name.function.label.smartmotor
+GOSUB5 'RUN HOME ROUTINE
+' <----- keyword.control.call.smartmotor
+'    ^ entity.name.function.label.smartmotor
+  WHILE Bt    'Loop while trajectory in progress
+' ^^^^^ keyword.control.smartmotor
+'       ^^ constant.language.flag.smartmotor
+    IF ABS(EA)>100
+'   ^^ keyword.control.smartmotor
+'      ^^^ support.function.smartmotor
+'          ^^ variable.language.register.smartmotor
+'             ^ keyword.operator.comparison.smartmotor
+      PRINT("Excessive Load",#13)
+'     ^^^^^ keyword.other.command.smartmotor
+'           ^^^^^^^^^^^^^^^^ string.quoted.double.smartmotor
+'                            ^^^ constant.character.smartmotor
+    ENDIF
+  LOOP
+MP PT=0 G TWAIT
+' <-- keyword.other.command.smartmotor
+'  ^^ variable.language.register.smartmotor
+'       ^ keyword.other.command.smartmotor
+'         ^^^^^ keyword.other.command.smartmotor
+WHILE B(0,2):2==1 LOOP
+'     ^ constant.language.flag.smartmotor
+'           ^ punctuation.separator.address.smartmotor
+'                 ^^^^ keyword.control.smartmotor
+IF ABS(qq)>ee MTB:2   e=e|1 ENDIF
+'      ^^ variable.other.user.smartmotor
+'          ^^ variable.other.user.smartmotor
+'             ^^^ keyword.other.command.smartmotor
+'                        ^ keyword.operator.logical.smartmotor
+VLD (aa,2)
+' <--- keyword.other.command.smartmotor
+Zr
+' <-- keyword.other.reset.smartmotor
+IF Bls|Bi(0)
+'  ^^^ constant.language.flag.smartmotor
+'      ^^ constant.language.flag.smartmotor
+ab[0]=1
+' <-- variable.other.array.smartmotor
+PRINT(#a)
+'     ^^ constant.character.smartmotor
+RPA RKP RBa Raa RW(0) RES RUN?
+' <--- support.function.report.smartmotor
+'   ^^^ support.function.report.smartmotor
+'       ^^^ support.function.report.smartmotor
+'           ^^^ support.function.report.smartmotor
+'               ^^ support.function.report.smartmotor
+'                     ^^^ variable.language.register.smartmotor
+'                         ^^^^ keyword.control.smartmotor
+SADDR1 BAUD9600 ECHO_OFF1 PRINT8("x")
+' <------ keyword.other.command.smartmotor
+'      ^^^^^^^^ variable.language.register.smartmotor
+'               ^^^^^^^^^ keyword.other.command.smartmotor
+'                         ^^^^^^ keyword.other.command.smartmotor
+SWITCH e
+' <------ keyword.control.smartmotor
+  CASE -1
+' ^^^^ keyword.control.smartmotor
+  BREAK
+ENDS
+' <---- keyword.control.smartmotor
+RETURNI
+' <------- keyword.control.smartmotor
+#define FindHome             GOSUB(100)
+' <------- keyword.control.directive.smartmotor
+'       ^^^^^^^^ entity.name.constant.smartmotor
+'                            ^^^^^ keyword.control.call.smartmotor
+#ifdef CLASS_VER_5_0  'Class 5 D Series CANopen
+' <------ keyword.control.directive.smartmotor
+'      ^^^^^^^^^^^^^ entity.name.constant.smartmotor
+#endif
+' <------ keyword.control.directive.smartmotor

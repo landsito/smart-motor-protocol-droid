@@ -1,0 +1,88 @@
+{
+  "name": "smartmotor-basic",
+  "displayName": "SmartMotor BASIC",
+  "description": "Syntax highlighting, hovers from the Developer's Guide, outline, navigation and checks for Moog Animatics SmartMotor programs (.sms).",
+  "version": "0.1.0",
+  "publisher": "landsito",
+  "author": "Luis Navarro",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/landsito/smart-motor-protocol-droid"
+  },
+  "bugs": {
+    "url": "https://github.com/landsito/smart-motor-protocol-droid/issues"
+  },
+  "homepage": "https://github.com/landsito/smart-motor-protocol-droid#readme",
+  "keywords": [
+    "smartmotor",
+    "animatics",
+    "moog",
+    "servo",
+    "motion control",
+    "sms",
+    "basic"
+  ],
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Linters"
+  ],
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "main": "./src/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "smartmotor",
+        "aliases": [
+          "SmartMotor BASIC",
+          "SmartMotor",
+          "smartmotor"
+        ],
+        "extensions": [
+          ".sms"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "smartmotor",
+        "scopeName": "source.smartmotor",
+        "path": "./syntaxes/smartmotor.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "smartmotor",
+        "path": "./snippets/smartmotor.json"
+      }
+    ],
+    "configuration": {
+      "title": "SmartMotor BASIC",
+      "properties": {
+        "smartmotor.diagnostics.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Report unbalanced IF/WHILE/SWITCH blocks, duplicate labels and GOSUB/GOTO to undefined labels."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build:grammar": "node scripts/build-grammar.js",
+    "test": "npm run test:unit && npm run test:grammar",
+    "test:unit": "node --test test/unit/",
+    "test:grammar": "vscode-tmgrammar-test -g syntaxes/smartmotor.tmLanguage.json \"test/grammar/*.sms\" && vscode-tmgrammar-snap -g syntaxes/smartmotor.tmLanguage.json \"test/fixtures/*.sms\"",
+    "test:snap-update": "vscode-tmgrammar-snap -g syntaxes/smartmotor.tmLanguage.json -u \"test/fixtures/*.sms\"",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.2.0",
+    "vscode-tmgrammar-test": "^0.1.3"
+  }
+}

@@ -1,0 +1,60 @@
+'Traverse & Takeup Chevron Winding Pattern
+'  This sample program will perform a traverse & takeup operation to produce
+'  a "chevron" winding pattern. By winding in a chevron pattern, each layer
+'  crosses diagonally over the previous layer's position. The purpose of this
+'  pattern is to prevent the wound material from getting caught in the cracks
+'  of the previous layer.
+EIGN(W,0)
+ZS
+'System parameters:
+'  NOTE: To maintain relationship of spool controller to cam, w/c should
+'  evenly divide with no remainder.
+c=5000   'Controller (External) Encoder resolution (counts per 360 deg
+         '  turn of spool).
+w=10000  'Spool width distance in encoder counts of traversing follower motor.
+'Chevron shape (pitch and amplitude)
+n=1000   'Follower counts per full (360 deg) turn of controller spool (pitch).
+nn=1000  'Follower counts per half (180 deg) turn of controller spool (amplitude).
+'Prevent overshoot at high end of the spool.
+IF nn>n
+       s=(w-(nn-n))/n*c 'calculating slew distance for MFSLEW
+ELSE
+        s=(w/n)*c
+ENDIF
+cc=c/2 'Calculate 180 deg turn of controller spool.
+ITR(1,7,10,0,1)
+EITR(1)
+ITRE
+PAUSE
+END
+C1
+MCMUL=MCMUL*-1
+RETURNI
+C123    'Set up and run cam table.
+O=0
+MC
+MFSDC(cc,1)
+CTA(3,0,0)  ' 3-point table, segment base defined with these points:
+CTW(0,0)    ' Controller == 0
+CTW(nn,cc)  ' Controller == 4000
+CTW(n,c)    ' Controller == 8000
+MCW(0,0)
+MCE(0)   ' Linear cam interpolation (straight lines like true chevron).
+'MCE(1)  ' Spline cam interpolation (most likely never needed).
+'MCE(2)  ' Spline cam interpolation periodic (sine wave, arc motion).
+'Angle of the winding pattern is determined by the cam table points,
+'  not MFMUL and MFDIV.
+MFMUL=1
+MFDIV=1
+'MCMUL and MCDIV affect cam table. Changing this will change angle of
+'  winding and chevron shape.
+MCMUL=1
+MCDIV=1
+SRC(2)      'This is for demo.  Change to SRC(1) for external encoder
+            '  from controller spool.
+MFA(0,1)    'No ascend into motion.
+MFD(0,1)    'No descend out of motion.
+MFSLEW(s,1) 'Slew distance is width of spool in follower motor counts.
+G            'Start moving.
+MFMUL=-1
+RETURN

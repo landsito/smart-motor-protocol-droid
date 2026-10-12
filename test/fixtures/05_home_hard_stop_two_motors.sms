@@ -1,0 +1,59 @@
+'Class 5  Home To Hard Stop Example
+'Note:  CAN BUS REQUIRED FOR MOTORS LINKED IN PARALLEL
+ECHO                      'ECHO on to allow auto addressing downstream
+a=1                       'set default variable for address 1
+WAIT=2000                 'wait for boot up time differences
+PRINT(#128,"a=a+1",#13)   'each motor prints downstream a=a+1
+WAIT=2000                 'wait for response time variations
+ADDR=a                    'Set motor address
+WAIT=2000
+IF CADDR!=ADDR            'Verify Can Address
+       CADDR=ADDR         'Set if not same as motor address
+       Z:0                'reset all motors to make can address take effect
+ENDIF
+WAIT=2000
+'Motor 1 will be running ALL code.
+EIGN(2) EIGN(3) ZS        'Bypass Over Travel Limits
+   'Set up parameters
+       rr=-1              'Home Direction
+       ii=300             'Home current limit
+       vv=100000          'Home Speed
+       aa=1000            'Home Accel
+       ee=300             'Home Error Limit
+       tt=3000            'Home Torque Limit
+       hh=8000            'Home Offset
+       ll=8000            'Maximum Differential motion between motors
+                          '(racking limit)
+END
+C7  'HOME TWO PARALLEL X AXIS MOTORS FROM MOTOR 1 ALONE
+zzz=0                     'Indicator for racking limit fault
+O:0=0                     'SET ORIGIN TO ZERO TO CHECK FOR RACKING
+AMPS:0=ii                 'limit AMPS
+VT:0=vv*rr                'Set Home velocity
+ADT:0=aa                  'Set Home accel/decel
+MV:0                      'Velocity mode
+G:0                       'tell both to go
+e=0                       'Check for motor stopping
+WHILE e!=3                'While both have not stopped, loop
+   qq=EA:2
+   IF ABS(qq)>ee MTB:2   e=e|1 ENDIF   'STOP follower
+   IF ABS(EA)>ee MTB     e=e|2 ENDIF   'stop controller
+          ddd=PA-PA:2
+   IF ABS(ddd)>ll         'If racking limit exceeded
+       MTB:0              'Stop all motion
+       zzz=-1             'Set racking limit variable
+       RETURN             'Return out of there
+   ENDIF                  'Stop the other to prevent racking
+LOOP
+T:0=tt*rr                 'Preset Torque Values
+MT:0                      'Switch to Torque mode (hold against stop)
+WAIT=50                   'Wait 50 milliseconds
+o=hh*rr                   'Calculate home position
+O:0=o                     'Set Origin to home offset
+AMPS:0=1023               'Set AMPS back to default
+MP:0                      'Set to Position mode
+PT:0=0                    'Set Target to Zero
+G:0                       'tell both to go to zero
+WHILE B(0,2):2==1 LOOP    'Wait for X follower move to complete
+TWAIT                     'Wait for controller to get there
+RETURN

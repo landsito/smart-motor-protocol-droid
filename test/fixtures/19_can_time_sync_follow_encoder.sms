@@ -1,0 +1,386 @@
+' Demo with one motor following a CANopen encoder on CANopen network.
+' Motor 1 is a controller as far as NMT and SDOs, but will follow data from
+' encoder. Motor 2 will act as an encoder, (the PDO mapping to position actual
+' instead of an encoder's position object.
+' Load this program into both motors.
+'++++ HEX Coded Objects for CAN +++++
+#define x1000   4096  ' Object 1000h: Device Type
+#define x1005   4101  ' Object 1005h: COB-ID Sync
+#define x1006   4102  ' Object 1006h: Communication Cycle Period
+#define x1400   5120  ' Object 1400h: Receive PDO Communication Parameter
+#define x1600   5632  ' Object 1600h: Receive PDO Mapping Parameter 1
+#define x1800   6144  ' Object 1800h: Transmit PDO communicating parameter 1
+#define x1801   6145  ' Object 1801h: Transmit PDO communicating parameter 2
+#define x1A00   6656  ' Object 1A00h: Transmit PDO Mapping Parameter 1
+#define x1A01   6657  ' Object 1A01h: Transmit PDO Mapping Parameter 2
+#define x2204   8708  ' Object 2204h: Mappable Variables aaa...ddd)
+#define x2207   8711  ' Object 2207h: External encoder follow max value (where
+                      ' encoder rolls over) i.e., 10-bit encoder would be 1023
+#define x2208   8712  ' Object 2208h: External encoder follow input value
+#define x2209   8713  ' Object 2209h: External encoder follow control
+#define x220A   8714  ' Object 220Ah: External encoder follow MFMUL
+#define x220B   8715  ' Object 220Bh: External encoder follow MFDIV
+#define x220C   8716  ' Object 220Ch: External encoder follow MFA
+#define x220D   8717  ' Object 220Dh: External encoder follow MFD
+#define x2304   8964  ' Object 2304h: Motor Status
+#define x6002   24578 ' Object 6002h: (encoder profile) Total measuring range
+#define x6040   24640 ' Object 6040h: Control word
+#define x6060   24672 ' Object 6060h: Trajectory Mode
+#define x6064   24676 ' Object 6064h: Position actual value (RPA)
+#define x606C   24684 ' Object 606Ch: Velocity actual value (RVA)
+#define x608F   24719 ' Object 608Fh: Position encoder resolution
+#define x60F4   24820 ' Object 60F4h: Position Error actual value (REA)
+' misc values:
+#define xffffffff -1
+OFF
+ADDR=CADDR      ' Set serial channel address so you don't have to re-
+                ' address/detect motors.
+ECHO            ' Enable serial channel echo so you don't have to re-
+                ' address/detect motors.
+mmm=1           ' network controller's address
+fff=mmm       ' The following motor's address. In this demo, it is the network
+              ' controller, but you can use a 3rd-party encoder's address.
+eee=2         ' The encoder's address.
+EIGN(W,0)     ' Turn off hardware limits!!!!!
+ZS            ' Clear faults.
+O=0
+WAIT=100
+a=ADDR+128
+PRINT(#a)     ' Send our own address char to make sure downstream motors
+              ' don't interpret program output as commands.
+IF CADDR==mmm
+  ' We are the controller, take over the show.
+  CANCTL(17,3)    ' Enable SDO and NMT commands.
+  PRINT("Checking for encoder ready: ",#13)
+  t=0
+  WHILE 1
+    vvv=SDORD(eee,x1000,0,4)   ' Read device type from encoder.
+    IF CAN(4)==0  ' Check error for a successful read.  A timeout is very
+                  ' likely until remote device is ready.
+      IF (vvv&65535)==406  ' Check lower 16-bits for profile type of device.
+        PRINT("Found encoder",#13)
+        SWITCH vvv/65536  ' We want to look at the upper 16-bits.
+          CASE 1
+            PRINT("Single-turn absolute rotary encoder.",#13)
+            t=1
+            BREAK
+          CASE 2
+            PRINT("Multi-turn absolute rotary encoder.",#13)
+            t=1
+            BREAK
+          CASE 3
+            PRINT("Single-turn absolute rotary encoder ")
+            PRINT("with electronic turn-count.",#13)
+            t=1
+            BREAK
+          CASE 4
+            PRINT("Incremental rotary encoder.",#13)
+            t=1
+            BREAK
+          CASE 5
+            PRINT("Incremental rotary encoder with electronic counting.",#13)
+            t=1
+            BREAK
+          CASE 6
+            PRINT("Incremental linear encoder.",#13)
+            t=1
+            BREAK
+          CASE 7
+          PRINT("Incremental linear encoder with electronic counting.",#13)
+          t=1
+          BREAK
+        CASE 8
+          PRINT("Absolute linear encoder.",#13)
+          t=1
+          BREAK
+        CASE 9
+          PRINT("Absolute linear encoder with cyclic coding.",#13)
+          t=1
+          BREAK
+        CASE 10
+          PRINT("Multi-sensor encoder interface.",#13)
+          t=0 ' not supported here at this time.
+          BREAK
+        DEFAULT
+          PRINT("Unknown type of encoder",#13)
+          BREAK
+      ENDS
+      BREAK  ' Remote device has booted to the point of responding.
+    ENDIF
+    IF (vvv&65535)==402  ' Check lower 16-bits for profile type of device.
+      PRINT("Motor ",eee," acting as an encoder.",#13)
+           ' A motor acting as an encoder.
+      t=2
+      BREAK
+    ENDIF
+  ENDIF
+  WAIT=500   ' Wait 1/2 second.
+  PRINT(".")
+LOOP
+PRINT(#13)
+rrr=0  ' Resolution
+IF t==1
+  rrr=SDORD(eee,x6002,0,4) GOSUB10
+  rrr=rrr-1  ' We want the max value, not the number of steps.
+  IF CAN(4)!=0
+    PRINT("Failed to read encoder range.",#13)
+    OFF END
+  ENDIF
+ENDIF
+IF t==2
+  rrr=-1  ' SmartMotor, which is the range 0x00000000 to 0xffffffff.
+ENDIF
+IF t==0
+  PRINT("This type not supported, ending now.",#13)
+  OFF
+  END
+ENDIF
+NMT(0,128)      GOSUB10  ' Network broadcast to go pre-operational state.
+' Setup the sync producer/consumers and set time base. Provides time sync so
+' motor clocks keep in step, and data is transmitted/accepted on sync also.
+SDOWR(mmm,x1006,0,4,10000)  GOSUB10  ' define Cycle period  object 0x1006:0,
+                                     ' size 4, 10ms
+SDOWR(eee,x1006,0,4,10000)  GOSUB10  ' define Cycle period  object 0x1006:0,
+                                     ' size 4, 10ms
+IF mmm!=fff
+' If follow motor is not the controller.
+  SDOWR(fff,x1006,0,4,10000)    GOSUB10  ' define Cycle period  object
+                                         ' 0x1006:0, size 4, 10ms
+ENDIF
+SDOWR(mmm,x1005,0,4,128)    GOSUB10  ' define Cycle ID x0000 0080 (required
+                                     ' to avoid error in next line.)
+SDOWR(mmm,x1005,0,4,1073741952) GOSUB10   ' define Cycle ID, producer
+                                          ' x4000 0080
+SDOWR(eee,x1005,0,4,128)    GOSUB10  ' define Cycle ID, consumer x0000 0080
+IF mmm!=fff
+  ' If follow motor is not the controller.
+  SDOWR(fff,x1005,0,4,128)  GOSUB10  ' define Cycle ID, consumer x0000 0080
+ENDIF
+' Time sync
+' Setup PDO mapping so that controller transmits 32-bit actual position
+' (0x6064), and follow motor receives as 32-bit encoder data (0x2208:3)
+IF t==2
+  ' We need to map a motor completely to get the position data.
+  SDOWR(eee,x1800,1,4,-1073741439)  GOSUB10  ' set Transmit Com Parameter
+                                             ' START xC000 0181
+  SDOWR(eee,x1800,2,1,1)            GOSUB10  ' set Transmit Com Parameter
+                                             ' on every Sync x000 0001
+  SDOWR(eee,x1A00,0,1,0)            GOSUB10  ' set Transmit map number of
+                                             ' entries x00
+  SDOWR(eee,x1A00,1,4,1617166368)   GOSUB10  ' set Transmit map x6064 00 20
+  SDOWR(eee,x1A00,0,1,1)            GOSUB10  ' set Transmit map number of
+                                             ' entries x01
+  SDOWR(eee,x1800,1,4,1073742209)   GOSUB10  ' set Transmit Com Parameter
+                                             ' COB-ID x4000 0181
+ELSEIF t==1
+' Using an encoder. An encoder should have these mappings already.
+' Comment these out if the encoder has read-only PDO parameters/mappings.
+' Note PDO2 is used; it is default sync type in the encoder 406 profile.
+  SDOWR(eee,x1801,1,4,-1073741439)  GOSUB10  ' set Transmit Com Parameter
+                                             ' START xC000 0181
+  SDOWR(eee,x1801,2,1,1)            GOSUB10  ' set Transmit Com Parameter
+                                             ' on every Sync x000 0001
+  SDOWR(eee,x1A01,0,1,0)            GOSUB10  ' set Transmit map number of
+                                             ' entries x00
+  SDOWR(eee,x1A01,1,4,1617166368)   GOSUB10  ' set Transmit map x6064 00 20
+  SDOWR(eee,x1A01,0,1,1)            GOSUB10  ' set Transmit map number of
+                                             ' entries x01
+    SDOWR(eee,x1801,1,4,1073742209)   GOSUB10  ' set Transmit Com Parameter
+                                               ' COB-ID x4000 0181
+  ENDIF
+  SDOWR(fff,x1400,1,4,-2147483263)  GOSUB10  ' set Receive Com Parameter start
+                                             ' x8000 0181
+  SDOWR(fff,x1600,0,1,0)            GOSUB10  ' set Receive Map number of
+                                             ' entries x00
+  SDOWR(fff,x1600,1,4,570950432)    GOSUB10  ' set Receive Map x2208 03 20
+  SDOWR(fff,x1600,0,1,1)            GOSUB10  ' set Receive Map number of
+                                             ' entries x01
+  SDOWR(fff,x1400,1,4,385)          GOSUB10  ' set Receive Com Parameter
+                                             ' COB-ID x0000 0181
+  ' Mapping complete.
+  ' Set other objects in follow motor relating to Follow mode.
+  SDOWR(fff,x2207,0,4,rrr)     GOSUB10  ' set encoder modulo limit
+  SDOWR(fff,x2209,0,2,0)       GOSUB10  ' set follow control to nominal state.
+  SDOWR(fff,x220A,0,2,100)     GOSUB10  ' set MFMUL
+  SDOWR(fff,x220B,0,2,100)     GOSUB10  ' set MFDIV
+  SDOWR(fff,x220C,0,4,20000)   GOSUB10  ' set MFA  control word x2209
+                                 ' determines if controller or follower units.
+  SDOWR(fff,x220D,0,4,10000)   GOSUB10  ' set MFD  control word x2209
+                                 ' determines if controller or follower units.
+  NMT(0,1)                     GOSUB10  ' Broadcast to whole network to go
+                                        ' to operational state.
+  SDOWR(fff,x6060,0,1,-11)     GOSUB10  ' set Trajectory Mode to Mixed FOLLOW
+  SDOWR(fff,x6040,0,2,6)       GOSUB10  ' set Control word in Motor 2
+  SDOWR(fff,x6040,0,2,7)       GOSUB10  ' set Control word in Motor 2
+  SDOWR(fff,x6040,0,2,15)      GOSUB10  ' set Control word in Motor 2
+  PRINT("Setup complete",#13)
+  IF CADDR==fff
+  ' If the network controller happens to be the follow motor (which is
+  ' expected in this demo by default).
+    WAIT=3000
+    PRINT("Follow motor: stopping X.",#13)
+    X(2)  ' Stop following
+    WAIT=1000
+    PRINT("Follow motor: re-starting X.",#13)
+    G(2)  ' Restart following
+  ELSE
+    ' Some other motor is the follow motor.
+    ' ...
+  ENDIF
+ELSEIF CADDR==eee
+  ' We are a motor pretending to be the encoder.
+  WAIT=500
+  PRINT("SmartMotor acting as encoder: starting motion.",#13)
+  MV VT=100000 ADT=50 G  ' A simple constant motion.
+       ' Follow motor is already started and will follow exactly.
+  PRINT("SmartMotor acting as encoder: ") PRINT("running for 10 seconds.",#13)
+  WAIT=10000
+  PRINT("SmartMotor acting as encoder: freewheel.",#13)
+  BRKRLS OFF
+ENDIF
+END
+C10  ' Check for CAN error and display
+  e=CAN(4)
+  IF e!=0
+    PRINT(#13,"Communication Error: ")
+  ELSE
+    ' PRINT("ok",#13) ' For debugging, to see what commands passed and failed.
+    RETURN
+  ENDIF
+  SWITCH e
+' NOTE: Any error number < 0 is Animatics specific to the SDORD, SDOWR,
+' and NMT commands.
+    CASE -1
+      PRINT(" Timeout, no response from remote device.")
+    BREAK
+    CASE -2
+      PRINT(" Multiple SDO commands simultaneously.")
+    BREAK
+    CASE -3
+      PRINT(" Controller mode not enabled, see CANCTL command.")
+    BREAK
+    CASE -4
+      PRINT(" Protocol not supported.")
+    BREAK
+    CASE -5
+      PRINT(" Transmission failure, check cable, Baud rate.")
+    BREAK
+    CASE -6
+      PRINT(" Data size returned not expected size.")
+    BREAK
+    CASE -20
+      PRINT(" Invalid destination address.")
+    BREAK
+    CASE -21
+      PRINT(" Data size not supported.")
+    BREAK
+    CASE -22
+      PRINT(" Invalid object index.")
+    BREAK
+    CASE -23
+      PRINT(" Invalid object sub-index.")
+    BREAK
+    CASE -24
+      PRINT(" Invalid NMT command value.")
+    BREAK
+' NOTE: any error number > 0 is specific to CANopen's specific list of
+' errors per 301 specification.
+    CASE 84082688
+      PRINT(" Toggle bit not alternated.")
+    BREAK
+    CASE 84148224
+      PRINT(" SDO protocol timed out.")
+    BREAK
+    CASE 84148225
+      PRINT(" Client/server command specifier not valid or unknown.")
+    BREAK
+    CASE 84148226
+      PRINT(" Invalid block size (block mode only).")
+    BREAK
+    CASE 84148227
+      PRINT(" Invalid sequence number (block mode only).")
+    BREAK
+    CASE 84148228
+      PRINT(" CRC error (block mode only).")
+    BREAK
+    CASE 84148229
+      PRINT(" Out of memory.")
+    BREAK
+    CASE 100728832
+      PRINT(" Unsupported access to an object.")
+    BREAK
+    CASE 100728833
+      PRINT(" Attempt to read a write only object.")
+    BREAK
+    CASE 100728834
+      PRINT(" Attempt to write a read only object.")
+    BREAK
+    CASE 100794368
+      PRINT(" Object does not exist in the object dictionary.")
+    BREAK
+    CASE 100925505
+      PRINT(" Object cannot be mapped to the PDO.")
+    BREAK
+    CASE 100925506
+      PRINT(" Exceeds PDO length.")
+    BREAK
+    CASE 100925507
+      PRINT(" General parameter incompatibility reason.")
+    BREAK
+    CASE 100925511
+      PRINT(" General internal incompatibility in the device.")
+    BREAK
+    CASE 101056512
+      PRINT(" Access failed due to an hardware error.")
+    BREAK
+    CASE 101122064
+      PRINT(" Data type mismatch, length of service parameter.")
+    BREAK
+    CASE 101122066
+      PRINT(" Data type mismatch, length of service parameter, high.")
+    BREAK
+    CASE 101122067
+      PRINT(" Data type mismatch, length of service parameter, low.")
+    BREAK
+    CASE 101253137
+      PRINT(" Sub-index does not exist.")
+    BREAK
+    CASE 101253168
+      PRINT(" Value range of parameter exceeded (write access).")
+    BREAK
+    CASE 101253169
+      PRINT(" Value of parameter written too high.")
+    BREAK
+    CASE 101253170
+      PRINT(" Value of parameter written too low.")
+    BREAK
+    CASE 101253174
+      PRINT(" Maximum value is less than minimum value.")
+    BREAK
+    CASE 134217728
+      PRINT(" General error.  (CANopen)")
+    BREAK
+    CASE 134217760
+      PRINT(" Data can't be sent to the application.")
+    BREAK
+    CASE 134217761
+      PRINT(" Data can't be sent to the application, local control.")
+    BREAK
+    CASE 134217762
+      PRINT(" Data can't be sent to the application, device state.")
+    BREAK
+    CASE 134217763
+      PRINT(" Object dictionary dynamic generation fails."
+    BREAK
+    DEFAULT
+      PRINT(" Unknown error.")
+      IF e>0
+        ' One of the CANopen errors
+        PRINT("  Consult CANopen error list.")
+'     ELSE
+        ' One of our error, but not included in the list above.
+      ENDIF
+    BREAK
+  ENDS
+  PRINT(#13)
+RETURN

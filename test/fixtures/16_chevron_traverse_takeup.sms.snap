@@ -1,0 +1,323 @@
+>'Traverse & Takeup Chevron Winding Pattern
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'  This sample program will perform a traverse & takeup operation to produce
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'  a "chevron" winding pattern. By winding in a chevron pattern, each layer
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'  crosses diagonally over the previous layer's position. The purpose of this
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'  pattern is to prevent the wound material from getting caught in the cracks
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'  of the previous layer.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>EIGN(W,0)
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+#    ^ source.smartmotor punctuation.section.brackets.smartmotor
+#     ^ source.smartmotor support.function.smartmotor
+#      ^ source.smartmotor punctuation.separator.comma.smartmotor
+#       ^ source.smartmotor constant.numeric.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+>ZS
+#^^ source.smartmotor keyword.other.reset.smartmotor
+>'System parameters:
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'  NOTE: To maintain relationship of spool controller to cam, w/c should
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'  evenly divide with no remainder.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>c=5000   'Controller (External) Encoder resolution (counts per 360 deg
+#^ source.smartmotor variable.other.user.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^^^^ source.smartmotor constant.numeric.smartmotor
+#      ^^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>         '  turn of spool).
+#^^^^^^^^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>w=10000  'Spool width distance in encoder counts of traversing follower motor.
+#^ source.smartmotor variable.other.user.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^^^^^ source.smartmotor constant.numeric.smartmotor
+#       ^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'Chevron shape (pitch and amplitude)
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>n=1000   'Follower counts per full (360 deg) turn of controller spool (pitch).
+#^ source.smartmotor variable.other.user.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^^^^ source.smartmotor constant.numeric.smartmotor
+#      ^^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>nn=1000  'Follower counts per half (180 deg) turn of controller spool (amplitude).
+#^^ source.smartmotor variable.other.user.smartmotor
+#  ^ source.smartmotor keyword.operator.assignment.smartmotor
+#   ^^^^ source.smartmotor constant.numeric.smartmotor
+#       ^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'Prevent overshoot at high end of the spool.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>IF nn>n
+#^^ source.smartmotor keyword.control.smartmotor
+#  ^ source.smartmotor
+#   ^^ source.smartmotor variable.other.user.smartmotor
+#     ^ source.smartmotor keyword.operator.comparison.smartmotor
+#      ^ source.smartmotor variable.other.user.smartmotor
+>       s=(w-(nn-n))/n*c 'calculating slew distance for MFSLEW
+#^^^^^^^ source.smartmotor
+#       ^ source.smartmotor variable.other.user.smartmotor
+#        ^ source.smartmotor keyword.operator.assignment.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#            ^ source.smartmotor punctuation.section.brackets.smartmotor
+#             ^^ source.smartmotor variable.other.user.smartmotor
+#               ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                ^ source.smartmotor variable.other.user.smartmotor
+#                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                  ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                   ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                    ^ source.smartmotor variable.other.user.smartmotor
+#                     ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                      ^ source.smartmotor variable.other.user.smartmotor
+#                       ^ source.smartmotor
+#                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ELSE
+#^^^^ source.smartmotor keyword.control.smartmotor
+>        s=(w/n)*c
+#^^^^^^^^ source.smartmotor
+#        ^ source.smartmotor variable.other.user.smartmotor
+#         ^ source.smartmotor keyword.operator.assignment.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^ source.smartmotor variable.other.user.smartmotor
+#            ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#             ^ source.smartmotor variable.other.user.smartmotor
+#              ^ source.smartmotor punctuation.section.brackets.smartmotor
+#               ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                ^ source.smartmotor variable.other.user.smartmotor
+>ENDIF
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>cc=c/2 'Calculate 180 deg turn of controller spool.
+#^^ source.smartmotor variable.other.user.smartmotor
+#  ^ source.smartmotor keyword.operator.assignment.smartmotor
+#   ^ source.smartmotor variable.other.user.smartmotor
+#    ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#     ^ source.smartmotor constant.numeric.smartmotor
+#      ^ source.smartmotor
+#       ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ITR(1,7,10,0,1)
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#        ^^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.separator.comma.smartmotor
+#           ^ source.smartmotor constant.numeric.smartmotor
+#            ^ source.smartmotor punctuation.separator.comma.smartmotor
+#             ^ source.smartmotor constant.numeric.smartmotor
+#              ^ source.smartmotor punctuation.section.brackets.smartmotor
+>EITR(1)
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+#    ^ source.smartmotor punctuation.section.brackets.smartmotor
+#     ^ source.smartmotor constant.numeric.smartmotor
+#      ^ source.smartmotor punctuation.section.brackets.smartmotor
+>ITRE
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+>PAUSE
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>END
+#^^^ source.smartmotor keyword.control.smartmotor
+>C1
+#^^ source.smartmotor entity.name.function.label.smartmotor
+>MCMUL=MCMUL*-1
+#^^^^^ source.smartmotor variable.language.register.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^^^^^ source.smartmotor variable.language.register.smartmotor
+#           ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#            ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#             ^ source.smartmotor constant.numeric.smartmotor
+>RETURNI
+#^^^^^^^ source.smartmotor keyword.control.smartmotor
+>C123    'Set up and run cam table.
+#^^^^ source.smartmotor entity.name.function.label.smartmotor
+#    ^^^^ source.smartmotor
+#        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>O=0
+#^ source.smartmotor variable.language.register.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^ source.smartmotor constant.numeric.smartmotor
+>MC
+#^^ source.smartmotor keyword.other.command.smartmotor
+>MFSDC(cc,1)
+#^^^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^ source.smartmotor variable.other.user.smartmotor
+#        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#         ^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+>CTA(3,0,0)  ' 3-point table, segment base defined with these points:
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#        ^ source.smartmotor constant.numeric.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^^ source.smartmotor
+#            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CTW(0,0)    ' Controller == 0
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^^ source.smartmotor
+#            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#             ^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CTW(nn,cc)  ' Controller == 4000
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^^ source.smartmotor variable.other.user.smartmotor
+#      ^ source.smartmotor punctuation.separator.comma.smartmotor
+#       ^^ source.smartmotor variable.other.user.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^^ source.smartmotor
+#            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CTW(n,c)    ' Controller == 8000
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor variable.other.user.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor variable.other.user.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^^ source.smartmotor
+#            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MCW(0,0)
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+>MCE(0)   ' Linear cam interpolation (straight lines like true chevron).
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^ source.smartmotor
+#         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'MCE(1)  ' Spline cam interpolation (most likely never needed).
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'MCE(2)  ' Spline cam interpolation periodic (sine wave, arc motion).
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'Angle of the winding pattern is determined by the cam table points,
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'  not MFMUL and MFDIV.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MFMUL=1
+#^^^^^ source.smartmotor variable.language.register.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>MFDIV=1
+#^^^^^ source.smartmotor variable.language.register.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>'MCMUL and MCDIV affect cam table. Changing this will change angle of
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'  winding and chevron shape.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MCMUL=1
+#^^^^^ source.smartmotor variable.language.register.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>MCDIV=1
+#^^^^^ source.smartmotor variable.language.register.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>SRC(2)      'This is for demo.  Change to SRC(1) for external encoder
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^^^^ source.smartmotor
+#            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>            '  from controller spool.
+#^^^^^^^^^^^^ source.smartmotor
+#            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MFA(0,1)    'No ascend into motion.
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^^ source.smartmotor
+#            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MFD(0,1)    'No descend out of motion.
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^^ source.smartmotor
+#            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MFSLEW(s,1) 'Slew distance is width of spool in follower motor counts.
+#^^^^^^ source.smartmotor keyword.other.command.smartmotor
+#      ^ source.smartmotor punctuation.section.brackets.smartmotor
+#       ^ source.smartmotor variable.other.user.smartmotor
+#        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#         ^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^ source.smartmotor
+#            ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>G            'Start moving.
+#^ source.smartmotor keyword.other.command.smartmotor
+# ^^^^^^^^^^^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>MFMUL=-1
+#^^^^^ source.smartmotor variable.language.register.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#       ^ source.smartmotor constant.numeric.smartmotor
+>RETURN
+#^^^^^^ source.smartmotor keyword.control.smartmotor
+>

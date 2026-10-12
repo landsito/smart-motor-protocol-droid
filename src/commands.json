@@ -1,0 +1,2356 @@
+{
+ "source": "Moog Animatics SmartMotor Developer's Guide, Rev. T, 'Commands Listed Alphabetically'",
+ "commands": [
+  {
+   "name": "a...z",
+   "syntax": "a...z",
+   "description": "32-Bit Variables",
+   "kind": "variable",
+   "page": 249,
+   "report": true
+  },
+  {
+   "name": "aa...zz",
+   "syntax": "aa...zz",
+   "description": "32-Bit Variables",
+   "kind": "variable",
+   "page": 249,
+   "report": true
+  },
+  {
+   "name": "aaa...zzz",
+   "syntax": "aaa...zzz",
+   "description": "32-Bit Variables",
+   "kind": "variable",
+   "page": 249,
+   "report": true
+  },
+  {
+   "name": "ab",
+   "syntax": "ab[index]=formula",
+   "description": "Array Byte [index]",
+   "kind": "array",
+   "page": 252,
+   "report": true
+  },
+  {
+   "name": "ABS",
+   "syntax": "ABS(value)",
+   "description": "Absolute Value",
+   "kind": "function",
+   "page": 255,
+   "report": true
+  },
+  {
+   "name": "AC",
+   "syntax": "AC",
+   "description": "Acceleration Commanded",
+   "kind": "register",
+   "page": 256,
+   "report": true
+  },
+  {
+   "name": "ACOS",
+   "syntax": "ACOS(value)",
+   "description": "Arccosine",
+   "kind": "function",
+   "page": 259,
+   "report": true
+  },
+  {
+   "name": "ADDR",
+   "syntax": "ADDR=formula",
+   "description": "Address (for RS-232 and RS-485)",
+   "kind": "register",
+   "page": 261,
+   "report": true
+  },
+  {
+   "name": "ADT",
+   "syntax": "ADT=formula",
+   "description": "Acceleration/Deceleration Target",
+   "kind": "register",
+   "page": 263
+  },
+  {
+   "name": "ADTS",
+   "syntax": "ADTS=formula",
+   "description": "Acceleration/Deceleration Target, Synchronized",
+   "kind": "register",
+   "page": 265
+  },
+  {
+   "name": "af",
+   "syntax": "af[index]=formula",
+   "description": "Array Float [index]",
+   "kind": "array",
+   "page": 267,
+   "report": true
+  },
+  {
+   "name": "Ai",
+   "syntax": "Ai(enc)",
+   "description": "Arm Index Rising Edge",
+   "kind": "command",
+   "page": 270
+  },
+  {
+   "name": "Aij",
+   "syntax": "Aij(enc)",
+   "description": "Arm Index Rising Edge Then Falling Edge",
+   "kind": "command",
+   "page": 272
+  },
+  {
+   "name": "Aj",
+   "syntax": "Aj(enc)",
+   "description": "Arm Index Falling Edge",
+   "kind": "command",
+   "page": 274
+  },
+  {
+   "name": "Aji",
+   "syntax": "Aji(enc)",
+   "description": "Arm Index Falling Edge Then Rising Edge",
+   "kind": "command",
+   "page": 276
+  },
+  {
+   "name": "al",
+   "syntax": "al[index]=formula",
+   "description": "Array Long [index]",
+   "kind": "array",
+   "page": 278,
+   "report": true
+  },
+  {
+   "name": "AMPS",
+   "syntax": "AMPS=formula",
+   "description": "Amps, PWM Limit",
+   "kind": "register",
+   "page": 281,
+   "report": true
+  },
+  {
+   "name": "ASIN",
+   "syntax": "ASIN(value)",
+   "description": "Arcsine",
+   "kind": "function",
+   "page": 284,
+   "report": true
+  },
+  {
+   "name": "AT",
+   "syntax": "AT=formula",
+   "description": "Acceleration Target",
+   "kind": "register",
+   "page": 286,
+   "report": true
+  },
+  {
+   "name": "ATAN",
+   "syntax": "ATAN(value)",
+   "description": "Arctangent",
+   "kind": "function",
+   "page": 289,
+   "report": true
+  },
+  {
+   "name": "ATOF",
+   "syntax": "ATOF(index)",
+   "description": "ASCII to Float",
+   "kind": "function",
+   "page": 291,
+   "report": true
+  },
+  {
+   "name": "ATS",
+   "syntax": "ATS=formula",
+   "description": "Acceleration Target, Synchronized",
+   "kind": "register",
+   "page": 292
+  },
+  {
+   "name": "aw",
+   "syntax": "aw[index]=formula",
+   "description": "Array Word [index]",
+   "kind": "array",
+   "page": 294,
+   "report": true
+  },
+  {
+   "name": "B",
+   "syntax": "B(word,bit)",
+   "description": "Status Byte",
+   "kind": "flag",
+   "page": 297,
+   "report": true
+  },
+  {
+   "name": "Ba",
+   "syntax": "Ba",
+   "description": "Bit, Peak Overcurrent",
+   "kind": "flag",
+   "page": 301,
+   "report": true
+  },
+  {
+   "name": "BAUD",
+   "syntax": "BAUD(channel)=formula",
+   "description": "Set BAUD Rate (RS-232 and RS-485)",
+   "kind": "register",
+   "page": 303,
+   "report": true,
+   "numbered": true
+  },
+  {
+   "name": "Be",
+   "syntax": "Be",
+   "description": "Bit, Position Error Limit",
+   "kind": "flag",
+   "page": 305,
+   "report": true
+  },
+  {
+   "name": "Bh",
+   "syntax": "Bh",
+   "description": "Bit, Overheat",
+   "kind": "flag",
+   "page": 307,
+   "report": true
+  },
+  {
+   "name": "Bi",
+   "syntax": "Bi(enc)",
+   "description": "Bit, Index Capture, Rising",
+   "kind": "flag",
+   "page": 309,
+   "report": true
+  },
+  {
+   "name": "Bj",
+   "syntax": "Bj(enc)",
+   "description": "Bit, Index Capture, Falling",
+   "kind": "flag",
+   "page": 312,
+   "report": true
+  },
+  {
+   "name": "Bk",
+   "syntax": "Bk",
+   "description": "Bit, Program EEPROM Data Status",
+   "kind": "flag",
+   "page": 315,
+   "report": true
+  },
+  {
+   "name": "Bl",
+   "syntax": "Bl",
+   "description": "Bit, Left Hardware Limit, Historical",
+   "kind": "flag",
+   "page": 316,
+   "report": true
+  },
+  {
+   "name": "Bls",
+   "syntax": "Bls",
+   "description": "Bit, Left Software Limit, Historical",
+   "kind": "flag",
+   "page": 318,
+   "report": true
+  },
+  {
+   "name": "Bm",
+   "syntax": "Bm",
+   "description": "Bit, Left Hardware Limit, Real-Time",
+   "kind": "flag",
+   "page": 320,
+   "report": true
+  },
+  {
+   "name": "Bms",
+   "syntax": "Bms",
+   "description": "Bit, Left Software Limit, Real-Time",
+   "kind": "flag",
+   "page": 322,
+   "report": true
+  },
+  {
+   "name": "Bo",
+   "syntax": "Bo",
+   "description": "Bit, Motor OFF",
+   "kind": "flag",
+   "page": 324,
+   "report": true
+  },
+  {
+   "name": "Bp",
+   "syntax": "Bp",
+   "description": "Bit, Right Hardware Limit, Real-Time",
+   "kind": "flag",
+   "page": 325,
+   "report": true
+  },
+  {
+   "name": "Bps",
+   "syntax": "Bps",
+   "description": "Bit, Right Software Limit, Real-Time",
+   "kind": "flag",
+   "page": 327,
+   "report": true
+  },
+  {
+   "name": "Br",
+   "syntax": "Br",
+   "description": "Bit, Right Hardware Limit, Historical",
+   "kind": "flag",
+   "page": 329,
+   "report": true
+  },
+  {
+   "name": "BREAK",
+   "syntax": "BREAK",
+   "description": "Break from CASE or WHILE Loop",
+   "kind": "control",
+   "page": 331
+  },
+  {
+   "name": "BRKENG",
+   "syntax": "BRKENG",
+   "description": "Brake Engage",
+   "kind": "command",
+   "page": 333
+  },
+  {
+   "name": "BRKRLS",
+   "syntax": "BRKRLS",
+   "description": "Brake Release",
+   "kind": "command",
+   "page": 335
+  },
+  {
+   "name": "BRKSRV",
+   "syntax": "BRKSRV",
+   "description": "Brake Servo, Engage When Not Servoing",
+   "kind": "command",
+   "page": 337
+  },
+  {
+   "name": "BRKTRJ",
+   "syntax": "BRKTRJ",
+   "description": "Brake Trajectory, Engage When No Active Trajectory",
+   "kind": "command",
+   "page": 339
+  },
+  {
+   "name": "Brs",
+   "syntax": "Brs",
+   "description": "Bit, Right Software Limit, Historical",
+   "kind": "flag",
+   "page": 341,
+   "report": true
+  },
+  {
+   "name": "Bs",
+   "syntax": "Bs",
+   "description": "Bit, Syntax Error",
+   "kind": "flag",
+   "page": 343,
+   "report": true
+  },
+  {
+   "name": "Bt",
+   "syntax": "Bt",
+   "description": "Bit, Trajectory In Progress",
+   "kind": "flag",
+   "page": 345,
+   "report": true
+  },
+  {
+   "name": "Bv",
+   "syntax": "Bv",
+   "description": "Bit, Velocity Limit",
+   "kind": "flag",
+   "page": 347,
+   "report": true
+  },
+  {
+   "name": "Bw",
+   "syntax": "Bw",
+   "description": "Bit, Wrapped Encoder Position",
+   "kind": "flag",
+   "page": 349,
+   "report": true
+  },
+  {
+   "name": "Bx",
+   "syntax": "Bx(enc)",
+   "description": "Bit, Index Input, Real-Time",
+   "kind": "flag",
+   "page": 351,
+   "report": true
+  },
+  {
+   "name": "C",
+   "syntax": "C{number}",
+   "description": "Command Label",
+   "kind": "label",
+   "page": 353
+  },
+  {
+   "name": "CADDR",
+   "syntax": "CADDR=formula",
+   "description": "CAN Address",
+   "kind": "register",
+   "page": 355,
+   "report": true
+  },
+  {
+   "name": "CAN",
+   "syntax": "CAN, CAN(arg)",
+   "description": "CAN Bus Status",
+   "kind": "function",
+   "page": 357,
+   "report": true
+  },
+  {
+   "name": "CANCTL",
+   "syntax": "CANCTL(function,value)",
+   "description": "CAN Control",
+   "kind": "command",
+   "page": 359
+  },
+  {
+   "name": "CASE",
+   "syntax": "CASE formula",
+   "description": "Case Label for SWITCH Block",
+   "kind": "control",
+   "page": 360
+  },
+  {
+   "name": "CBAUD",
+   "syntax": "CBAUD=formula",
+   "description": "CAN Baud Rate",
+   "kind": "register",
+   "page": 363,
+   "report": true
+  },
+  {
+   "name": "CCHN",
+   "syntax": "CCHN(type,channel)",
+   "description": "Close Communications Channel (RS-232 or RS-485)",
+   "kind": "command",
+   "page": 365
+  },
+  {
+   "name": "CHN",
+   "syntax": "CHN(channel)",
+   "description": "Communications Error Flag",
+   "kind": "function",
+   "page": 367,
+   "report": true
+  },
+  {
+   "name": "CLK",
+   "syntax": "CLK=formula",
+   "description": "Millisecond Clock",
+   "kind": "register",
+   "page": 369,
+   "report": true
+  },
+  {
+   "name": "COMCTL",
+   "syntax": "COMCTL(function,value)",
+   "description": "Serial Communications Control",
+   "kind": "command",
+   "page": 370
+  },
+  {
+   "name": "COS",
+   "syntax": "COS(value)",
+   "description": "Cosine",
+   "kind": "function",
+   "page": 372,
+   "report": true
+  },
+  {
+   "name": "CP",
+   "syntax": "CP",
+   "description": "Cam Pointer for Cam Table",
+   "kind": "register",
+   "page": 374,
+   "report": true
+  },
+  {
+   "name": "CTA",
+   "syntax": "CTA(points,seglen[,location])",
+   "description": "Cam Table Attribute",
+   "kind": "command",
+   "page": 376
+  },
+  {
+   "name": "CTE",
+   "syntax": "CTE(table)",
+   "description": "Cam Table Erase",
+   "kind": "command",
+   "page": 378
+  },
+  {
+   "name": "CTR",
+   "syntax": "CTR(enc)",
+   "description": "Counter, Encoder, Step and Direction",
+   "kind": "function",
+   "page": 380,
+   "report": true
+  },
+  {
+   "name": "CTT",
+   "syntax": "CTT",
+   "description": "Cam Table Total in EEPROM",
+   "kind": "register",
+   "page": 382,
+   "report": true
+  },
+  {
+   "name": "CTW",
+   "syntax": "CTW(pos[,segvar][,user])",
+   "description": "Cam Table Write Data Points",
+   "kind": "command",
+   "page": 383
+  },
+  {
+   "name": "DEA",
+   "syntax": "DEA",
+   "description": "Derivative Error, Actual",
+   "kind": "register",
+   "page": 386,
+   "report": true
+  },
+  {
+   "name": "DEFAULT",
+   "syntax": "DEFAULT",
+   "description": "Default Case for SWITCH Structure",
+   "kind": "control",
+   "page": 388
+  },
+  {
+   "name": "DEL",
+   "syntax": "DEL=formula",
+   "description": "Derivative Error Limit",
+   "kind": "register",
+   "page": 390,
+   "report": true
+  },
+  {
+   "name": "DELM",
+   "syntax": "DELM(arg)",
+   "description": "Derivative Error Limit Mode",
+   "kind": "command",
+   "page": 392
+  },
+  {
+   "name": "DFS",
+   "syntax": "DFS(value)",
+   "description": "Dump Float, Single",
+   "kind": "function",
+   "page": 393,
+   "report": true
+  },
+  {
+   "name": "DITR",
+   "syntax": "DITR(int)",
+   "description": "Disable Interrupts",
+   "kind": "command",
+   "page": 394
+  },
+  {
+   "name": "DT",
+   "syntax": "DT=formula",
+   "description": "Deceleration Target",
+   "kind": "register",
+   "page": 396,
+   "report": true
+  },
+  {
+   "name": "DTS",
+   "syntax": "DTS=formula",
+   "description": "Deceleration Target, Synchronized",
+   "kind": "register",
+   "page": 399
+  },
+  {
+   "name": "EA",
+   "syntax": "EA",
+   "description": "Error Actual",
+   "kind": "register",
+   "page": 401,
+   "report": true
+  },
+  {
+   "name": "EASAT",
+   "syntax": "EASAT",
+   "description": "Error Actual Saturation",
+   "kind": "register",
+   "page": 403,
+   "report": true
+  },
+  {
+   "name": "ECHO",
+   "syntax": "ECHO",
+   "description": "Echo Incoming Data on Communications Port 0",
+   "kind": "command",
+   "page": 405
+  },
+  {
+   "name": "ECHO0",
+   "syntax": "ECHO0",
+   "description": "Echo Incoming Data on Communications Port 0",
+   "kind": "command",
+   "page": 407
+  },
+  {
+   "name": "ECHO1",
+   "syntax": "ECHO1",
+   "description": "Echo Incoming Data on Communications Port 1",
+   "kind": "command",
+   "page": 408
+  },
+  {
+   "name": "ECHO_OFF",
+   "syntax": "ECHO_OFF",
+   "description": "Turn Off Echo on Communications Port 0",
+   "kind": "command",
+   "page": 409
+  },
+  {
+   "name": "ECHO_OFF0",
+   "syntax": "ECHO_OFF0",
+   "description": "Turn Off Echo on Communications Port 0",
+   "kind": "command",
+   "page": 410
+  },
+  {
+   "name": "ECHO_OFF1",
+   "syntax": "ECHO_OFF1",
+   "description": "Turn Off Echo on Communications Port 1",
+   "kind": "command",
+   "page": 411
+  },
+  {
+   "name": "ECS",
+   "syntax": "ECS(counts)",
+   "description": "Encoder Count Shift",
+   "kind": "command",
+   "page": 412
+  },
+  {
+   "name": "EIDE",
+   "syntax": "EIDE(IO)",
+   "description": "Enable Input, Drive Enable",
+   "kind": "command",
+   "page": 414
+  },
+  {
+   "name": "EIGN",
+   "syntax": "EIGN(...)",
+   "description": "Enable as Input for General-Use",
+   "kind": "command",
+   "page": 416
+  },
+  {
+   "name": "EILN",
+   "syntax": "EILN",
+   "description": "Enable Input as Limit Negative",
+   "kind": "command",
+   "page": 419
+  },
+  {
+   "name": "EILP",
+   "syntax": "EILP",
+   "description": "Enable Input as Limit Positive",
+   "kind": "command",
+   "page": 421
+  },
+  {
+   "name": "EIRE",
+   "syntax": "EIRE",
+   "description": "Enable Index Register, Encoder Capture",
+   "kind": "command",
+   "page": 423
+  },
+  {
+   "name": "EIRI",
+   "syntax": "EIRI",
+   "description": "Enable Index Register, Input Capture",
+   "kind": "command",
+   "page": 425
+  },
+  {
+   "name": "EISM",
+   "syntax": "EISM(IO)",
+   "description": "E-Configure Input as Sync Controller",
+   "kind": "command",
+   "page": 427
+  },
+  {
+   "name": "EITR",
+   "syntax": "EITR(int)",
+   "description": "Enable Interrupts",
+   "kind": "command",
+   "page": 428
+  },
+  {
+   "name": "EL",
+   "syntax": "EL=formula",
+   "description": "Error Limit",
+   "kind": "register",
+   "page": 430,
+   "report": true
+  },
+  {
+   "name": "ELSE",
+   "syntax": "ELSE",
+   "description": "IF-Structure Command Flow Element",
+   "kind": "control",
+   "page": 432
+  },
+  {
+   "name": "ELSEIF",
+   "syntax": "ELSEIF formula",
+   "description": "IF-Structure Command Flow Element",
+   "kind": "control",
+   "page": 434
+  },
+  {
+   "name": "ENC0",
+   "syntax": "ENC0",
+   "description": "Encoder Zero (Close Loop on Internal Encoder)",
+   "kind": "command",
+   "page": 436
+  },
+  {
+   "name": "ENC1",
+   "syntax": "ENC1",
+   "description": "Encoder Zero (Close Loop on External Encoder)",
+   "kind": "command",
+   "page": 437
+  },
+  {
+   "name": "ENCCTL",
+   "syntax": "ENCCTL(function,value)",
+   "description": "Encoder Control",
+   "kind": "command",
+   "page": 439
+  },
+  {
+   "name": "ENCD",
+   "syntax": "ENCD(in_out)",
+   "description": "Set Encoder Bus Port as Input or Output",
+   "kind": "command",
+   "page": 441
+  },
+  {
+   "name": "END",
+   "syntax": "END",
+   "description": "End Program Code Execution",
+   "kind": "control",
+   "page": 443
+  },
+  {
+   "name": "ENDIF",
+   "syntax": "ENDIF",
+   "description": "End IF Statement",
+   "kind": "control",
+   "page": 445
+  },
+  {
+   "name": "ENDS",
+   "syntax": "ENDS",
+   "description": "End SWITCH Structure",
+   "kind": "control",
+   "page": 447
+  },
+  {
+   "name": "EOBK",
+   "syntax": "EOBK(IO)",
+   "description": "Enable Output, Brake Control",
+   "kind": "command",
+   "page": 449
+  },
+  {
+   "name": "EOFT",
+   "syntax": "EOFT(IO)",
+   "description": "Enable Output, Fault Indication",
+   "kind": "command",
+   "page": 451
+  },
+  {
+   "name": "EOIDX",
+   "syntax": "EOIDX(number)",
+   "description": "Encoder, Output Index",
+   "kind": "command",
+   "page": 453
+  },
+  {
+   "name": "EPTR",
+   "syntax": "EPTR=formula",
+   "description": "EEPROM Pointer",
+   "kind": "register",
+   "page": 454,
+   "report": true
+  },
+  {
+   "name": "ERRC",
+   "syntax": "ERRC",
+   "description": "Error Code, Command",
+   "kind": "register",
+   "page": 455,
+   "report": true
+  },
+  {
+   "name": "ERRW",
+   "syntax": "ERRW",
+   "description": "Communication Channel of Most Recent Command Error",
+   "kind": "register",
+   "page": 457,
+   "report": true
+  },
+  {
+   "name": "ETH",
+   "syntax": "ETH(arg)",
+   "description": "Get Ethernet Status and Errors",
+   "kind": "function",
+   "page": 459,
+   "report": true
+  },
+  {
+   "name": "ETHCTL",
+   "syntax": "ETHCTL(function,value)",
+   "description": "Control Industrial Ethernet Network Features",
+   "kind": "command",
+   "page": 460
+  },
+  {
+   "name": "F",
+   "syntax": "F",
+   "description": "Force Into PID Filter",
+   "kind": "command",
+   "page": 461
+  },
+  {
+   "name": "FABS",
+   "syntax": "FABS(value)",
+   "description": "Floating-Point Absolute Value",
+   "kind": "function",
+   "page": 467,
+   "report": true
+  },
+  {
+   "name": "FAUSTS",
+   "syntax": "FAUSTS(x)",
+   "description": "Returns Fault Status Word",
+   "kind": "function",
+   "page": 463,
+   "report": true
+  },
+  {
+   "name": "FD",
+   "syntax": "FD=expression",
+   "description": "Resolution to Set Units of Position/Velocity/Acceleration",
+   "kind": "register",
+   "page": 465,
+   "report": true
+  },
+  {
+   "name": "FSA",
+   "syntax": "FSA(cause,action)",
+   "description": "Fault Stop Action",
+   "kind": "command",
+   "page": 469
+  },
+  {
+   "name": "FSAD",
+   "syntax": "FSAD(n,m)",
+   "description": "Set Reaction to Fault",
+   "kind": "function",
+   "page": 471,
+   "report": true
+  },
+  {
+   "name": "FSQRT",
+   "syntax": "FSQRT(value)",
+   "description": "Floating-Point Square Root",
+   "kind": "function",
+   "page": 473,
+   "report": true
+  },
+  {
+   "name": "FW",
+   "syntax": "FW",
+   "description": "Firmware Version",
+   "kind": "register",
+   "page": 475,
+   "report": true
+  },
+  {
+   "name": "G",
+   "syntax": "G",
+   "description": "Start Motion (GO)",
+   "kind": "command",
+   "page": 477
+  },
+  {
+   "name": "GETCHR",
+   "syntax": "GETCHR",
+   "description": "Next Character from Communications Port 0",
+   "kind": "register",
+   "page": 480,
+   "report": true
+  },
+  {
+   "name": "GETCHR1",
+   "syntax": "GETCHR1",
+   "description": "Next Character from Communications Port 1",
+   "kind": "register",
+   "page": 482,
+   "report": true
+  },
+  {
+   "name": "GOSUB",
+   "syntax": "GOSUB(label)",
+   "description": "Subroutine Call",
+   "kind": "control",
+   "page": 484
+  },
+  {
+   "name": "GOTO",
+   "syntax": "GOTO(label)",
+   "description": "Branch Program Flow to a Label",
+   "kind": "control",
+   "page": 486
+  },
+  {
+   "name": "GROUP",
+   "syntax": "GROUP(function,value)",
+   "description": "Group Address Settings",
+   "kind": "function",
+   "page": 488,
+   "report": true
+  },
+  {
+   "name": "GS",
+   "syntax": "GS",
+   "description": "Start Synchronized Motion (GO Synchronized)",
+   "kind": "command",
+   "page": 491
+  },
+  {
+   "name": "HEX",
+   "syntax": "HEX(index)",
+   "description": "Decimal Value of a Hex String",
+   "kind": "function",
+   "page": 493,
+   "report": true
+  },
+  {
+   "name": "HM_ADT",
+   "syntax": "HM_ADT=formula",
+   "description": "Homing Accel/Decel Target",
+   "kind": "register",
+   "page": 495,
+   "report": true
+  },
+  {
+   "name": "HM_MTHD",
+   "syntax": "HM_MTHD=formula",
+   "description": "Homing Method",
+   "kind": "register",
+   "page": 496,
+   "report": true
+  },
+  {
+   "name": "HM_OSET",
+   "syntax": "HM_OSET=formula",
+   "description": "Homing Offset",
+   "kind": "register",
+   "page": 500,
+   "report": true
+  },
+  {
+   "name": "HM_VTS",
+   "syntax": "HM_VTS=formula",
+   "description": "Homing Velocity Target to Switch",
+   "kind": "register",
+   "page": 502,
+   "report": true
+  },
+  {
+   "name": "HM_VTZ",
+   "syntax": "HM_VTZ=formula",
+   "description": "Homing Velocity Target to Zero",
+   "kind": "register",
+   "page": 504,
+   "report": true
+  },
+  {
+   "name": "I",
+   "syntax": "I(enc)",
+   "description": "Index, Rising-Edge Position",
+   "kind": "function",
+   "page": 506,
+   "report": true
+  },
+  {
+   "name": "IDENT",
+   "syntax": "IDENT=formula",
+   "description": "Set Identification Value",
+   "kind": "register",
+   "page": 508,
+   "report": true
+  },
+  {
+   "name": "IF",
+   "syntax": "IF formula",
+   "description": "Conditional Program Code Execution",
+   "kind": "control",
+   "page": 510
+  },
+  {
+   "name": "IN",
+   "syntax": "IN(...)",
+   "description": "Specified Input",
+   "kind": "function",
+   "page": 513,
+   "report": true
+  },
+  {
+   "name": "INA",
+   "syntax": "INA(...)",
+   "description": "Specified Input, Analog",
+   "kind": "function",
+   "page": 516,
+   "report": true
+  },
+  {
+   "name": "IPCTL",
+   "syntax": "IPCTL(function,\"string\")",
+   "description": "Set IP Address, Subnet Mask or Gateway",
+   "kind": "command",
+   "page": 519
+  },
+  {
+   "name": "ITR",
+   "syntax": "ITR(Int#,StatusWord,Bit#,BitState,Label#)",
+   "description": "Interrupt Setup",
+   "kind": "command",
+   "page": 521
+  },
+  {
+   "name": "ITRD",
+   "syntax": "ITRD",
+   "description": "Interrupt Disable, Global",
+   "kind": "command",
+   "page": 524
+  },
+  {
+   "name": "ITRE",
+   "syntax": "ITRE",
+   "description": "Enable Interrupts, Global",
+   "kind": "command",
+   "page": 526
+  },
+  {
+   "name": "J",
+   "syntax": "J(enc)",
+   "description": "Index, Falling-Edge Position",
+   "kind": "function",
+   "page": 528,
+   "report": true
+  },
+  {
+   "name": "KA",
+   "syntax": "KA=formula",
+   "description": "Constant, Acceleration Feed Forward",
+   "kind": "register",
+   "page": 530,
+   "report": true
+  },
+  {
+   "name": "KD",
+   "syntax": "KD=formula",
+   "description": "Constant, Derivative Coefficient",
+   "kind": "register",
+   "page": 532,
+   "report": true
+  },
+  {
+   "name": "KG",
+   "syntax": "KG=formula",
+   "description": "Constant, Gravitational Offset",
+   "kind": "register",
+   "page": 534,
+   "report": true
+  },
+  {
+   "name": "KI",
+   "syntax": "KI=formula",
+   "description": "Constant, Integral Coefficient",
+   "kind": "register",
+   "page": 536,
+   "report": true
+  },
+  {
+   "name": "KII",
+   "syntax": "KII=formula",
+   "description": "Current Control Loop: Integrator",
+   "kind": "register",
+   "page": 538,
+   "report": true
+  },
+  {
+   "name": "KL",
+   "syntax": "KL=formula",
+   "description": "Constant, Integral Limit",
+   "kind": "register",
+   "page": 539,
+   "report": true
+  },
+  {
+   "name": "KP",
+   "syntax": "KP=formula",
+   "description": "Constant, Proportional Coefficient",
+   "kind": "register",
+   "page": 541,
+   "report": true
+  },
+  {
+   "name": "KPI",
+   "syntax": "KPI=formula",
+   "description": "Current Control Loop: Proportional",
+   "kind": "register",
+   "page": 543,
+   "report": true
+  },
+  {
+   "name": "KS",
+   "syntax": "KS=formula",
+   "description": "Constant, Velocity Filter Option (for KD)",
+   "kind": "register",
+   "page": 544,
+   "report": true
+  },
+  {
+   "name": "KV",
+   "syntax": "KV=formula",
+   "description": "Constant, Velocity Feed Forward",
+   "kind": "register",
+   "page": 546,
+   "report": true
+  },
+  {
+   "name": "LEN",
+   "syntax": "LEN",
+   "description": "Length of Character Count in Communications Port 0",
+   "kind": "register",
+   "page": 548,
+   "report": true
+  },
+  {
+   "name": "LEN1",
+   "syntax": "LEN1",
+   "description": "Length of Character Count in Communications Port 1",
+   "kind": "register",
+   "page": 549,
+   "report": true
+  },
+  {
+   "name": "LFS",
+   "syntax": "LFS(value)",
+   "description": "Load Float Single",
+   "kind": "function",
+   "page": 551,
+   "report": true
+  },
+  {
+   "name": "LOAD",
+   "syntax": "LOAD",
+   "description": "Download Compiled User Program to Motor",
+   "kind": "command",
+   "page": 552
+  },
+  {
+   "name": "LOCKP",
+   "syntax": "LOCKP",
+   "description": "Lock Program",
+   "kind": "command",
+   "page": 555
+  },
+  {
+   "name": "LOOP",
+   "syntax": "LOOP",
+   "description": "Loop Back to WHILE Formula",
+   "kind": "control",
+   "page": 557
+  },
+  {
+   "name": "MC",
+   "syntax": "MC",
+   "description": "Mode Cam (Electronic Camming)",
+   "kind": "command",
+   "page": 559
+  },
+  {
+   "name": "MCDIV",
+   "syntax": "MCDIV=formula",
+   "description": "Mode Cam Divisor",
+   "kind": "register",
+   "page": 561,
+   "report": true
+  },
+  {
+   "name": "MCE",
+   "syntax": "MCE(arg)",
+   "description": "Mode Cam Enable",
+   "kind": "command",
+   "page": 562
+  },
+  {
+   "name": "MCMUL",
+   "syntax": "MCMUL=formula",
+   "description": "Mode Cam Multiplier",
+   "kind": "register",
+   "page": 564,
+   "report": true
+  },
+  {
+   "name": "MCW",
+   "syntax": "MCW(table,point)",
+   "description": "Mode Cam Where (Start Point)",
+   "kind": "command",
+   "page": 566
+  },
+  {
+   "name": "MDB",
+   "syntax": "MDB",
+   "description": "Enable TOB Feature (Commutation Mode)",
+   "kind": "command",
+   "page": 568
+  },
+  {
+   "name": "MDC",
+   "syntax": "MDC",
+   "description": "Mode Current (Commutation Mode)",
+   "kind": "command",
+   "page": 570
+  },
+  {
+   "name": "MDE",
+   "syntax": "MDE",
+   "description": "Mode Enhanced (Commutation Mode)",
+   "kind": "command",
+   "page": 572
+  },
+  {
+   "name": "MDH",
+   "syntax": "MDH",
+   "description": "Mode Hybrid (Commutation Mode)",
+   "kind": "command",
+   "page": 574
+  },
+  {
+   "name": "MDHV",
+   "syntax": "MDHV",
+   "description": "Mode Hybrid Velocity (Commutation Mode)",
+   "kind": "command",
+   "page": 576
+  },
+  {
+   "name": "MDS",
+   "syntax": "MDS",
+   "description": "Mode Sine (Commutation Mode)",
+   "kind": "command",
+   "page": 578
+  },
+  {
+   "name": "MDT",
+   "syntax": "MDT",
+   "description": "Mode Trap (Commutation Mode)",
+   "kind": "command",
+   "page": 580
+  },
+  {
+   "name": "MF0",
+   "syntax": "MF0",
+   "description": "Mode Follow, Zero External Counter",
+   "kind": "command",
+   "page": 582
+  },
+  {
+   "name": "MFA",
+   "syntax": "MFA(distance[,m/s])",
+   "description": "Mode Follow Ascend",
+   "kind": "command",
+   "page": 584
+  },
+  {
+   "name": "MFCTP",
+   "syntax": "MFCTP(arg1,arg2)",
+   "description": "Mode Follow Control Traverse Point",
+   "kind": "command",
+   "page": 587
+  },
+  {
+   "name": "MFD",
+   "syntax": "MFD(distance[,m/s])",
+   "description": "Mode Follow Descend",
+   "kind": "command",
+   "page": 589
+  },
+  {
+   "name": "MFDIV",
+   "syntax": "MFDIV=formula",
+   "description": "Mode Follow Divisor",
+   "kind": "register",
+   "page": 592,
+   "report": true
+  },
+  {
+   "name": "MFH",
+   "syntax": "MFH(distance[,m/s])",
+   "description": "Mode Follow, High Ascend/Descend Rate",
+   "kind": "command",
+   "page": 594
+  },
+  {
+   "name": "MFHTP",
+   "syntax": "MFHTP=formula",
+   "description": "Mode Follow, High Traverse Point",
+   "kind": "register",
+   "page": 596,
+   "report": true
+  },
+  {
+   "name": "MFL",
+   "syntax": "MFL(distance[,m/s])",
+   "description": "Mode Follow, Low Ascend/Descend Rate",
+   "kind": "command",
+   "page": 598
+  },
+  {
+   "name": "MFLTP",
+   "syntax": "MFLTP=formula",
+   "description": "Mode Follow, Low Traverse Point",
+   "kind": "register",
+   "page": 600,
+   "report": true
+  },
+  {
+   "name": "MFMUL",
+   "syntax": "MFMUL=formula",
+   "description": "Mode Follow Multiplier",
+   "kind": "register",
+   "page": 602,
+   "report": true
+  },
+  {
+   "name": "MFR",
+   "syntax": "MFR",
+   "description": "Mode Follow Ratio",
+   "kind": "command",
+   "page": 604
+  },
+  {
+   "name": "MFSDC",
+   "syntax": "MFSDC(distance,mode)",
+   "description": "Mode Follow, Stall-Dwell-Continue",
+   "kind": "command",
+   "page": 607
+  },
+  {
+   "name": "MFSLEW",
+   "syntax": "MFSLEW(distance[,m/s])",
+   "description": "Mode Follow Slew",
+   "kind": "command",
+   "page": 609
+  },
+  {
+   "name": "MH",
+   "syntax": "MH",
+   "description": "Mode, Homing",
+   "kind": "register",
+   "page": 611,
+   "report": true
+  },
+  {
+   "name": "MINV",
+   "syntax": "MINV(arg)",
+   "description": "Mode Inverse (Commutation Inverse)",
+   "kind": "command",
+   "page": 612
+  },
+  {
+   "name": "MODE",
+   "syntax": "MODE",
+   "description": "Mode Operating",
+   "kind": "register",
+   "page": 614,
+   "report": true
+  },
+  {
+   "name": "MP",
+   "syntax": "MP",
+   "description": "Mode Position",
+   "kind": "command",
+   "page": 617
+  },
+  {
+   "name": "MS0",
+   "syntax": "MS0",
+   "description": "Mode Step, Zero External Counter",
+   "kind": "command",
+   "page": 620
+  },
+  {
+   "name": "MSR",
+   "syntax": "MSR",
+   "description": "Mode Step Ratio",
+   "kind": "command",
+   "page": 622
+  },
+  {
+   "name": "MT",
+   "syntax": "MT",
+   "description": "Mode Torque",
+   "kind": "command",
+   "page": 624
+  },
+  {
+   "name": "MTB",
+   "syntax": "MTB",
+   "description": "Mode Torque Brake",
+   "kind": "command",
+   "page": 626
+  },
+  {
+   "name": "MV",
+   "syntax": "MV",
+   "description": "Mode Velocity",
+   "kind": "command",
+   "page": 628
+  },
+  {
+   "name": "NMT",
+   "syntax": "NMT",
+   "description": "Send NMT State",
+   "kind": "command",
+   "page": 630
+  },
+  {
+   "name": "O",
+   "syntax": "O=formula, O(trj#)=formula",
+   "description": "Origin",
+   "kind": "register",
+   "page": 632
+  },
+  {
+   "name": "OC",
+   "syntax": "OC(...)",
+   "description": "Output Condition",
+   "kind": "function",
+   "page": 635,
+   "report": true
+  },
+  {
+   "name": "OCHN",
+   "syntax": "OCHN(...)",
+   "description": "Open Channel",
+   "kind": "command",
+   "page": 637
+  },
+  {
+   "name": "OF",
+   "syntax": "OF(...)",
+   "description": "Output Fault",
+   "kind": "function",
+   "page": 639,
+   "report": true
+  },
+  {
+   "name": "OFF",
+   "syntax": "OFF",
+   "description": "Off (Drive Stage Power)",
+   "kind": "command",
+   "page": 641
+  },
+  {
+   "name": "OR",
+   "syntax": "OR(...)",
+   "description": "Output, Reset",
+   "kind": "command",
+   "page": 643
+  },
+  {
+   "name": "OS",
+   "syntax": "OS(...)",
+   "description": "Output, Set",
+   "kind": "command",
+   "page": 645
+  },
+  {
+   "name": "OSH",
+   "syntax": "OSH=formula, OSH(trj#)=formula",
+   "description": "Origin Shift",
+   "kind": "register",
+   "page": 647
+  },
+  {
+   "name": "OUT",
+   "syntax": "OUT(...)=formula",
+   "description": "Output, Activate/Deactivate",
+   "kind": "function",
+   "page": 649
+  },
+  {
+   "name": "PA",
+   "syntax": "PA",
+   "description": "Position, Actual",
+   "kind": "register",
+   "page": 652,
+   "report": true
+  },
+  {
+   "name": "PAUSE",
+   "syntax": "PAUSE",
+   "description": "Pause Program Execution",
+   "kind": "control",
+   "page": 654
+  },
+  {
+   "name": "PC",
+   "syntax": "PC, PC(axis)",
+   "description": "Position, Commanded",
+   "kind": "function",
+   "page": 656,
+   "report": true
+  },
+  {
+   "name": "PI",
+   "syntax": "PI",
+   "description": "Pi Constant",
+   "kind": "register",
+   "page": 659,
+   "report": true
+  },
+  {
+   "name": "PID",
+   "syntax": "PID#",
+   "description": "Proportional-Integral-Differential Filter Rate",
+   "kind": "command",
+   "page": 660,
+   "numbered": true
+  },
+  {
+   "name": "PMA",
+   "syntax": "PMA",
+   "description": "Position, Modulo Actual",
+   "kind": "register",
+   "page": 663,
+   "report": true
+  },
+  {
+   "name": "PML",
+   "syntax": "PML=formula",
+   "description": "Modulo Position Limit",
+   "kind": "register",
+   "page": 665,
+   "report": true
+  },
+  {
+   "name": "PMT",
+   "syntax": "PMT=formula",
+   "description": "Position, Modulo Target",
+   "kind": "register",
+   "page": 667,
+   "report": true
+  },
+  {
+   "name": "PMTN",
+   "syntax": "PMTN=formula",
+   "description": "Position, Modulo Target, Negative",
+   "kind": "register",
+   "page": 669,
+   "report": true
+  },
+  {
+   "name": "PMTP",
+   "syntax": "PMTP=formula",
+   "description": "Position, Modulo Target, Positive",
+   "kind": "register",
+   "page": 671,
+   "report": true
+  },
+  {
+   "name": "PRA",
+   "syntax": "PRA",
+   "description": "Position, Relative Actual",
+   "kind": "register",
+   "page": 673,
+   "report": true
+  },
+  {
+   "name": "PRC",
+   "syntax": "PRC",
+   "description": "Position, Relative Commanded",
+   "kind": "register",
+   "page": 676,
+   "report": true
+  },
+  {
+   "name": "PRINT",
+   "syntax": "PRINT(...)",
+   "description": "Print Data to Communications Port",
+   "kind": "command",
+   "page": 679
+  },
+  {
+   "name": "PRINT0",
+   "syntax": "PRINT0(...)",
+   "description": "Print Data to Communications Port 0",
+   "kind": "command",
+   "page": 683
+  },
+  {
+   "name": "PRINT1",
+   "syntax": "PRINT1(...)",
+   "description": "Print Data to Communications Port 1",
+   "kind": "command",
+   "page": 687
+  },
+  {
+   "name": "PRINT4",
+   "syntax": "PRINT4(...)",
+   "description": "Print to CANopen/EtherCAT Interface 0x2500",
+   "kind": "command",
+   "page": 690
+  },
+  {
+   "name": "PRINT7",
+   "syntax": "PRINT7(...)",
+   "description": "Print to Ethernet Encapsulated Serial",
+   "kind": "command",
+   "page": 692
+  },
+  {
+   "name": "PRINT8",
+   "syntax": "PRINT8(...)",
+   "description": "Print Data to USB Port",
+   "kind": "command",
+   "page": 693
+  },
+  {
+   "name": "PRT",
+   "syntax": "PRT=formula",
+   "description": "Position, Relative Target",
+   "kind": "register",
+   "page": 696,
+   "report": true
+  },
+  {
+   "name": "PRTS",
+   "syntax": "PRTS(...)",
+   "description": "Position, Relative Target, Synchronized",
+   "kind": "command",
+   "page": 698
+  },
+  {
+   "name": "PRTSS",
+   "syntax": "PRTSS(...)",
+   "description": "Position, Relative Target, Synchronized, Supplemental",
+   "kind": "command",
+   "page": 701
+  },
+  {
+   "name": "PT",
+   "syntax": "PT=formula",
+   "description": "Position, (Absolute) Target",
+   "kind": "register",
+   "page": 703,
+   "report": true
+  },
+  {
+   "name": "PTS",
+   "syntax": "PTS(...)",
+   "description": "Position Target, Synchronized",
+   "kind": "command",
+   "page": 705
+  },
+  {
+   "name": "PTSD",
+   "syntax": "PTSD",
+   "description": "Position Target, Synchronized Distance",
+   "kind": "register",
+   "page": 708,
+   "report": true
+  },
+  {
+   "name": "PTSS",
+   "syntax": "PTSS(...)",
+   "description": "Position Target, Synchronized Supplemental",
+   "kind": "command",
+   "page": 709
+  },
+  {
+   "name": "PTST",
+   "syntax": "PTST",
+   "description": "Position Target, Synchronized Time",
+   "kind": "register",
+   "page": 711,
+   "report": true
+  },
+  {
+   "name": "RANDOM",
+   "syntax": "RANDOM=formula",
+   "description": "Random Number",
+   "kind": "register",
+   "page": 712,
+   "report": true
+  },
+  {
+   "name": "RCKS",
+   "syntax": "RCKS",
+   "description": "Report Checksum",
+   "kind": "command",
+   "page": 714
+  },
+  {
+   "name": "RES",
+   "syntax": "RES",
+   "description": "Resolution",
+   "kind": "register",
+   "page": 715,
+   "report": true
+  },
+  {
+   "name": "RESUME",
+   "syntax": "RESUME",
+   "description": "Resume Program Execution",
+   "kind": "control",
+   "page": 717
+  },
+  {
+   "name": "RETURN",
+   "syntax": "RETURN",
+   "description": "Return From Subroutine",
+   "kind": "control",
+   "page": 719
+  },
+  {
+   "name": "RETURNI",
+   "syntax": "RETURNI",
+   "description": "Return Interrupt",
+   "kind": "control",
+   "page": 721
+  },
+  {
+   "name": "RSP",
+   "syntax": "RSP",
+   "description": "Report Sampling Rate and Firmware Revision",
+   "kind": "command",
+   "page": 723
+  },
+  {
+   "name": "RSP1",
+   "syntax": "RSP1",
+   "description": "Report Firmware Compile Date",
+   "kind": "command",
+   "page": 725
+  },
+  {
+   "name": "RSP5",
+   "syntax": "RSP5",
+   "description": "Report Network Card Firmware Version",
+   "kind": "command",
+   "page": 726
+  },
+  {
+   "name": "RSRA",
+   "syntax": "RSRA",
+   "description": "Report Source Ratio, Actual",
+   "kind": "command",
+   "page": 727
+  },
+  {
+   "name": "RUN",
+   "syntax": "RUN",
+   "description": "Run Program",
+   "kind": "control",
+   "page": 729
+  },
+  {
+   "name": "RUN?",
+   "syntax": "RUN?",
+   "description": "Halt Program Execution Until RUN Received",
+   "kind": "control",
+   "page": 731
+  },
+  {
+   "name": "S",
+   "syntax": "S",
+   "description": "Stop Motion",
+   "kind": "command",
+   "page": 733
+  },
+  {
+   "name": "SADDR",
+   "syntax": "SADDR#",
+   "description": "Set Address",
+   "kind": "command",
+   "page": 735,
+   "numbered": true
+  },
+  {
+   "name": "SAMP",
+   "syntax": "SAMP",
+   "description": "Sampling Rate",
+   "kind": "register",
+   "page": 737,
+   "report": true
+  },
+  {
+   "name": "SCALEA",
+   "syntax": "SCALEA(m,d)",
+   "description": "Scale Acceleration Value",
+   "kind": "command",
+   "page": 739
+  },
+  {
+   "name": "SCALEP",
+   "syntax": "SCALEP(m,d)",
+   "description": "Scale Position Value",
+   "kind": "command",
+   "page": 741
+  },
+  {
+   "name": "SCALEV",
+   "syntax": "SCALEV(m,d)",
+   "description": "Scale Velocity Value",
+   "kind": "command",
+   "page": 743
+  },
+  {
+   "name": "SDORD",
+   "syntax": "SDORD(...)",
+   "description": "SDO Read",
+   "kind": "command",
+   "page": 745
+  },
+  {
+   "name": "SDOWR",
+   "syntax": "SDOWR(...)",
+   "description": "SDO Write",
+   "kind": "command",
+   "page": 747
+  },
+  {
+   "name": "SG",
+   "syntax": "SG",
+   "description": "Speed Governor",
+   "kind": "register",
+   "page": 749,
+   "report": true
+  },
+  {
+   "name": "SILENT",
+   "syntax": "SILENT",
+   "description": "Silence Outgoing Communications on Communications Port 0",
+   "kind": "command",
+   "page": 751
+  },
+  {
+   "name": "SILENT1",
+   "syntax": "SILENT1",
+   "description": "Silence Outgoing Communications on Communications Port 1",
+   "kind": "command",
+   "page": 753
+  },
+  {
+   "name": "SIN",
+   "syntax": "SIN(value)",
+   "description": "Sine",
+   "kind": "function",
+   "page": 755,
+   "report": true
+  },
+  {
+   "name": "SLD",
+   "syntax": "SLD",
+   "description": "Software Limits, Disable",
+   "kind": "command",
+   "page": 757
+  },
+  {
+   "name": "SLE",
+   "syntax": "SLE",
+   "description": "Software Limits, Enable",
+   "kind": "command",
+   "page": 759
+  },
+  {
+   "name": "SLEEP",
+   "syntax": "SLEEP",
+   "description": "Ignore Incoming Commands on Communications Port 0",
+   "kind": "command",
+   "page": 761
+  },
+  {
+   "name": "SLEEP1",
+   "syntax": "SLEEP1",
+   "description": "Ignore Incoming Commands on Communications Port 1",
+   "kind": "command",
+   "page": 763
+  },
+  {
+   "name": "SLM",
+   "syntax": "SLM(mode)",
+   "description": "Software Limit Mode",
+   "kind": "function",
+   "page": 765,
+   "report": true
+  },
+  {
+   "name": "SLN",
+   "syntax": "SLN=formula",
+   "description": "Software Limit, Negative",
+   "kind": "register",
+   "page": 767,
+   "report": true
+  },
+  {
+   "name": "SLP",
+   "syntax": "SLP=formula",
+   "description": "Software Limit, Positive",
+   "kind": "register",
+   "page": 769,
+   "report": true
+  },
+  {
+   "name": "SNAME",
+   "syntax": "SNAME(\"string\")",
+   "description": "Set PROFINET Station Name",
+   "kind": "command",
+   "page": 771
+  },
+  {
+   "name": "SP2",
+   "syntax": "SP2",
+   "description": "Bootloader Version",
+   "kind": "register",
+   "page": 772,
+   "report": true
+  },
+  {
+   "name": "SP6",
+   "syntax": "SP6",
+   "description": "Serial Number",
+   "kind": "register",
+   "page": 773,
+   "report": true
+  },
+  {
+   "name": "SQRT",
+   "syntax": "SQRT(value)",
+   "description": "Integer Square Root",
+   "kind": "function",
+   "page": 774,
+   "report": true
+  },
+  {
+   "name": "SRC",
+   "syntax": "SRC(enc_src)",
+   "description": "Source, Follow and/or Cam Encoder",
+   "kind": "command",
+   "page": 776
+  },
+  {
+   "name": "SRM",
+   "syntax": "SRM=formula",
+   "description": "Source Ratio Multiplier",
+   "kind": "register",
+   "page": 778,
+   "report": true
+  },
+  {
+   "name": "SRR",
+   "syntax": "SRR=formula",
+   "description": "Source Ratio Rate",
+   "kind": "register",
+   "page": 780,
+   "report": true
+  },
+  {
+   "name": "STACK",
+   "syntax": "STACK",
+   "description": "Stack Pointer Register, Clear",
+   "kind": "command",
+   "page": 782
+  },
+  {
+   "name": "STDOUT",
+   "syntax": "STDOUT=formula",
+   "description": "Set Device Output",
+   "kind": "register",
+   "page": 785
+  },
+  {
+   "name": "SWITCH",
+   "syntax": "SWITCH formula",
+   "description": "Switch, Program Flow Control",
+   "kind": "control",
+   "page": 788
+  },
+  {
+   "name": "SYSCTL",
+   "syntax": "SYSCTL(function,value)",
+   "description": "System Control",
+   "kind": "command",
+   "page": 791
+  },
+  {
+   "name": "T",
+   "syntax": "T=formula",
+   "description": "Torque, Open-Loop Commanded",
+   "kind": "register",
+   "page": 793,
+   "report": true
+  },
+  {
+   "name": "TALK",
+   "syntax": "TALK",
+   "description": "Talk on Communications Port 0",
+   "kind": "command",
+   "page": 795
+  },
+  {
+   "name": "TALK1",
+   "syntax": "TALK1",
+   "description": "Talk on Communications Port 1",
+   "kind": "command",
+   "page": 797
+  },
+  {
+   "name": "TAN",
+   "syntax": "TAN(value)",
+   "description": "Tangent",
+   "kind": "function",
+   "page": 799,
+   "report": true
+  },
+  {
+   "name": "TEMP",
+   "syntax": "TEMP, TEMP(arg)",
+   "description": "Temperature, Motor",
+   "kind": "function",
+   "page": 801,
+   "report": true
+  },
+  {
+   "name": "TH",
+   "syntax": "TH=formula",
+   "description": "Temperature, High Limit",
+   "kind": "register",
+   "page": 803,
+   "report": true
+  },
+  {
+   "name": "TMR",
+   "syntax": "TMR(timer,time)",
+   "description": "Timer",
+   "kind": "function",
+   "page": 806,
+   "report": true
+  },
+  {
+   "name": "TRQ",
+   "syntax": "TRQ",
+   "description": "Torque, Real-Time",
+   "kind": "register",
+   "page": 808,
+   "report": true
+  },
+  {
+   "name": "TS",
+   "syntax": "TS=formula",
+   "description": "Torque Slope",
+   "kind": "register",
+   "page": 810,
+   "report": true
+  },
+  {
+   "name": "TSWAIT",
+   "syntax": "TSWAIT",
+   "description": "Trajectory Synchronized Wait",
+   "kind": "command",
+   "page": 812
+  },
+  {
+   "name": "TWAIT",
+   "syntax": "TWAIT(gen#)",
+   "description": "Trajectory Wait",
+   "kind": "command",
+   "page": 813
+  },
+  {
+   "name": "UIA",
+   "syntax": "UIA",
+   "description": "Motor Current",
+   "kind": "register",
+   "page": 815,
+   "report": true
+  },
+  {
+   "name": "UJA",
+   "syntax": "UJA",
+   "description": "Bus Voltage",
+   "kind": "register",
+   "page": 817,
+   "report": true
+  },
+  {
+   "name": "UO",
+   "syntax": "UO(...)=formula",
+   "description": "User Status Bits",
+   "kind": "function",
+   "page": 819
+  },
+  {
+   "name": "UP",
+   "syntax": "UP",
+   "description": "Upload Compiled Program and Header",
+   "kind": "command",
+   "page": 821
+  },
+  {
+   "name": "UPLOAD",
+   "syntax": "UPLOAD",
+   "description": "Upload Standard User Program",
+   "kind": "command",
+   "page": 823
+  },
+  {
+   "name": "UR",
+   "syntax": "UR(...)",
+   "description": "User Bits, Reset",
+   "kind": "command",
+   "page": 825
+  },
+  {
+   "name": "US",
+   "syntax": "US(...)",
+   "description": "User Bits, Set",
+   "kind": "command",
+   "page": 827
+  },
+  {
+   "name": "USB",
+   "syntax": "USB(arg)",
+   "description": "USB Status Word",
+   "kind": "function",
+   "page": 829,
+   "report": true
+  },
+  {
+   "name": "VA",
+   "syntax": "VA",
+   "description": "Velocity Actual",
+   "kind": "register",
+   "page": 831,
+   "report": true
+  },
+  {
+   "name": "VAC",
+   "syntax": "VAC(arg)",
+   "description": "Velocity Actual (filter) Control",
+   "kind": "command",
+   "page": 834
+  },
+  {
+   "name": "VC",
+   "syntax": "VC",
+   "description": "Velocity Commanded",
+   "kind": "register",
+   "page": 839,
+   "report": true
+  },
+  {
+   "name": "VL",
+   "syntax": "VL=formula",
+   "description": "Velocity Limit",
+   "kind": "register",
+   "page": 842,
+   "report": true
+  },
+  {
+   "name": "VLD",
+   "syntax": "VLD(variable,number)",
+   "description": "Variable Load",
+   "kind": "command",
+   "page": 844
+  },
+  {
+   "name": "VST",
+   "syntax": "VST(variable,number)",
+   "description": "Variable Save",
+   "kind": "command",
+   "page": 848
+  },
+  {
+   "name": "VT",
+   "syntax": "VT=formula",
+   "description": "Velocity Target",
+   "kind": "register",
+   "page": 852,
+   "report": true
+  },
+  {
+   "name": "VTS",
+   "syntax": "VTS=formula",
+   "description": "Velocity Target, Synchronized Move",
+   "kind": "register",
+   "page": 855
+  },
+  {
+   "name": "W",
+   "syntax": "W(word)",
+   "description": "Report Specified Status Word",
+   "kind": "function",
+   "page": 857,
+   "report": true
+  },
+  {
+   "name": "WAIT",
+   "syntax": "WAIT=formula",
+   "description": "Wait for Specified Time",
+   "kind": "register",
+   "page": 859
+  },
+  {
+   "name": "WAKE",
+   "syntax": "WAKE",
+   "description": "Wake Communications Port 0",
+   "kind": "command",
+   "page": 861
+  },
+  {
+   "name": "WAKE1",
+   "syntax": "WAKE1",
+   "description": "Wake Communications Port 1",
+   "kind": "command",
+   "page": 863
+  },
+  {
+   "name": "WHILE",
+   "syntax": "WHILE formula",
+   "description": "While Condition Program Flow Control",
+   "kind": "control",
+   "page": 865
+  },
+  {
+   "name": "X",
+   "syntax": "X",
+   "description": "Decelerate to Stop",
+   "kind": "command",
+   "page": 868
+  },
+  {
+   "name": "Z",
+   "syntax": "Z",
+   "description": "Total CPU Reset",
+   "kind": "command",
+   "page": 870
+  },
+  {
+   "name": "Z",
+   "syntax": "Z(word,bit)",
+   "description": "Reset Specified Status Bit",
+   "kind": "reset",
+   "page": 872
+  },
+  {
+   "name": "Za",
+   "syntax": "Za",
+   "description": "Reset Overcurrent Flag",
+   "kind": "reset",
+   "page": 874
+  },
+  {
+   "name": "Ze",
+   "syntax": "Ze",
+   "description": "Reset Position Error Flag",
+   "kind": "reset",
+   "page": 875
+  },
+  {
+   "name": "Zh",
+   "syntax": "Zh",
+   "description": "Reset Temperature Fault",
+   "kind": "reset",
+   "page": 876
+  },
+  {
+   "name": "Zl",
+   "syntax": "Zl",
+   "description": "Reset Historical Left Limit Flag",
+   "kind": "reset",
+   "page": 877
+  },
+  {
+   "name": "Zls",
+   "syntax": "Zls",
+   "description": "Reset Left Software Limit Flag, Historical",
+   "kind": "reset",
+   "page": 878
+  },
+  {
+   "name": "Zr",
+   "syntax": "Zr",
+   "description": "Reset Right Limit Flag, Historical",
+   "kind": "reset",
+   "page": 879
+  },
+  {
+   "name": "Zrs",
+   "syntax": "Zrs",
+   "description": "Reset Right Software Limit Flag, Historical",
+   "kind": "reset",
+   "page": 880
+  },
+  {
+   "name": "Zs",
+   "syntax": "Zs",
+   "description": "Reset Command Syntax Error Flag",
+   "kind": "reset",
+   "page": 881
+  },
+  {
+   "name": "ZS",
+   "syntax": "ZS",
+   "description": "Global Reset System State Flag",
+   "kind": "reset",
+   "page": 882
+  },
+  {
+   "name": "Zv",
+   "syntax": "Zv",
+   "description": "Reset Velocity Limit Fault",
+   "kind": "reset",
+   "page": 884
+  },
+  {
+   "name": "Zw",
+   "syntax": "Zw",
+   "description": "Reset Encoder Wrap Status Flag",
+   "kind": "reset",
+   "page": 885
+  }
+ ]
+}

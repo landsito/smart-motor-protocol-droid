@@ -1,0 +1,192 @@
+>'Using SmartMotor interrupts and timers to poll via SDO.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'Note PDO mapping is also available; this is just a simplified code example.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>CANCTL(17,3)        'ENABLE CONTROLLER COMMANDS
+#^^^^^^ source.smartmotor keyword.other.command.smartmotor
+#      ^ source.smartmotor punctuation.section.brackets.smartmotor
+#       ^^ source.smartmotor constant.numeric.smartmotor
+#         ^ source.smartmotor punctuation.separator.comma.smartmotor
+#          ^ source.smartmotor constant.numeric.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^^^^^^^^ source.smartmotor
+#                    ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                     ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ITR (3,4,3,0,300)   'WATCHDOG TIMER INTERRUPT (for polling CAN bus device)
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor
+#    ^ source.smartmotor punctuation.section.brackets.smartmotor
+#     ^ source.smartmotor constant.numeric.smartmotor
+#      ^ source.smartmotor punctuation.separator.comma.smartmotor
+#       ^ source.smartmotor constant.numeric.smartmotor
+#        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#         ^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.separator.comma.smartmotor
+#           ^ source.smartmotor constant.numeric.smartmotor
+#            ^ source.smartmotor punctuation.separator.comma.smartmotor
+#             ^^^ source.smartmotor constant.numeric.smartmotor
+#                ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                 ^^^ source.smartmotor
+#                    ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>EITR(3)             'ENABLE INTERRUPT 3
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+#    ^ source.smartmotor punctuation.section.brackets.smartmotor
+#     ^ source.smartmotor constant.numeric.smartmotor
+#      ^ source.smartmotor punctuation.section.brackets.smartmotor
+#       ^^^^^^^^^^^^^ source.smartmotor
+#                    ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                     ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ITRE                'ENABLE ALL INTERRUPTS
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+#    ^^^^^^^^^^^^^^^^ source.smartmotor
+#                    ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                     ^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>TMR(3,30)           'Start timer 3 for 30 milliseconds
+#^^^ source.smartmotor support.function.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^^ source.smartmotor constant.numeric.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#         ^^^^^^^^^^^ source.smartmotor
+#                    ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>PAUSE
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>END
+#^^^ source.smartmotor keyword.control.smartmotor
+>'============================================================================
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>C300  'CAN bus device has two data packets that will be loaded into  x and y.
+#^^^^ source.smartmotor entity.name.function.label.smartmotor
+#    ^^ source.smartmotor
+#      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>   x=SDORD(1, 24592,0,2)      'Read 2 bytes from address 1,
+#^^^ source.smartmotor
+#   ^ source.smartmotor variable.other.user.smartmotor
+#    ^ source.smartmotor keyword.operator.assignment.smartmotor
+#     ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^ source.smartmotor constant.numeric.smartmotor
+#            ^ source.smartmotor punctuation.separator.comma.smartmotor
+#             ^ source.smartmotor
+#              ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^ source.smartmotor
+#                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                              'object 24592 (0x6179 hex)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                               ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                              'object 0x6010, sub-index 0.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>   e=CAN(4)                   'Trap error codes if any.
+#^^^ source.smartmotor
+#   ^ source.smartmotor variable.other.user.smartmotor
+#    ^ source.smartmotor keyword.operator.assignment.smartmotor
+#     ^^^ source.smartmotor support.function.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#         ^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                               ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>   y=SDORD(1, 24608,0,2)      'Read 2 bytes from address 1,
+#^^^ source.smartmotor
+#   ^ source.smartmotor variable.other.user.smartmotor
+#    ^ source.smartmotor keyword.operator.assignment.smartmotor
+#     ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^ source.smartmotor constant.numeric.smartmotor
+#            ^ source.smartmotor punctuation.separator.comma.smartmotor
+#             ^ source.smartmotor
+#              ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^ source.smartmotor
+#                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                              'object 24608 (0x6020 hex)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                               ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                              'object 0x6020, sub-index 0.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>   ee=CAN(4)                  'Trap error codes if any.
+#^^^ source.smartmotor
+#   ^^ source.smartmotor variable.other.user.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^^^ source.smartmotor support.function.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^ source.smartmotor constant.numeric.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                               ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>   IF (e|ee)==0               'Confirm the status of both SDO operations.
+#^^^ source.smartmotor
+#   ^^ source.smartmotor keyword.control.smartmotor
+#     ^ source.smartmotor
+#      ^ source.smartmotor punctuation.section.brackets.smartmotor
+#       ^ source.smartmotor variable.other.user.smartmotor
+#        ^ source.smartmotor keyword.operator.logical.smartmotor
+#         ^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#              ^ source.smartmotor constant.numeric.smartmotor
+#               ^^^^^^^^^^^^^^^ source.smartmotor
+#                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                              'Success if they are zero.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                               ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>   'The variables "x" and "y" now contain values from the CAN bus device.
+#^^^ source.smartmotor
+#   ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>   ELSE
+#^^^ source.smartmotor
+#   ^^^^ source.smartmotor keyword.control.smartmotor
+>               'Place error handling code here.
+#^^^^^^^^^^^^^^^ source.smartmotor
+#               ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>   ENDIF
+#^^^ source.smartmotor
+#   ^^^^^ source.smartmotor keyword.control.smartmotor
+>   TMR(3,30)   'Start timer 3 again for 30 milliseconds.
+#^^^ source.smartmotor
+#   ^^^ source.smartmotor support.function.smartmotor
+#      ^ source.smartmotor punctuation.section.brackets.smartmotor
+#       ^ source.smartmotor constant.numeric.smartmotor
+#        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#         ^^ source.smartmotor constant.numeric.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^^^ source.smartmotor
+#               ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>               'This means the data will be polled every 30 milliseconds.
+#^^^^^^^^^^^^^^^ source.smartmotor
+#               ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>RETURNI
+#^^^^^^^ source.smartmotor keyword.control.smartmotor
+>

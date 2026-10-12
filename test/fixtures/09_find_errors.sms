@@ -1,0 +1,11 @@
+C10             'Subroutine label
+  IF Be         'Check for position error
+    PRINT("Position Error",#13)
+  ENDIF
+  IF Bh         'Check for over temp error
+    PRINT("Over Temp Error",#13)
+  ENDIF
+  IF Ba         'Check for over current error
+    PRINT("Over Current Error",#13)
+  ENDIF
+RETURN          'Return to subroutine call

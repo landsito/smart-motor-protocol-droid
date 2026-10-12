@@ -1,0 +1,2711 @@
+>' Demo with one motor following a CANopen encoder on CANopen network.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' Motor 1 is a controller as far as NMT and SDOs, but will follow data from
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' encoder. Motor 2 will act as an encoder, (the PDO mapping to position actual
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' instead of an encoder's position object.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' Load this program into both motors.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>'++++ HEX Coded Objects for CAN +++++
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x1000   4096  ' Object 1000h: Device Type
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x1005   4101  ' Object 1005h: COB-ID Sync
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x1006   4102  ' Object 1006h: Communication Cycle Period
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x1400   5120  ' Object 1400h: Receive PDO Communication Parameter
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x1600   5632  ' Object 1600h: Receive PDO Mapping Parameter 1
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x1800   6144  ' Object 1800h: Transmit PDO communicating parameter 1
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x1801   6145  ' Object 1801h: Transmit PDO communicating parameter 2
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x1A00   6656  ' Object 1A00h: Transmit PDO Mapping Parameter 1
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x1A01   6657  ' Object 1A01h: Transmit PDO Mapping Parameter 2
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x2204   8708  ' Object 2204h: Mappable Variables aaa...ddd)
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x2207   8711  ' Object 2207h: External encoder follow max value (where
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                      ' encoder rolls over) i.e., 10-bit encoder would be 1023
+#^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x2208   8712  ' Object 2208h: External encoder follow input value
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x2209   8713  ' Object 2209h: External encoder follow control
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x220A   8714  ' Object 220Ah: External encoder follow MFMUL
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x220B   8715  ' Object 220Bh: External encoder follow MFDIV
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x220C   8716  ' Object 220Ch: External encoder follow MFA
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x220D   8717  ' Object 220Dh: External encoder follow MFD
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x2304   8964  ' Object 2304h: Motor Status
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^ source.smartmotor constant.numeric.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x6002   24578 ' Object 6002h: (encoder profile) Total measuring range
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x6040   24640 ' Object 6040h: Control word
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x6060   24672 ' Object 6060h: Trajectory Mode
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x6064   24676 ' Object 6064h: Position actual value (RPA)
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x606C   24684 ' Object 606Ch: Velocity actual value (RVA)
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x608F   24719 ' Object 608Fh: Position encoder resolution
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define x60F4   24820 ' Object 60F4h: Position Error actual value (REA)
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^ source.smartmotor entity.name.constant.smartmotor
+#             ^^^ source.smartmotor
+#                ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' misc values:
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#define xffffffff -1
+#^^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#       ^ source.smartmotor
+#        ^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                 ^ source.smartmotor
+#                  ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                   ^ source.smartmotor constant.numeric.smartmotor
+>OFF
+#^^^ source.smartmotor keyword.other.command.smartmotor
+>ADDR=CADDR      ' Set serial channel address so you don't have to re-
+#^^^^ source.smartmotor variable.language.register.smartmotor
+#    ^ source.smartmotor keyword.operator.assignment.smartmotor
+#     ^^^^^ source.smartmotor variable.language.register.smartmotor
+#          ^^^^^^ source.smartmotor
+#                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                ' address/detect motors.
+#^^^^^^^^^^^^^^^^ source.smartmotor
+#                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                 ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ECHO            ' Enable serial channel echo so you don't have to re-
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+#    ^^^^^^^^^^^^ source.smartmotor
+#                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                ' address/detect motors.
+#^^^^^^^^^^^^^^^^ source.smartmotor
+#                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                 ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>mmm=1           ' network controller's address
+#^^^ source.smartmotor variable.other.user.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^^^^^^^^^^^ source.smartmotor
+#                ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>fff=mmm       ' The following motor's address. In this demo, it is the network
+#^^^ source.smartmotor variable.other.user.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^^^ source.smartmotor variable.other.user.smartmotor
+#       ^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>              ' controller, but you can use a 3rd-party encoder's address.
+#^^^^^^^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>eee=2         ' The encoder's address.
+#^^^ source.smartmotor variable.other.user.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>EIGN(W,0)     ' Turn off hardware limits!!!!!
+#^^^^ source.smartmotor keyword.other.command.smartmotor
+#    ^ source.smartmotor punctuation.section.brackets.smartmotor
+#     ^ source.smartmotor support.function.smartmotor
+#      ^ source.smartmotor punctuation.separator.comma.smartmotor
+#       ^ source.smartmotor constant.numeric.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#         ^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ZS            ' Clear faults.
+#^^ source.smartmotor keyword.other.reset.smartmotor
+#  ^^^^^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>O=0
+#^ source.smartmotor variable.language.register.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^ source.smartmotor constant.numeric.smartmotor
+>WAIT=100
+#^^^^ source.smartmotor variable.language.register.smartmotor
+#    ^ source.smartmotor keyword.operator.assignment.smartmotor
+#     ^^^ source.smartmotor constant.numeric.smartmotor
+>a=ADDR+128
+#^ source.smartmotor variable.other.user.smartmotor
+# ^ source.smartmotor keyword.operator.assignment.smartmotor
+#  ^^^^ source.smartmotor variable.language.register.smartmotor
+#      ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#       ^^^ source.smartmotor constant.numeric.smartmotor
+>PRINT(#a)     ' Send our own address char to make sure downstream motors
+#^^^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^ source.smartmotor constant.character.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#         ^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>              ' don't interpret program output as commands.
+#^^^^^^^^^^^^^^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>IF CADDR==mmm
+#^^ source.smartmotor keyword.control.smartmotor
+#  ^ source.smartmotor
+#   ^^^^^ source.smartmotor variable.language.register.smartmotor
+#        ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#          ^^^ source.smartmotor variable.other.user.smartmotor
+>  ' We are the controller, take over the show.
+#^^ source.smartmotor
+#  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  CANCTL(17,3)    ' Enable SDO and NMT commands.
+#^^ source.smartmotor
+#  ^^^^^^ source.smartmotor keyword.other.command.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#         ^^ source.smartmotor constant.numeric.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^ source.smartmotor constant.numeric.smartmotor
+#             ^ source.smartmotor punctuation.section.brackets.smartmotor
+#              ^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  PRINT("Checking for encoder ready: ",#13)
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                     ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                      ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                       ^^^ source.smartmotor constant.character.smartmotor
+#                                          ^ source.smartmotor punctuation.section.brackets.smartmotor
+>  t=0
+#^^ source.smartmotor
+#  ^ source.smartmotor variable.other.user.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+>  WHILE 1
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.control.smartmotor
+#       ^ source.smartmotor
+#        ^ source.smartmotor constant.numeric.smartmotor
+>    vvv=SDORD(eee,x1000,0,4)   ' Read device type from encoder.
+#^^^^ source.smartmotor
+#    ^^^ source.smartmotor variable.other.user.smartmotor
+#       ^ source.smartmotor keyword.operator.assignment.smartmotor
+#        ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#             ^ source.smartmotor punctuation.section.brackets.smartmotor
+#              ^^^ source.smartmotor variable.other.user.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^^^^^ source.smartmotor
+#                       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                        ^ source.smartmotor constant.numeric.smartmotor
+#                         ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                          ^ source.smartmotor constant.numeric.smartmotor
+#                           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                            ^^^ source.smartmotor
+#                               ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    IF CAN(4)==0  ' Check error for a successful read.  A timeout is very
+#^^^^ source.smartmotor
+#    ^^ source.smartmotor keyword.control.smartmotor
+#      ^ source.smartmotor
+#       ^^^ source.smartmotor support.function.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^ source.smartmotor constant.numeric.smartmotor
+#            ^ source.smartmotor punctuation.section.brackets.smartmotor
+#             ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#               ^ source.smartmotor constant.numeric.smartmotor
+#                ^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                  ' likely until remote device is ready.
+#^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>      IF (vvv&65535)==406  ' Check lower 16-bits for profile type of device.
+#^^^^^^ source.smartmotor
+#      ^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^^^ source.smartmotor variable.other.user.smartmotor
+#             ^ source.smartmotor keyword.operator.logical.smartmotor
+#              ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                    ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#                      ^^^ source.smartmotor constant.numeric.smartmotor
+#                         ^^ source.smartmotor
+#                           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>        PRINT("Found encoder",#13)
+#^^^^^^^^ source.smartmotor
+#        ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#             ^ source.smartmotor punctuation.section.brackets.smartmotor
+#              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#               ^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                             ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                              ^^^ source.smartmotor constant.character.smartmotor
+#                                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+>        SWITCH vvv/65536  ' We want to look at the upper 16-bits.
+#^^^^^^^^ source.smartmotor
+#        ^^^^^^ source.smartmotor keyword.control.smartmotor
+#              ^ source.smartmotor
+#               ^^^ source.smartmotor variable.other.user.smartmotor
+#                  ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                   ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                        ^^ source.smartmotor
+#                          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>          CASE 1
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^ source.smartmotor keyword.control.smartmotor
+#              ^ source.smartmotor
+#               ^ source.smartmotor constant.numeric.smartmotor
+>            PRINT("Single-turn absolute rotary encoder.",#13)
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                         ^^^ source.smartmotor constant.character.smartmotor
+#                                                            ^ source.smartmotor punctuation.section.brackets.smartmotor
+>            t=1
+#^^^^^^^^^^^^ source.smartmotor
+#            ^ source.smartmotor variable.other.user.smartmotor
+#             ^ source.smartmotor keyword.operator.assignment.smartmotor
+#              ^ source.smartmotor constant.numeric.smartmotor
+>            BREAK
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.control.smartmotor
+>          CASE 2
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^ source.smartmotor keyword.control.smartmotor
+#              ^ source.smartmotor
+#               ^ source.smartmotor constant.numeric.smartmotor
+>            PRINT("Multi-turn absolute rotary encoder.",#13)
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                      ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                        ^^^ source.smartmotor constant.character.smartmotor
+#                                                           ^ source.smartmotor punctuation.section.brackets.smartmotor
+>            t=1
+#^^^^^^^^^^^^ source.smartmotor
+#            ^ source.smartmotor variable.other.user.smartmotor
+#             ^ source.smartmotor keyword.operator.assignment.smartmotor
+#              ^ source.smartmotor constant.numeric.smartmotor
+>            BREAK
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.control.smartmotor
+>          CASE 3
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^ source.smartmotor keyword.control.smartmotor
+#              ^ source.smartmotor
+#               ^ source.smartmotor constant.numeric.smartmotor
+>            PRINT("Single-turn absolute rotary encoder ")
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                        ^ source.smartmotor punctuation.section.brackets.smartmotor
+>            PRINT("with electronic turn-count.",#13)
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                               ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                ^^^ source.smartmotor constant.character.smartmotor
+#                                                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+>            t=1
+#^^^^^^^^^^^^ source.smartmotor
+#            ^ source.smartmotor variable.other.user.smartmotor
+#             ^ source.smartmotor keyword.operator.assignment.smartmotor
+#              ^ source.smartmotor constant.numeric.smartmotor
+>            BREAK
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.control.smartmotor
+>          CASE 4
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^ source.smartmotor keyword.control.smartmotor
+#              ^ source.smartmotor
+#               ^ source.smartmotor constant.numeric.smartmotor
+>            PRINT("Incremental rotary encoder.",#13)
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                               ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                ^^^ source.smartmotor constant.character.smartmotor
+#                                                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+>            t=1
+#^^^^^^^^^^^^ source.smartmotor
+#            ^ source.smartmotor variable.other.user.smartmotor
+#             ^ source.smartmotor keyword.operator.assignment.smartmotor
+#              ^ source.smartmotor constant.numeric.smartmotor
+>            BREAK
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.control.smartmotor
+>          CASE 5
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^ source.smartmotor keyword.control.smartmotor
+#              ^ source.smartmotor
+#               ^ source.smartmotor constant.numeric.smartmotor
+>            PRINT("Incremental rotary encoder with electronic counting.",#13)
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                                        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                                         ^^^ source.smartmotor constant.character.smartmotor
+#                                                                            ^ source.smartmotor punctuation.section.brackets.smartmotor
+>            t=1
+#^^^^^^^^^^^^ source.smartmotor
+#            ^ source.smartmotor variable.other.user.smartmotor
+#             ^ source.smartmotor keyword.operator.assignment.smartmotor
+#              ^ source.smartmotor constant.numeric.smartmotor
+>            BREAK
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.control.smartmotor
+>          CASE 6
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^ source.smartmotor keyword.control.smartmotor
+#              ^ source.smartmotor
+#               ^ source.smartmotor constant.numeric.smartmotor
+>            PRINT("Incremental linear encoder.",#13)
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                               ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                ^^^ source.smartmotor constant.character.smartmotor
+#                                                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+>            t=1
+#^^^^^^^^^^^^ source.smartmotor
+#            ^ source.smartmotor variable.other.user.smartmotor
+#             ^ source.smartmotor keyword.operator.assignment.smartmotor
+#              ^ source.smartmotor constant.numeric.smartmotor
+>            BREAK
+#^^^^^^^^^^^^ source.smartmotor
+#            ^^^^^ source.smartmotor keyword.control.smartmotor
+>          CASE 7
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^ source.smartmotor keyword.control.smartmotor
+#              ^ source.smartmotor
+#               ^ source.smartmotor constant.numeric.smartmotor
+>          PRINT("Incremental linear encoder with electronic counting.",#13)
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#               ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                                     ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                                      ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                                       ^^^ source.smartmotor constant.character.smartmotor
+#                                                                          ^ source.smartmotor punctuation.section.brackets.smartmotor
+>          t=1
+#^^^^^^^^^^ source.smartmotor
+#          ^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor keyword.operator.assignment.smartmotor
+#            ^ source.smartmotor constant.numeric.smartmotor
+>          BREAK
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^^ source.smartmotor keyword.control.smartmotor
+>        CASE 8
+#^^^^^^^^ source.smartmotor
+#        ^^^^ source.smartmotor keyword.control.smartmotor
+#            ^ source.smartmotor
+#             ^ source.smartmotor constant.numeric.smartmotor
+>          PRINT("Absolute linear encoder.",#13)
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#               ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                 ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                         ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                          ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                           ^^^ source.smartmotor constant.character.smartmotor
+#                                              ^ source.smartmotor punctuation.section.brackets.smartmotor
+>          t=1
+#^^^^^^^^^^ source.smartmotor
+#          ^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor keyword.operator.assignment.smartmotor
+#            ^ source.smartmotor constant.numeric.smartmotor
+>          BREAK
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^^ source.smartmotor keyword.control.smartmotor
+>        CASE 9
+#^^^^^^^^ source.smartmotor
+#        ^^^^ source.smartmotor keyword.control.smartmotor
+#            ^ source.smartmotor
+#             ^ source.smartmotor constant.numeric.smartmotor
+>          PRINT("Absolute linear encoder with cyclic coding.",#13)
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#               ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                             ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                              ^^^ source.smartmotor constant.character.smartmotor
+#                                                                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+>          t=1
+#^^^^^^^^^^ source.smartmotor
+#          ^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor keyword.operator.assignment.smartmotor
+#            ^ source.smartmotor constant.numeric.smartmotor
+>          BREAK
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^^ source.smartmotor keyword.control.smartmotor
+>        CASE 10
+#^^^^^^^^ source.smartmotor
+#        ^^^^ source.smartmotor keyword.control.smartmotor
+#            ^ source.smartmotor
+#             ^^ source.smartmotor constant.numeric.smartmotor
+>          PRINT("Multi-sensor encoder interface.",#13)
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#               ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                  ^^^ source.smartmotor constant.character.smartmotor
+#                                                     ^ source.smartmotor punctuation.section.brackets.smartmotor
+>          t=0 ' not supported here at this time.
+#^^^^^^^^^^ source.smartmotor
+#          ^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor keyword.operator.assignment.smartmotor
+#            ^ source.smartmotor constant.numeric.smartmotor
+#             ^ source.smartmotor
+#              ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>          BREAK
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^^ source.smartmotor keyword.control.smartmotor
+>        DEFAULT
+#^^^^^^^^ source.smartmotor
+#        ^^^^^^^ source.smartmotor keyword.control.smartmotor
+>          PRINT("Unknown type of encoder",#13)
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#               ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                 ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                         ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                          ^^^ source.smartmotor constant.character.smartmotor
+#                                             ^ source.smartmotor punctuation.section.brackets.smartmotor
+>          BREAK
+#^^^^^^^^^^ source.smartmotor
+#          ^^^^^ source.smartmotor keyword.control.smartmotor
+>      ENDS
+#^^^^^^ source.smartmotor
+#      ^^^^ source.smartmotor keyword.control.smartmotor
+>      BREAK  ' Remote device has booted to the point of responding.
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.control.smartmotor
+#           ^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    ENDIF
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    IF (vvv&65535)==402  ' Check lower 16-bits for profile type of device.
+#^^^^ source.smartmotor
+#    ^^ source.smartmotor keyword.control.smartmotor
+#      ^ source.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor keyword.operator.logical.smartmotor
+#            ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                  ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#                    ^^^ source.smartmotor constant.numeric.smartmotor
+#                       ^^ source.smartmotor
+#                         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>      PRINT("Motor ",eee," acting as an encoder.",#13)
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                   ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                    ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                     ^^^ source.smartmotor variable.other.user.smartmotor
+#                        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                         ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                          ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                  ^^^ source.smartmotor constant.character.smartmotor
+#                                                     ^ source.smartmotor punctuation.section.brackets.smartmotor
+>           ' A motor acting as an encoder.
+#^^^^^^^^^^^ source.smartmotor
+#           ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>      t=2
+#^^^^^^ source.smartmotor
+#      ^ source.smartmotor variable.other.user.smartmotor
+#       ^ source.smartmotor keyword.operator.assignment.smartmotor
+#        ^ source.smartmotor constant.numeric.smartmotor
+>      BREAK
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.control.smartmotor
+>    ENDIF
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>  ENDIF
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.control.smartmotor
+>  WAIT=500   ' Wait 1/2 second.
+#^^ source.smartmotor
+#  ^^^^ source.smartmotor variable.language.register.smartmotor
+#      ^ source.smartmotor keyword.operator.assignment.smartmotor
+#       ^^^ source.smartmotor constant.numeric.smartmotor
+#          ^^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  PRINT(".")
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#         ^ source.smartmotor string.quoted.double.smartmotor
+#          ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+>LOOP
+#^^^^ source.smartmotor keyword.control.smartmotor
+>PRINT(#13)
+#^^^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^ source.smartmotor constant.character.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+>rrr=0  ' Resolution
+#^^^ source.smartmotor variable.other.user.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^^ source.smartmotor
+#       ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#        ^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>IF t==1
+#^^ source.smartmotor keyword.control.smartmotor
+#  ^ source.smartmotor
+#   ^ source.smartmotor variable.other.user.smartmotor
+#    ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>  rrr=SDORD(eee,x6002,0,4) GOSUB10
+#^^ source.smartmotor
+#  ^^^ source.smartmotor variable.other.user.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^^^ source.smartmotor variable.other.user.smartmotor
+#               ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                ^^^^^ source.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                        ^ source.smartmotor constant.numeric.smartmotor
+#                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                          ^ source.smartmotor
+#                           ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                ^^ source.smartmotor entity.name.function.label.smartmotor
+>  rrr=rrr-1  ' We want the max value, not the number of steps.
+#^^ source.smartmotor
+#  ^^^ source.smartmotor variable.other.user.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^^^ source.smartmotor variable.other.user.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^ source.smartmotor constant.numeric.smartmotor
+#           ^^ source.smartmotor
+#             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  IF CAN(4)!=0
+#^^ source.smartmotor
+#  ^^ source.smartmotor keyword.control.smartmotor
+#    ^ source.smartmotor
+#     ^^^ source.smartmotor support.function.smartmotor
+#        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#         ^ source.smartmotor constant.numeric.smartmotor
+#          ^ source.smartmotor punctuation.section.brackets.smartmotor
+#           ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#             ^ source.smartmotor constant.numeric.smartmotor
+>    PRINT("Failed to read encoder range.",#13)
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                         ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                          ^^^ source.smartmotor constant.character.smartmotor
+#                                             ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    OFF END
+#^^^^ source.smartmotor
+#    ^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor
+#        ^^^ source.smartmotor keyword.control.smartmotor
+>  ENDIF
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.control.smartmotor
+>ENDIF
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>IF t==2
+#^^ source.smartmotor keyword.control.smartmotor
+#  ^ source.smartmotor
+#   ^ source.smartmotor variable.other.user.smartmotor
+#    ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>  rrr=-1  ' SmartMotor, which is the range 0x00000000 to 0xffffffff.
+#^^ source.smartmotor
+#  ^^^ source.smartmotor variable.other.user.smartmotor
+#     ^ source.smartmotor keyword.operator.assignment.smartmotor
+#      ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#       ^ source.smartmotor constant.numeric.smartmotor
+#        ^^ source.smartmotor
+#          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ENDIF
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>IF t==0
+#^^ source.smartmotor keyword.control.smartmotor
+#  ^ source.smartmotor
+#   ^ source.smartmotor variable.other.user.smartmotor
+#    ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>  PRINT("This type not supported, ending now.",#13)
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                             ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                              ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                               ^^^ source.smartmotor constant.character.smartmotor
+#                                                  ^ source.smartmotor punctuation.section.brackets.smartmotor
+>  OFF
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+>  END
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.control.smartmotor
+>ENDIF
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>NMT(0,128)      GOSUB10  ' Network broadcast to go pre-operational state.
+#^^^ source.smartmotor keyword.other.command.smartmotor
+#   ^ source.smartmotor punctuation.section.brackets.smartmotor
+#    ^ source.smartmotor constant.numeric.smartmotor
+#     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#      ^^^ source.smartmotor constant.numeric.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^^^^^^ source.smartmotor
+#                ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                     ^^ source.smartmotor entity.name.function.label.smartmotor
+#                       ^^ source.smartmotor
+#                         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' Setup the sync producer/consumers and set time base. Provides time sync so
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' motor clocks keep in step, and data is transmitted/accepted on sync also.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>SDOWR(mmm,x1006,0,4,10000)  GOSUB10  ' define Cycle period  object 0x1006:0,
+#^^^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^ source.smartmotor variable.other.user.smartmotor
+#         ^ source.smartmotor punctuation.separator.comma.smartmotor
+#          ^^^^^ source.smartmotor
+#               ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                ^ source.smartmotor constant.numeric.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                          ^^ source.smartmotor
+#                            ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                 ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                   ^^ source.smartmotor
+#                                     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                     ' size 4, 10ms
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                      ^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>SDOWR(eee,x1006,0,4,10000)  GOSUB10  ' define Cycle period  object 0x1006:0,
+#^^^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^ source.smartmotor variable.other.user.smartmotor
+#         ^ source.smartmotor punctuation.separator.comma.smartmotor
+#          ^^^^^ source.smartmotor
+#               ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                ^ source.smartmotor constant.numeric.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                          ^^ source.smartmotor
+#                            ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                 ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                   ^^ source.smartmotor
+#                                     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                     ' size 4, 10ms
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                      ^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>IF mmm!=fff
+#^^ source.smartmotor keyword.control.smartmotor
+#  ^ source.smartmotor
+#   ^^^ source.smartmotor variable.other.user.smartmotor
+#      ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+>' If follow motor is not the controller.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x1006,0,4,10000)    GOSUB10  ' define Cycle period  object
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                            ^^^^ source.smartmotor
+#                                ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                     ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                       ^^ source.smartmotor
+#                                         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                         ' 0x1006:0, size 4, 10ms
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                          ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ENDIF
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>SDOWR(mmm,x1005,0,4,128)    GOSUB10  ' define Cycle ID x0000 0080 (required
+#^^^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^ source.smartmotor variable.other.user.smartmotor
+#         ^ source.smartmotor punctuation.separator.comma.smartmotor
+#          ^^^^^ source.smartmotor
+#               ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                ^ source.smartmotor constant.numeric.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^^^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^ source.smartmotor
+#                            ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                 ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                   ^^ source.smartmotor
+#                                     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                     ' to avoid error in next line.)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>SDOWR(mmm,x1005,0,4,1073741952) GOSUB10   ' define Cycle ID, producer
+#^^^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^ source.smartmotor variable.other.user.smartmotor
+#         ^ source.smartmotor punctuation.separator.comma.smartmotor
+#          ^^^^^ source.smartmotor
+#               ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                ^ source.smartmotor constant.numeric.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+#                              ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                               ^ source.smartmotor
+#                                ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                     ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                       ^^^ source.smartmotor
+#                                          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                          ' x4000 0080
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                           ^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>SDOWR(eee,x1005,0,4,128)    GOSUB10  ' define Cycle ID, consumer x0000 0080
+#^^^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^^^ source.smartmotor variable.other.user.smartmotor
+#         ^ source.smartmotor punctuation.separator.comma.smartmotor
+#          ^^^^^ source.smartmotor
+#               ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                ^ source.smartmotor constant.numeric.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^^^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^ source.smartmotor
+#                            ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                 ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                   ^^ source.smartmotor
+#                                     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>IF mmm!=fff
+#^^ source.smartmotor keyword.control.smartmotor
+#  ^ source.smartmotor
+#   ^^^ source.smartmotor variable.other.user.smartmotor
+#      ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+>  ' If follow motor is not the controller.
+#^^ source.smartmotor
+#  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x1005,0,4,128)  GOSUB10  ' define Cycle ID, consumer x0000 0080
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^ source.smartmotor constant.numeric.smartmotor
+#                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                          ^^ source.smartmotor
+#                            ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                 ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                   ^^ source.smartmotor
+#                                     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ENDIF
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>' Time sync
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' Setup PDO mapping so that controller transmits 32-bit actual position
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' (0x6064), and follow motor receives as 32-bit encoder data (0x2208:3)
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>IF t==2
+#^^ source.smartmotor keyword.control.smartmotor
+#  ^ source.smartmotor
+#   ^ source.smartmotor variable.other.user.smartmotor
+#    ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+>  ' We need to map a motor completely to get the position data.
+#^^ source.smartmotor
+#  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1800,1,4,-1073741439)  GOSUB10  ' set Transmit Com Parameter
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                       ^^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+#                                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                  ^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' START xC000 0181
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1800,2,1,1)            GOSUB10  ' set Transmit Com Parameter
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^^^^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' on every Sync x000 0001
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1A00,0,1,0)            GOSUB10  ' set Transmit map number of
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^^^^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' entries x00
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1A00,1,4,1617166368)   GOSUB10  ' set Transmit map x6064 00 20
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+#                                ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                 ^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1A00,0,1,1)            GOSUB10  ' set Transmit map number of
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^^^^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' entries x01
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1800,1,4,1073742209)   GOSUB10  ' set Transmit Com Parameter
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+#                                ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                 ^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' COB-ID x4000 0181
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>ELSEIF t==1
+#^^^^^^ source.smartmotor keyword.control.smartmotor
+#      ^ source.smartmotor
+#       ^ source.smartmotor variable.other.user.smartmotor
+#        ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#          ^ source.smartmotor constant.numeric.smartmotor
+>' Using an encoder. An encoder should have these mappings already.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' Comment these out if the encoder has read-only PDO parameters/mappings.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' Note PDO2 is used; it is default sync type in the encoder 406 profile.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1801,1,4,-1073741439)  GOSUB10  ' set Transmit Com Parameter
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                       ^^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+#                                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                  ^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' START xC000 0181
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1801,2,1,1)            GOSUB10  ' set Transmit Com Parameter
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^^^^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' on every Sync x000 0001
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1A01,0,1,0)            GOSUB10  ' set Transmit map number of
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^^^^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' entries x00
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1A01,1,4,1617166368)   GOSUB10  ' set Transmit map x6064 00 20
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+#                                ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                 ^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(eee,x1A01,0,1,1)            GOSUB10  ' set Transmit map number of
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^^^^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' entries x01
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    SDOWR(eee,x1801,1,4,1073742209)   GOSUB10  ' set Transmit Com Parameter
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^^^ source.smartmotor variable.other.user.smartmotor
+#             ^ source.smartmotor punctuation.separator.comma.smartmotor
+#              ^^^^^ source.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                        ^^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+#                                  ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                   ^^^ source.smartmotor
+#                                      ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                           ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                             ^^ source.smartmotor
+#                                               ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                               ' COB-ID x4000 0181
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                               ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                                ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  ENDIF
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.control.smartmotor
+>  SDOWR(fff,x1400,1,4,-2147483263)  GOSUB10  ' set Receive Com Parameter start
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                       ^^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+#                                 ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                  ^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' x8000 0181
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x1600,0,1,0)            GOSUB10  ' set Receive Map number of
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^^^^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' entries x00
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x1600,1,4,570950432)    GOSUB10  ' set Receive Map x2208 03 20
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+#                               ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                ^^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x1600,0,1,1)            GOSUB10  ' set Receive Map number of
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^^^^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' entries x01
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x1400,1,4,385)          GOSUB10  ' set Receive Com Parameter
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^ source.smartmotor constant.numeric.smartmotor
+#                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                          ^^^^^^^^^^ source.smartmotor
+#                                    ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                         ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                           ^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                             ' COB-ID x0000 0181
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                             ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                              ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  ' Mapping complete.
+#^^ source.smartmotor
+#  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#   ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  ' Set other objects in follow motor relating to Follow mode.
+#^^ source.smartmotor
+#  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x2207,0,4,rrr)     GOSUB10  ' set encoder modulo limit
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^ source.smartmotor variable.other.user.smartmotor
+#                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                          ^^^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x2209,0,2,0)       GOSUB10  ' set follow control to nominal state.
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x220A,0,2,100)     GOSUB10  ' set MFMUL
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^ source.smartmotor constant.numeric.smartmotor
+#                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                          ^^^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x220B,0,2,100)     GOSUB10  ' set MFDIV
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^ source.smartmotor constant.numeric.smartmotor
+#                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                          ^^^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x220C,0,4,20000)   GOSUB10  ' set MFA  control word x2209
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                            ^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                 ' determines if controller or follower units.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                 ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x220D,0,4,10000)   GOSUB10  ' set MFD  control word x2209
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^^^^ source.smartmotor constant.numeric.smartmotor
+#                           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                            ^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                 ' determines if controller or follower units.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                 ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  NMT(0,1)                     GOSUB10  ' Broadcast to whole network to go
+#^^ source.smartmotor
+#  ^^^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.separator.comma.smartmotor
+#        ^ source.smartmotor constant.numeric.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>                                        ' to operational state.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x6060,0,1,-11)     GOSUB10  ' set Trajectory Mode to Mixed FOLLOW
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#                       ^^ source.smartmotor constant.numeric.smartmotor
+#                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                          ^^^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x6040,0,2,6)       GOSUB10  ' set Control word in Motor 2
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x6040,0,2,7)       GOSUB10  ' set Control word in Motor 2
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^ source.smartmotor constant.numeric.smartmotor
+#                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                        ^^^^^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  SDOWR(fff,x6040,0,2,15)      GOSUB10  ' set Control word in Motor 2
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor variable.other.user.smartmotor
+#           ^ source.smartmotor punctuation.separator.comma.smartmotor
+#            ^^^^^ source.smartmotor
+#                 ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                  ^ source.smartmotor constant.numeric.smartmotor
+#                   ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                    ^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                      ^^ source.smartmotor constant.numeric.smartmotor
+#                        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                         ^^^^^^ source.smartmotor
+#                               ^^^^^ source.smartmotor keyword.control.call.smartmotor
+#                                    ^^ source.smartmotor entity.name.function.label.smartmotor
+#                                      ^^ source.smartmotor
+#                                        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  PRINT("Setup complete",#13)
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#         ^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                         ^^^ source.smartmotor constant.character.smartmotor
+#                            ^ source.smartmotor punctuation.section.brackets.smartmotor
+>  IF CADDR==fff
+#^^ source.smartmotor
+#  ^^ source.smartmotor keyword.control.smartmotor
+#    ^ source.smartmotor
+#     ^^^^^ source.smartmotor variable.language.register.smartmotor
+#          ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#            ^^^ source.smartmotor variable.other.user.smartmotor
+>  ' If the network controller happens to be the follow motor (which is
+#^^ source.smartmotor
+#  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  ' expected in this demo by default).
+#^^ source.smartmotor
+#  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    WAIT=3000
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor variable.language.register.smartmotor
+#        ^ source.smartmotor keyword.operator.assignment.smartmotor
+#         ^^^^ source.smartmotor constant.numeric.smartmotor
+>    PRINT("Follow motor: stopping X.",#13)
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                    ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                     ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                      ^^^ source.smartmotor constant.character.smartmotor
+#                                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    X(2)  ' Stop following
+#^^^^ source.smartmotor
+#    ^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^ source.smartmotor
+#          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#           ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    WAIT=1000
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor variable.language.register.smartmotor
+#        ^ source.smartmotor keyword.operator.assignment.smartmotor
+#         ^^^^ source.smartmotor constant.numeric.smartmotor
+>    PRINT("Follow motor: re-starting X.",#13)
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                         ^^^ source.smartmotor constant.character.smartmotor
+#                                            ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    G(2)  ' Restart following
+#^^^^ source.smartmotor
+#    ^ source.smartmotor keyword.other.command.smartmotor
+#     ^ source.smartmotor punctuation.section.brackets.smartmotor
+#      ^ source.smartmotor constant.numeric.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^ source.smartmotor
+#          ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#           ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  ELSE
+#^^ source.smartmotor
+#  ^^^^ source.smartmotor keyword.control.smartmotor
+>    ' Some other motor is the follow motor.
+#^^^^ source.smartmotor
+#    ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    ' ...
+#^^^^ source.smartmotor
+#    ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#     ^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  ENDIF
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.control.smartmotor
+>ELSEIF CADDR==eee
+#^^^^^^ source.smartmotor keyword.control.smartmotor
+#      ^ source.smartmotor
+#       ^^^^^ source.smartmotor variable.language.register.smartmotor
+#            ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#              ^^^ source.smartmotor variable.other.user.smartmotor
+>  ' We are a motor pretending to be the encoder.
+#^^ source.smartmotor
+#  ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  WAIT=500
+#^^ source.smartmotor
+#  ^^^^ source.smartmotor variable.language.register.smartmotor
+#      ^ source.smartmotor keyword.operator.assignment.smartmotor
+#       ^^^ source.smartmotor constant.numeric.smartmotor
+>  PRINT("SmartMotor acting as encoder: starting motion.",#13)
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                        ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                         ^^^ source.smartmotor constant.character.smartmotor
+#                                                            ^ source.smartmotor punctuation.section.brackets.smartmotor
+>  MV VT=100000 ADT=50 G  ' A simple constant motion.
+#^^ source.smartmotor
+#  ^^ source.smartmotor keyword.other.command.smartmotor
+#    ^ source.smartmotor
+#     ^^ source.smartmotor variable.language.register.smartmotor
+#       ^ source.smartmotor keyword.operator.assignment.smartmotor
+#        ^^^^^^ source.smartmotor constant.numeric.smartmotor
+#              ^ source.smartmotor
+#               ^^^ source.smartmotor variable.language.register.smartmotor
+#                  ^ source.smartmotor keyword.operator.assignment.smartmotor
+#                   ^^ source.smartmotor constant.numeric.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor keyword.other.command.smartmotor
+#                       ^^ source.smartmotor
+#                         ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                          ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>       ' Follow motor is already started and will follow exactly.
+#^^^^^^^ source.smartmotor
+#       ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  PRINT("SmartMotor acting as encoder: ") PRINT("running for 10 seconds.",#13)
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                        ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                         ^ source.smartmotor
+#                                          ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#                                               ^ source.smartmotor punctuation.section.brackets.smartmotor
+#                                                ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#                                                 ^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                                        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                                         ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                                          ^^^ source.smartmotor constant.character.smartmotor
+#                                                                             ^ source.smartmotor punctuation.section.brackets.smartmotor
+>  WAIT=10000
+#^^ source.smartmotor
+#  ^^^^ source.smartmotor variable.language.register.smartmotor
+#      ^ source.smartmotor keyword.operator.assignment.smartmotor
+#       ^^^^^ source.smartmotor constant.numeric.smartmotor
+>  PRINT("SmartMotor acting as encoder: freewheel.",#13)
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                 ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                  ^ source.smartmotor punctuation.separator.comma.smartmotor
+#                                                   ^^^ source.smartmotor constant.character.smartmotor
+#                                                      ^ source.smartmotor punctuation.section.brackets.smartmotor
+>  BRKRLS OFF
+#^^ source.smartmotor
+#  ^^^^^^ source.smartmotor keyword.other.command.smartmotor
+#        ^ source.smartmotor
+#         ^^^ source.smartmotor keyword.other.command.smartmotor
+>ENDIF
+#^^^^^ source.smartmotor keyword.control.smartmotor
+>END
+#^^^ source.smartmotor keyword.control.smartmotor
+>C10  ' Check for CAN error and display
+#^^^ source.smartmotor entity.name.function.label.smartmotor
+#   ^^ source.smartmotor
+#     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>  e=CAN(4)
+#^^ source.smartmotor
+#  ^ source.smartmotor variable.other.user.smartmotor
+#   ^ source.smartmotor keyword.operator.assignment.smartmotor
+#    ^^^ source.smartmotor support.function.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^ source.smartmotor constant.numeric.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+>  IF e!=0
+#^^ source.smartmotor
+#  ^^ source.smartmotor keyword.control.smartmotor
+#    ^ source.smartmotor
+#     ^ source.smartmotor variable.other.user.smartmotor
+#      ^^ source.smartmotor keyword.operator.comparison.smartmotor
+#        ^ source.smartmotor constant.numeric.smartmotor
+>    PRINT(#13,"Communication Error: ")
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#         ^ source.smartmotor punctuation.section.brackets.smartmotor
+#          ^^^ source.smartmotor constant.character.smartmotor
+#             ^ source.smartmotor punctuation.separator.comma.smartmotor
+#              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                    ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                     ^ source.smartmotor punctuation.section.brackets.smartmotor
+>  ELSE
+#^^ source.smartmotor
+#  ^^^^ source.smartmotor keyword.control.smartmotor
+>    ' PRINT("ok",#13) ' For debugging, to see what commands passed and failed.
+#^^^^ source.smartmotor
+#    ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    RETURN
+#^^^^ source.smartmotor
+#    ^^^^^^ source.smartmotor keyword.control.smartmotor
+>  ENDIF
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.control.smartmotor
+>  SWITCH e
+#^^ source.smartmotor
+#  ^^^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor variable.other.user.smartmotor
+>' NOTE: Any error number < 0 is Animatics specific to the SDORD, SDOWR,
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' and NMT commands.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    CASE -1
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Timeout, no response from remote device.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                      ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE -2
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Multiple SDO commands simultaneously.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                   ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                    ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE -3
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Controller mode not enabled, see CANCTL command.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                               ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE -4
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Protocol not supported.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                     ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                      ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE -5
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Transmission failure, check cable, Baud rate.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                           ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                            ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE -6
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Data size returned not expected size.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                   ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                    ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE -20
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Invalid destination address.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                          ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                           ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE -21
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Data size not supported.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                      ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                       ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE -22
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Invalid object index.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                   ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                    ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE -23
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Invalid object sub-index.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                        ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE -24
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor keyword.operator.arithmetic.smartmotor
+#          ^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Invalid NMT command value.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>' NOTE: any error number > 0 is specific to CANopen's specific list of
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>' errors per 301 specification.
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>    CASE 84082688
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Toggle bit not alternated.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 84148224
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" SDO protocol timed out.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                     ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                      ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 84148225
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Client/server command specifier not valid or unknown.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                                   ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                                    ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 84148226
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Invalid block size (block mode only).")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                   ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                    ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 84148227
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Invalid sequence number (block mode only).")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                        ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                         ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 84148228
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" CRC error (block mode only).")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                          ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                           ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 84148229
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Out of memory.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                             ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 100728832
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Unsupported access to an object.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                               ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 100728833
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Attempt to read a write only object.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 100728834
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Attempt to write a read only object.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 100794368
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Object does not exist in the object dictionary.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                             ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                              ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 100925505
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Object cannot be mapped to the PDO.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                 ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                  ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 100925506
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Exceeds PDO length.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                 ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                  ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 100925507
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" General parameter incompatibility reason.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                        ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 100925511
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" General internal incompatibility in the device.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                             ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                              ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 101056512
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Access failed due to an hardware error.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                     ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                      ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 101122064
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Data type mismatch, length of service parameter.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                               ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 101122066
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Data type mismatch, length of service parameter, high.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                                    ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                                     ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 101122067
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Data type mismatch, length of service parameter, low.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                                   ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                                    ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 101253137
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Sub-index does not exist.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                        ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 101253168
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Value range of parameter exceeded (write access).")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                               ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                                ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 101253169
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Value of parameter written too high.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 101253170
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Value of parameter written too low.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                 ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                  ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 101253174
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Maximum value is less than minimum value.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                        ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 134217728
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" General error.  (CANopen)")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                       ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                        ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 134217760
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Data can't be sent to the application.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                    ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                     ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 134217761
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Data can't be sent to the application, local control.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                                   ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                                    ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 134217762
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Data can't be sent to the application, device state.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                                  ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                                                   ^ source.smartmotor punctuation.section.brackets.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    CASE 134217763
+#^^^^ source.smartmotor
+#    ^^^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^^^^^^^^^ source.smartmotor constant.numeric.smartmotor
+>      PRINT(" Object dictionary dynamic generation fails."
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                                         ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>    DEFAULT
+#^^^^ source.smartmotor
+#    ^^^^^^^ source.smartmotor keyword.control.smartmotor
+>      PRINT(" Unknown error.")
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+#            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#             ^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                             ^ source.smartmotor punctuation.section.brackets.smartmotor
+>      IF e>0
+#^^^^^^ source.smartmotor
+#      ^^ source.smartmotor keyword.control.smartmotor
+#        ^ source.smartmotor
+#         ^ source.smartmotor variable.other.user.smartmotor
+#          ^ source.smartmotor keyword.operator.comparison.smartmotor
+#           ^ source.smartmotor constant.numeric.smartmotor
+>        ' One of the CANopen errors
+#^^^^^^^^ source.smartmotor
+#        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>        PRINT("  Consult CANopen error list.")
+#^^^^^^^^ source.smartmotor
+#        ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#             ^ source.smartmotor punctuation.section.brackets.smartmotor
+#              ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.begin.smartmotor
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor string.quoted.double.smartmotor
+#                                            ^ source.smartmotor string.quoted.double.smartmotor punctuation.definition.string.end.smartmotor
+#                                             ^ source.smartmotor punctuation.section.brackets.smartmotor
+>'     ELSE
+#^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+# ^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>        ' One of our error, but not included in the list above.
+#^^^^^^^^ source.smartmotor
+#        ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>      ENDIF
+#^^^^^^ source.smartmotor
+#      ^^^^^ source.smartmotor keyword.control.smartmotor
+>    BREAK
+#^^^^ source.smartmotor
+#    ^^^^^ source.smartmotor keyword.control.smartmotor
+>  ENDS
+#^^ source.smartmotor
+#  ^^^^ source.smartmotor keyword.control.smartmotor
+>  PRINT(#13)
+#^^ source.smartmotor
+#  ^^^^^ source.smartmotor keyword.other.command.smartmotor
+#       ^ source.smartmotor punctuation.section.brackets.smartmotor
+#        ^^^ source.smartmotor constant.character.smartmotor
+#           ^ source.smartmotor punctuation.section.brackets.smartmotor
+>RETURN
+#^^^^^^ source.smartmotor keyword.control.smartmotor
+>

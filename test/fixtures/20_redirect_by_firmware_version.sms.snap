@@ -1,0 +1,92 @@
+>#ifdef CLASS_VER_5_0  'Class 5 D Series CANopen
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#      ^ source.smartmotor
+#       ^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>     'place code here
+#^^^^^ source.smartmotor
+#     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#      ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#endif
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+>#ifdef CLASS_VER_5_32 'Class 5 D Series PROFIBUS
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#      ^ source.smartmotor
+#       ^^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>     'place code here
+#^^^^^ source.smartmotor
+#     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#      ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#endif
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+>#ifdef CLASS_VER_5_16 'Class 5 D Series DeviceNet
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#      ^ source.smartmotor
+#       ^^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>     'place code here
+#^^^^^ source.smartmotor
+#     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#      ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#endif
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+>#ifdef CLASS_VER_5_97 'Class 5 M series DeviceNet
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#      ^ source.smartmotor
+#       ^^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>     'place code here
+#^^^^^ source.smartmotor
+#     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#      ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#endif
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+>#ifdef CLASS_VER_5_98 'Class 5 M series CANopen
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#      ^ source.smartmotor
+#       ^^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                     ^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>     'place code here
+#^^^^^ source.smartmotor
+#     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#      ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#endif
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+>#ifdef CLASS_VER_6_0  'Class 6 M series Ethernet
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#      ^ source.smartmotor
+#       ^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>     'place code here
+#^^^^^ source.smartmotor
+#     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#      ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#endif
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+>#ifdef CLASS_VER_6_4  'Class 6 D series Ethernet
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+#      ^ source.smartmotor
+#       ^^^^^^^^^^^^^ source.smartmotor entity.name.constant.smartmotor
+#                    ^^ source.smartmotor
+#                      ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#                       ^^^^^^^^^^^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>     'place code here
+#^^^^^ source.smartmotor
+#     ^ source.smartmotor comment.line.apostrophe.smartmotor punctuation.definition.comment.smartmotor
+#      ^^^^^^^^^^^^^^^ source.smartmotor comment.line.apostrophe.smartmotor
+>#endif
+#^^^^^^ source.smartmotor keyword.control.directive.smartmotor
+>

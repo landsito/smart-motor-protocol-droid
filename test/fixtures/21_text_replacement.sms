@@ -1,0 +1,52 @@
+'Examples of using #define for text replacement in a program.
+'NOTE: #define is used by SMI to replace characters of code with an
+'associated named value.
+#define DisableTravelLimits  EIGN(W,12)      'Assign inputs 2 and 3
+                                             'as general inputs.
+#define ClearFaultBits       ZS              'Issue ZS command.
+#define GoInput              1-IN(6)         'Invert input 6.
+#define 4BitBinaryInputs     15-(IN(W,0)&15) 'Binary mask inputs 0
+                                             'through 3.
+#define FindHome             GOSUB(100)
+#define GearOutputPosition   RES*40.0        'Suppose 40:1 gear reducer.
+#define NormalSpeed          500000
+#define JogSpeed             10000
+#define PositionError        B(0,6)          'Position Error Status Bit.
+'The code below shows examples of using the above "define"
+'variables.
+DisableTravelLimits         'Disable travel limits.
+ClearFaultBits              'Issue ZS command.
+IF GoInput                  'If Input 6 goes low - note that it was
+                            'defined as 1-IN(6).
+    PRINT("Go Received",#13)
+    x=4BitBinaryInputs      'Returns value from 0 to 15 for inputs
+                            '0, 1, 2 and 3.
+    GOSUB(x)
+ENDIF
+FindHome                    'Run the home routine.
+VT=NormalSpeed              'Set the speed to 500000.
+PRT=22.5*GearOutputPosition 'Results in 22.5 rotations of gear head
+                            'output shaft.
+VT=JogSpeed                 'Set the speed to 10000.
+END
+C100                        'Place the home routine code here
+    PRINT("Home Routine Called",#13)
+RETURN
+C0
+C1
+C2
+C3
+C4
+C5
+C6
+C7
+C8
+C9
+C10
+C11
+C12
+C13
+C14
+C15
+PRINT("Subroutine",x," called",#13)
+RETURN
